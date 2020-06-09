@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bot_nav_graph"
+    app:startDestination="@id/homeTuneFrag">
+
+    <fragment
+        android:id="@+id/homeTuneFrag"
+        android:name="com.example.overtone.HomeTuneFrag"
+        android:label="fragment_home_tune_frag"
+        tools:layout="@layout/fragment_home_tune_frag" >
+        <action
+            android:id="@+id/action_homeTuneFrag_to_settingsViewFrag"
+            app:destination="@id/settingsViewFrag" />
+        <action
+            android:id="@+id/action_homeTuneFrag_to_practiceModeFrag"
+            app:destination="@id/practiceModeFrag" />
+        <action
+            android:id="@+id/action_homeTuneFrag_to_chordLibraryFrag"
+            app:destination="@id/chordLibraryFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/chordLibraryFrag"
+        android:name="com.example.overtone.ChordLibraryFrag"
+        android:label="fragment_chord_library"
+        tools:layout="@layout/fragment_chord_library" />
+    <fragment
+        android:id="@+id/settingsViewFrag"
+        android:name="com.example.overtone.SettingsViewFrag"
+        android:label="fragment_settings_view"
+        tools:layout="@layout/fragment_settings_view" />
+    <fragment
+        android:id="@+id/practiceModeFrag"
+        android:name="com.example.overtone.PracticeModeFrag"
+        android:label="fragment_practice_mode"
+        tools:layout="@layout/fragment_practice_mode" />
+</navigation>
