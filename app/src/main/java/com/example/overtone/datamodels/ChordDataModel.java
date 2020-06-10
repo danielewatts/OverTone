@@ -3,15 +3,15 @@ package com.example.overtone.datamodels;
 
 import android.media.Image;
 
-public class chordDataModel {
+public class ChordDataModel {
     private String chordName ;
     private int difficulty;
     private Image chordDiagram;
 
-    public chordDataModel(){
+    public ChordDataModel(){
         //default if need to set props later
     }
-    public chordDataModel(String chordName, int difficulty, Image chordDiagram ){
+    public ChordDataModel(String chordName, int difficulty, Image chordDiagram ){
         if(difficulty<1){
             throw new IllegalArgumentException("Difficulty is 1 or above");
         }
@@ -45,5 +45,19 @@ public class chordDataModel {
     }
 
 
-
+    public String getDifficultyRating( int difficulty) {
+        String rating ="Basic/Default";
+        switch (difficulty){
+            case 1:
+                rating = "Easy";
+                break;
+            case 2:
+                rating = "Medium";
+                break;
+            case 3:
+                rating = "Hard";
+                break;
+        }
+        return rating;
+    }
 }

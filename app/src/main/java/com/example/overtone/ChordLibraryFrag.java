@@ -1,19 +1,32 @@
 package com.example.overtone;
 
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.overtone.datamodels.ChordDataModel;
+import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
+import com.example.overtone.recyclerview.RecyclerViewClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ChordLibraryFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChordLibraryFrag extends Fragment {
+public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +36,10 @@ public class ChordLibraryFrag extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    /**Custom input recyclerView class*/
+    private RecyclerView recyclerView;
+    private List<ChordDataModel> chordDataModelList;
 
     public ChordLibraryFrag() {
         // Required empty public constructor
@@ -60,5 +77,46 @@ public class ChordLibraryFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_chord_library, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView = view.findViewById(R.id.chord_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setFocusable(false);
+        setData();
+        setDatatoRecycler();
+
+
+
+
+
+    }
+
+
+    public void setData(){
+        chordDataModelList = new ArrayList<>();
+        Image testImage = null; //deal with this
+        ///testing code
+        for(int i = 1; i <=10; i++ ){
+            ChordDataModel cdm = new ChordDataModel("G",i,testImage);
+            chordDataModelList.add(cdm);
+        }
+
+    }
+
+    public void setDatatoRecycler(){
+        ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordDataModelList,this);
+        recyclerView.setAdapter(cvLibRecyclerAdapter);
+    }
+
+
+
+    @Override
+    public void onRcViewClick(int position) {
+        Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show();
     }
 }
