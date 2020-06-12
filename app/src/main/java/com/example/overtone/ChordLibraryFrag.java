@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.overtone.data.ChordGroup;
+import com.example.overtone.data.Chords;
 import com.example.overtone.data.SingularChordDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
@@ -40,7 +42,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
-    private List<SingularChordDm> chordDataModelList;
+    private ArrayList<SingularChordDm> chordDataModelList;
 
     public ChordLibraryFrag() {
         // Required empty public constructor
