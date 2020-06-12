@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.overtone.data.SingularChordDataModel;
+import com.example.overtone.data.SingularChordDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
 
@@ -40,7 +40,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
-    private List<SingularChordDataModel> chordDataModelList;
+    private List<SingularChordDm> chordDataModelList;
 
     public ChordLibraryFrag() {
         // Required empty public constructor
@@ -107,7 +107,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
             if(i >4){
                 difnum = 2;
             }
-            SingularChordDataModel cdm = new SingularChordDataModel("G",difnum,testImage);
+            SingularChordDm cdm = new SingularChordDm("G",difnum,testImage);
             chordDataModelList.add(cdm);
         }
 

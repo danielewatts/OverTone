@@ -3,15 +3,15 @@ package com.example.overtone.data;
 
 import android.media.Image;
 
-public class SingularChordDataModel extends Chords {
+public class SingularChordDm extends Chords {
     private String chordName ;
     private Image chordDiagram;
 
-    public SingularChordDataModel(){
+    public SingularChordDm(){
         //default if need to set props later
     }
 
-    public SingularChordDataModel(String chordName, int difficulty, Image chordDiagram ){
+    public SingularChordDm(String chordName, int difficulty, Image chordDiagram ){
         if(difficulty<1){
             throw new IllegalArgumentException("Difficulty is 1 or above");
         }
