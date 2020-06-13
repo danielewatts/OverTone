@@ -16,9 +16,12 @@ import android.widget.Toast;
 
 import com.example.overtone.data.ChordGroup;
 import com.example.overtone.data.Chords;
+import com.example.overtone.data.JsonDataRetrieval;
 import com.example.overtone.data.SingularChordDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
     private ArrayList<SingularChordDm> chordDataModelList;
+    Gson gson;
 
     public ChordLibraryFrag() {
         // Required empty public constructor
@@ -90,7 +94,8 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setFocusable(false);
-        setData();
+//        setData();
+        spoolData();
         setDatatoRecycler();
 
 
@@ -112,6 +117,14 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
             SingularChordDm cdm = new SingularChordDm("G",difnum,testImage);
             chordDataModelList.add(cdm);
         }
+
+    }
+
+    public void spoolData(){
+        String jsonFilePath = "chord.json";
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonFilePath);
+        gson = new Gson();
+        chordDataModelList = gson.fromJson(jsonString, new TypeToken<ArrayList<Chords>>(){}.getType());
 
     }
 
