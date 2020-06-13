@@ -13,11 +13,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class JsonDataRetrieval {
-    private static Object actuallyT;
-
 
     static Gson gson;
-
     public static String loadJSONFromAsset(Context context,String FilePath) {
         String json = null;
         try {

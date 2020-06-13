@@ -7,7 +7,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import com.example.overtone.data.FakeChord;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 

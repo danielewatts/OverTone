@@ -46,6 +46,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
     private ArrayList<SingularChordDm> chordDataModelList;
+    private ArrayList<ChordGroup> chordGroupList;
     Gson gson;
 
     public ChordLibraryFrag() {

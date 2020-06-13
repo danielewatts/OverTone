@@ -1,16 +1,17 @@
 
   [
     {
-    "name": "C",
-    "difficulty": 1
-    },
-    {
-    "name": "A",
-    "difficulty": 2
-    },
-    {
-    "name": "D",
-    "difficulty": 3
+      "chordGroupName": "Beginner",
+      "chordDescription": " A,Em,D,G",
+      "ChordList": [
+
+
+      ]
+
     }
+
+
+
+
   ]
 
