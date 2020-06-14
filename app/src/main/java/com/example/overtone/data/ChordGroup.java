@@ -19,12 +19,6 @@ public class ChordGroup  {
         this.chordGroupName = chordGroupName;
     }
 
-
-
-
-
-
-
     public String getChordGroupDescript() {
         if (chordList.size() > 0) {
             String res = chordList.get(0).toString() + ", ";
@@ -45,4 +39,5 @@ public class ChordGroup  {
                 ", chordList=" + chordList +
                 '}';
     }
+
 }

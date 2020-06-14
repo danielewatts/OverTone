@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 
 public enum DifficultyLevel {
     @SerializedName("0")
-    Easy,
+    Easy("Easy"),
     @SerializedName("1")
-    Medium,
+    Medium("Medium"),
     @SerializedName("2")
-    Hard,
+    Hard("Hard"),
     @SerializedName("3")
-    Advanced
+    Advanced("Advanced");
 
 //    private final int value;
 //    public int getValue() {
@@ -22,6 +22,14 @@ public enum DifficultyLevel {
 //    private DifficultyLevel(int value) {
 //        this.value = value;
 //    }
+    private String strName;
+
+    DifficultyLevel(String stringName) {
+        this.strName = stringName;
+    }
+    public String getStrName() {
+        return strName;
+    }
 
 }
 

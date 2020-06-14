@@ -10,6 +10,8 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.overtone.data.ChordGroup;
+import com.example.overtone.data.DifficultyLevel;
 import com.example.overtone.data.JsonDataRetrieval;
 import com.example.overtone.data.SingularChordDm;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,7 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
@@ -42,6 +46,19 @@ public class MainActivity extends AppCompatActivity {
         for(SingularChordDm c : bunchOChords){
             Log.d(TAG, c.toString());
         }
+
+        String[] levels = {"Easy","Medium","Hard","Advanced"};
+        ArrayList<ChordGroup> allChordDifficultyGroups = new ArrayList<>();
+        for(DifficultyLevel d : DifficultyLevel.values()){
+            ChordGroup c = new ChordGroup(d.getStrName());
+            allChordDifficultyGroups.add(c);
+        }
+        TreeMap<String, ArrayList<ChordGroup>> cgMap = new TreeMap<>();
+
+
+
+
+
 
 
 
@@ -70,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return json;
     }
+
+
+
 
 
 
