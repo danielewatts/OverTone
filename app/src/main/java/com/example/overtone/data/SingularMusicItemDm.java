@@ -11,10 +11,10 @@ public class SingularMusicItemDm implements MusicItem {
     private boolean barChord;
     private DifficultyLevel diffLevel;
 
-    public SingularMusicItemDm(String chordName, boolean bar, boolean openC, boolean popCh, DifficultyLevel difficultyLevel){
+    public SingularMusicItemDm(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
         this.chordName = chordName;
         this.barChord = bar;
-        this.openChord = openC;
+        this.openChord = openCh;
         this.popularChord = popCh;
         this.diffLevel = difficultyLevel;
     }

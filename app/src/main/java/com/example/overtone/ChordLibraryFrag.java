@@ -132,6 +132,13 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 //        j = j+2;
 
     }
+    public ArrayList<SingularMusicItemDm> getAllChords(){
+        String jsonPath = "chord.json";
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonPath);
+        gson = new Gson();
+        ArrayList<SingularMusicItemDm> singularMusicItemDms = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
+        return singularMusicItemDms;
+    }
 
     public Map<Enum,ChordGroup> GetDifficultyChordGroups(){
         //uses name value of enum to set chordGroup name and at the same time sets the enum field
@@ -154,45 +161,47 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         }
         return otherGroups;
     }
-    public ArrayList<ChordGroup> getCombinedChordGroups(ArrayList<ChordGroup> difLevels,ArrayList<ChordGroup> others){
-        ArrayList<ChordGroup> combined = new ArrayList<>(difLevels);
-        combined.addAll(others);
-        return combined;
-    }
-
-    public ArrayList<SingularMusicItemDm> getAllChords(){
-        String jsonPath = "chord.json";
-        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonPath);
-        gson = new Gson();
-        ArrayList<SingularMusicItemDm> singularMusicItemDms = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
-        return singularMusicItemDms;
-    }
-
-    public void setAllMusicalItems(ArrayList<ChordGroup> combinedChordGroups,ArrayList<SingularMusicItemDm> allChords){
-        this.musicItemDataModels.addAll(combinedChordGroups);
-        this.musicItemDataModels.addAll(allChords);
-    }
-
     public void FillChordGroups(Map<Enum,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingularMusicItemDm> allChords){
         String[] groupNames = new String[otherGroups.keySet().size()];
         groupNames = otherGroups.keySet().toArray(groupNames);
+        //goes through whole individual chordList
         for(SingularMusicItemDm chord : allChords){
             //adds to difficulty chordGroups
             ChordGroup cGroup = diffLevelGroups.get(chord.getDiffLevel());
             cGroup.addToChordList(chord);
-            //check remaining group allegiances
+            /* checking individual chord for group belongings, placing in correct group by
+              finding group from map
+             */
             if(chord.isBarChord()){
-
-
+                otherGroups.get(groupNames[0]).addToChordList(chord);
+            }
+            if(chord.isOpenChord()){
+                otherGroups.get(groupNames[1]).addToChordList(chord);
+            }
+            if(chord.isPopularChord()){
+                otherGroups.get(groupNames[2]).addToChordList(chord);
             }
 
         }
+        //All groups now sorted and should contain their necessary individual chords
+    }
 
+    public void setAndCombineMusicItems(ArrayList<SingularMusicItemDm> allChords, Map<Enum,ChordGroup> difLevels, Map<String,ChordGroup> otherGroups){
+        //combine groups held in difLevels map with otherGroupsMap and all singular Chords
+        // set those combined objects grouped by their common interface to the class list of music Items
+        //desired display order is Diflevel groups, others, all chords
+        this.musicItemDataModels.addAll(difLevels.values());
+        this.musicItemDataModels.addAll(otherGroups.values());
+        this.musicItemDataModels.addAll(allChords);
 
-
-
+        ///all items are set into the class variable and now ready to be set and passed to the
+        // recycler attached to this fragment
 
     }
+
+
+
+
 
 
 
