@@ -17,7 +17,7 @@
     "chordName": "A7",
     "barChord": false,
     "openChord":true,
-    "popularChord":true,
+    "popularChord":false,
     "diffLevel": "0"
   },
   {
@@ -45,7 +45,7 @@
     "chordName": "Dm",
     "barChord": false,
     "openChord":true,
-    "popularChord":true,
+    "popularChord":false,
     "diffLevel": "0"
   },
   {
@@ -59,7 +59,7 @@
     "chordName": "Am7",
     "barChord": false,
     "openChord":true,
-    "popularChord":true,
+    "popularChord":false,
     "diffLevel": "0"
   }
 ]
