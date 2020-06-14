@@ -61,5 +61,20 @@
     "openChord":true,
     "popularChord":false,
     "diffLevel": "0"
+  },
+  {
+    "chordName": "Em",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  },
+  {
+    "chordName": "D",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":false,
+    "diffLevel": "0"
   }
+
 ]

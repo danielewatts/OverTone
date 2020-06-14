@@ -13,6 +13,9 @@ import com.example.overtone.data.JsonDataRetrieval;
 import com.example.overtone.data.SingularChordDm;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
@@ -23,27 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeBottomNavigationBar();
 
-        String jsonFilePath = "chord.json";
-        String jsonString = JsonDataRetrieval.loadJSONFromAsset(this,jsonFilePath);
-        String jsonHardCodeString = "{\n" +
-                "  \"chordName\": \"C\",\n" +
-                "  \"barChord\": true\n" +
-                "}\n";
-
-        if (jsonString.equals(jsonHardCodeString)) {
-            Gson gson = new Gson();
-            SingularChordDm singChord = gson.fromJson(jsonHardCodeString,SingularChordDm.class);
+        String jsonHardCodeString = JsonDataRetrieval.getJsonChordString();
+        Gson gson = new Gson();
+        ArrayList<SingularChordDm> bunchOChords = gson.fromJson(jsonHardCodeString, new TypeToken<ArrayList<SingularChordDm>>(){}.getType());
+        for(SingularChordDm c : bunchOChords){
+            Log.d(TAG, c.toString());
         }
-        else{
-            Gson gson = new Gson();
-            SingularChordDm singChord = gson.fromJson(jsonHardCodeString,SingularChordDm.class);
-            singChord.toString();
-        }
-
-//        Gson gson = new Gson();
-//        SingularChordDm singChord = gson.fromJson(jsonHardCodeString,SingularChordDm.class);
-
-
 
 
 

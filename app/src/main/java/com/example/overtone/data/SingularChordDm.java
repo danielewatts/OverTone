@@ -39,4 +39,15 @@ public class SingularChordDm {
         return diffLevel;
     }
 
+    @Override
+    public String toString() {
+        return "SingularChordDm{" +
+                "chordName='" + chordName + '\'' +
+                ", chordDiagram=" + chordDiagram +
+                ", openChord=" + openChord +
+                ", popularChord=" + popularChord +
+                ", barChord=" + barChord +
+                ", diffLevel=" + diffLevel +
+                '}';
+    }
 }

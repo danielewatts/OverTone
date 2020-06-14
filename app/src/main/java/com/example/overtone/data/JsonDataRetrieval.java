@@ -99,7 +99,22 @@ public class JsonDataRetrieval {
                 "    \"openChord\":true,\n" +
                 "    \"popularChord\":false,\n" +
                 "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"Em\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":true,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"D\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":false,\n" +
+                "    \"diffLevel\": \"0\"\n" +
                 "  }\n" +
+                "\n" +
                 "]\n";
         return jsonChordString;
     }
