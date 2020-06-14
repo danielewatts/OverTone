@@ -11,25 +11,32 @@ public class SingularChordDm {
     private boolean barChord;
     private DifficultyLevel diffLevel;
 
-
-
-
-
-    public SingularChordDm(){
-        //default if need to set props later
-    }
-//    public SingularChordDm(String chordName, DifficultyLevel difficultLvl){
-//        this.chordName = chordName;
-//        this.diffLevel = difficultLvl;
-//    }
-    public SingularChordDm(String chordName, boolean bar){
+    public SingularChordDm(String chordName, boolean bar,boolean openC,boolean popCh,DifficultyLevel difficultyLevel){
         this.chordName = chordName;
-        this.barChord = true;
+        this.barChord = bar;
+        this.openChord = openC;
+        this.popularChord = popCh;
+        this.diffLevel = difficultyLevel;
     }
 
     public String getChordName(String chordName){
         return this.chordName;
     }
 
+    public boolean isBarChord() {
+        return barChord;
+    }
+
+    public boolean isOpenChord() {
+        return openChord;
+    }
+
+    public boolean isPopularChord() {
+        return popularChord;
+    }
+
+    public DifficultyLevel getDiffLevel() {
+        return diffLevel;
+    }
 
 }
