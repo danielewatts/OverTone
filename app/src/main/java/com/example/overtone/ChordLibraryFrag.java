@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -131,25 +133,24 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     }
 
-    public ArrayList<ChordGroup> createDifficultyChordGroups(DifficultyLevel difficultyLevel){
+    public Map<Enum,ChordGroup> GetDifficultyChordGroups(){
         //uses name value of enum to set chordGroup name and at the same time sets the enum field
-        ArrayList<ChordGroup> allDifficultyChordGroups = new ArrayList<>();
-        //creates all chordGroup objs in the DifficultyLevels
+        Map<Enum,ChordGroup> difficChordGroups = new TreeMap<>();
         for(DifficultyLevel d : DifficultyLevel.values()){
             String nameAndDiffLevel = d.getStrName();
             ChordGroup cg = new ChordGroup(nameAndDiffLevel);
             cg.setChrdGroupDiffLvl(d);
-            allDifficultyChordGroups.add(cg);
+            difficChordGroups.put(d,cg);
         }
-        return allDifficultyChordGroups;
+        return difficChordGroups;
     }
 
-    public ArrayList<ChordGroup> createOtherChordGroup(ArrayList<String> groupNames){
-        ArrayList<ChordGroup> otherGroups = new ArrayList<>();
+    public Map<String,ChordGroup> createOtherChordGroup(ArrayList<String> groupNames){
+        Map<String,ChordGroup> otherGroups = new TreeMap<>();
         //creates all other chordObjects
         for (String name: groupNames){
             ChordGroup cg = new ChordGroup(name);
-            otherGroups.add(cg);
+            otherGroups.put(cg.getChordGroupName(),cg);
         }
         return otherGroups;
     }
@@ -172,9 +173,20 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         this.musicItemDataModels.addAll(allChords);
     }
 
-    public void FillChordGroups(ArrayList<SingularMusicItemDm> allChords,ArrayList<ChordGroup> difLevelGroup, ArrayList<ChordGroup> otherGroups){
+    public void FillChordGroups(Map<Enum,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingularMusicItemDm> allChords){
+        String[] groupNames = new String[otherGroups.keySet().size()];
+        groupNames = otherGroups.keySet().toArray(groupNames);
+        for(SingularMusicItemDm chord : allChords){
+            //adds to difficulty chordGroups
+            ChordGroup cGroup = diffLevelGroups.get(chord.getDiffLevel());
+            cGroup.addToChordList(chord);
+            //check remaining group allegiances
+            if(chord.isBarChord()){
 
 
+            }
+
+        }
 
 
 
