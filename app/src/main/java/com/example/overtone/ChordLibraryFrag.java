@@ -46,8 +46,6 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
-    private ArrayList<SingularMusicItemDm> chordDataModelList;
-    private ArrayList<ChordGroup> chordGroupList;
     private ArrayList<MusicItem> musicItemDataModels;
     Gson gson;
 
@@ -124,14 +122,20 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 //    }
 
     public void spoolData(){
-//        String jsonFilePath = "chord.json";
-//        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonFilePath);
-//        gson = new Gson();
-//        SingularChordDm singChord = gson.fromJson(jsonString,SingularChordDm.class);
-//        int j = 5;
-//        j = j+2;
+        ArrayList<SingularMusicItemDm> allChords = getAllChords();
+        Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
+        String[] groupNames = {"Bar Chords","Open Chords","Popular Chords"};
+        Map<String,ChordGroup> otherGroupings = createOtherChordGroups(groupNames);
+        FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
+        setAndCombineMusicItems(allChords,difficultyChordGroups,otherGroupings);
+
 
     }
+
+
+
+
+
     public ArrayList<SingularMusicItemDm> getAllChords(){
         String jsonPath = "chord.json";
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonPath);
@@ -140,9 +144,9 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         return singularMusicItemDms;
     }
 
-    public Map<Enum,ChordGroup> GetDifficultyChordGroups(){
+    public Map<DifficultyLevel,ChordGroup> getDifficultyChordGroups(){
         //uses name value of enum to set chordGroup name and at the same time sets the enum field
-        Map<Enum,ChordGroup> difficChordGroups = new TreeMap<>();
+        Map<DifficultyLevel,ChordGroup> difficChordGroups = new TreeMap<>();
         for(DifficultyLevel d : DifficultyLevel.values()){
             String nameAndDiffLevel = d.getStrName();
             ChordGroup cg = new ChordGroup(nameAndDiffLevel);
@@ -152,7 +156,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         return difficChordGroups;
     }
 
-    public Map<String,ChordGroup> createOtherChordGroup(ArrayList<String> groupNames){
+    public Map<String,ChordGroup> createOtherChordGroups(String[] groupNames){
         Map<String,ChordGroup> otherGroups = new TreeMap<>();
         //creates all other chordObjects
         for (String name: groupNames){
@@ -161,7 +165,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         }
         return otherGroups;
     }
-    public void FillChordGroups(Map<Enum,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingularMusicItemDm> allChords){
+    public void FillChordGroups(Map<DifficultyLevel,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingularMusicItemDm> allChords){
         String[] groupNames = new String[otherGroups.keySet().size()];
         groupNames = otherGroups.keySet().toArray(groupNames);
         //goes through whole individual chordList
@@ -186,10 +190,11 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         //All groups now sorted and should contain their necessary individual chords
     }
 
-    public void setAndCombineMusicItems(ArrayList<SingularMusicItemDm> allChords, Map<Enum,ChordGroup> difLevels, Map<String,ChordGroup> otherGroups){
+    public void setAndCombineMusicItems(ArrayList<SingularMusicItemDm> allChords, Map<DifficultyLevel,ChordGroup> difLevels, Map<String,ChordGroup> otherGroups){
         //combine groups held in difLevels map with otherGroupsMap and all singular Chords
         // set those combined objects grouped by their common interface to the class list of music Items
         //desired display order is Diflevel groups, others, all chords
+        this.musicItemDataModels = new ArrayList<>();
         this.musicItemDataModels.addAll(difLevels.values());
         this.musicItemDataModels.addAll(otherGroups.values());
         this.musicItemDataModels.addAll(allChords);
@@ -207,7 +212,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
 
     public void setDatatoRecycler(){
-        ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordDataModelList,this);
+        ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.musicItemDataModels,this);
         recyclerView.setAdapter(cvLibRecyclerAdapter);
     }
 

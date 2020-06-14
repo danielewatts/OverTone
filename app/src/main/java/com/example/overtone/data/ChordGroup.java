@@ -17,6 +17,7 @@ public class ChordGroup implements MusicItem {
 
     public ChordGroup(String chordGroupName){
         this.chordGroupName = chordGroupName;
+        this.chordList = new ArrayList<SingularMusicItemDm>();
     }
 
     public String getChordGroupDescript() {

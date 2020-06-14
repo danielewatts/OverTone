@@ -11,20 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overtone.R;
+import com.example.overtone.data.MusicItem;
 import com.example.overtone.data.SingularMusicItemDm;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRecyclerViewAdapter.ViewHolder> {
     ///RecyclerView is an abstract class so need to implement methods
     private static final String TAG = "HomeRecyclerAdapter";
-    private List<SingularMusicItemDm> dataModels;
+    private ArrayList<MusicItem> dataModels;
     private RecyclerViewClickListener rClickListener;
 
 
-    public ChordLibRecyclerViewAdapter(List<SingularMusicItemDm> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
+    public ChordLibRecyclerViewAdapter(ArrayList<MusicItem> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
         this.rClickListener = recyclerViewClickListener;
         this.dataModels = dataModelList;
     }
@@ -39,10 +41,11 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+
 //        holder.titleText.setText(String.valueOf(dataModels.get(position).getActivityName()));
 //        holder.descriptionText.setText(String.valueOf(dataModels.get(position).getDescription()));
 //        holder.imageTeaser.setImageResource(R.drawable.guitars);
-        SingularMusicItemDm cDataModel = dataModels.get(position);
+         MusicItem cDataModel = dataModels.get(position);
 //        holder.chordGrouping.setText(String.valueOf(cDataModel.getDifficultyName()));
 //        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
         holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property
