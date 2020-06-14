@@ -43,8 +43,8 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
 //        holder.descriptionText.setText(String.valueOf(dataModels.get(position).getDescription()));
 //        holder.imageTeaser.setImageResource(R.drawable.guitars);
         SingularChordDm cDataModel = dataModels.get(position);
-        holder.chordGrouping.setText(String.valueOf(cDataModel.getDifficultyName()));
-        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
+//        holder.chordGrouping.setText(String.valueOf(cDataModel.getDifficultyName()));
+//        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
         holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property
     }
 

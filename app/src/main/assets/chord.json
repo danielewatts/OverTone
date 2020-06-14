@@ -1,17 +1,4 @@
-
-  [
-    {
-      "chordGroupName": "Beginner",
-      "chordDescription": " A,Em,D,G",
-      "ChordList": [
-
-
-      ]
-
-    }
-
-
-
-
-  ]
-
+{
+  "chordName": "C",
+  "barChord": true
+}

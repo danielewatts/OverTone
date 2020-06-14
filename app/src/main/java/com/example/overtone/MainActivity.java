@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeBottomNavigationBar();
-        jsonTest();
+
 
 
 
@@ -34,27 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void jsonTest(){
-        Gson gson = new Gson();
-        String json = "[\n" +
-                "    {\n" +
-                "    \"name\": \"C\",\n" +
-                "    \"difficulty\": 1\n" +
-                "    },\n" +
-                "    {\n" +
-                "    \"name\": \"A\",\n" +
-                "    \"difficulty\": 2\n" +
-                "    },\n" +
-                "    {\n" +
-                "    \"name\": \"D\",\n" +
-                "    \"difficulty\": 3\n" +
-                "    }\n" +
-                "  ]\n" +
-                "   ";
-        FakeChord[] fc = gson.fromJson(json,FakeChord[].class);
-        int jho = 4;
-
-    }
 
 
 

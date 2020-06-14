@@ -3,42 +3,32 @@ package com.example.overtone.data;
 
 import android.media.Image;
 
-public class SingularChordDm extends Chords {
+public class SingularChordDm {
     private String chordName ;
     private Image chordDiagram;
+    private boolean openChord;
+    private boolean popularChord;
+    private boolean barChord;
+    private DifficultyLevel diffLevel;
+
+
+
+
 
     public SingularChordDm(){
         //default if need to set props later
     }
-
-    public SingularChordDm(String chordName, int difficulty, Image chordDiagram ){
-        if(difficulty<1){
-            throw new IllegalArgumentException("Difficulty is 1 or above");
-        }
+//    public SingularChordDm(String chordName, DifficultyLevel difficultLvl){
+//        this.chordName = chordName;
+//        this.diffLevel = difficultLvl;
+//    }
+    public SingularChordDm(String chordName, boolean bar){
         this.chordName = chordName;
-        setDifficultyNumRating(difficulty);
-        setDifficultyName(difficultyNumRating);
-        this.chordDiagram = chordDiagram;
+        this.barChord = true;
     }
 
-    public Image getChordDiagram() {
-        return chordDiagram;
-    }
-
-    public void setChordDiagram(Image chordDiagram) {
-        this.chordDiagram = chordDiagram;
-    }
-
-    public String getChordName() {
-        return chordName;
-    }
-    public void setChordName(String chordName) {
-        this.chordName = chordName;
-    }
-
-    @Override
-    public String toString() {
-        return getChordName();
+    public String getChordName(String chordName){
+        return this.chordName;
     }
 
 

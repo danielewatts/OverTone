@@ -106,26 +106,28 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     }
 
 
-    public void setData(){
-        chordDataModelList = new ArrayList<>();
-        Image testImage = null; //deal with this
-        ///testing code
-        for(int i = 1; i <=10; i++ ){
-            int difnum = i;
-            if(i >4){
-                difnum = 2;
-            }
-            SingularChordDm cdm = new SingularChordDm("G",difnum,testImage);
-            chordDataModelList.add(cdm);
-        }
-
-    }
+//    public void setData(){
+//        chordDataModelList = new ArrayList<>();
+//        Image testImage = null; //deal with this
+//        ///testing code
+//        for(int i = 1; i <=10; i++ ){
+//            int difnum = i;
+//            if(i >4){
+//                difnum = 2;
+//            }
+//            SingularChordDm cdm = new SingularChordDm("G",difnum,testImage);
+//            chordDataModelList.add(cdm);
+//        }
+//
+//    }
 
     public void spoolData(){
         String jsonFilePath = "chord.json";
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonFilePath);
         gson = new Gson();
-        chordDataModelList = gson.fromJson(jsonString, new TypeToken<ArrayList<Chords>>(){}.getType());
+        SingularChordDm singChord = gson.fromJson(jsonString,SingularChordDm.class);
+        int j = 5;
+        j = j+2;
 
     }
 
