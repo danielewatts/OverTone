@@ -122,12 +122,12 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 //    }
 
     public void spoolData(){
-        String jsonFilePath = "chord.json";
-        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonFilePath);
-        gson = new Gson();
-        SingularChordDm singChord = gson.fromJson(jsonString,SingularChordDm.class);
-        int j = 5;
-        j = j+2;
+//        String jsonFilePath = "chord.json";
+//        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonFilePath);
+//        gson = new Gson();
+//        SingularChordDm singChord = gson.fromJson(jsonString,SingularChordDm.class);
+//        int j = 5;
+//        j = j+2;
 
     }
 

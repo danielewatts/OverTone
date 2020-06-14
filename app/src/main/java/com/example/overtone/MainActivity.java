@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,9 +27,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeBottomNavigationBar();
 
-        String jsonHardCodeString = JsonDataRetrieval.getJsonChordString();
+        String jsonString = null;
+        try {
+            jsonString = JsonDataRetrieval.getJsonString("chord.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Gson gson = new Gson();
-        ArrayList<SingularChordDm> bunchOChords = gson.fromJson(jsonHardCodeString, new TypeToken<ArrayList<SingularChordDm>>(){}.getType());
+        ArrayList<SingularChordDm> bunchOChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularChordDm>>(){}.getType());
         for(SingularChordDm c : bunchOChords){
             Log.d(TAG, c.toString());
         }
