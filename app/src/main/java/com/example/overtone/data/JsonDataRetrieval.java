@@ -33,4 +33,76 @@ public class JsonDataRetrieval {
     }
 
 
+
+
+    public static String getJsonChordString(){
+        String jsonChordString = "[\n" +
+                "  {\n" +
+                "      \"chordName\": \"C\",\n" +
+                "      \"barChord\": false,\n" +
+                "      \"openChord\":true,\n" +
+                "      \"popularChord\":true,\n" +
+                "      \"diffLevel\": \"1\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"A\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":true,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"A7\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":false,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "  \"chordName\": \"Am\",\n" +
+                "  \"barChord\": false,\n" +
+                "  \"openChord\":true,\n" +
+                "  \"popularChord\":true,\n" +
+                "  \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"Bb\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":false,\n" +
+                "    \"diffLevel\": \"1\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"E\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":true,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"Dm\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":false,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"G\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":true,\n" +
+                "    \"diffLevel\": \"1\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"chordName\": \"Am7\",\n" +
+                "    \"barChord\": false,\n" +
+                "    \"openChord\":true,\n" +
+                "    \"popularChord\":false,\n" +
+                "    \"diffLevel\": \"0\"\n" +
+                "  }\n" +
+                "]\n";
+        return jsonChordString;
+    }
+
+
 }
