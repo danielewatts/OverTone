@@ -1,4 +1,65 @@
-{
-  "chordName": "C",
-  "barChord": true
-}
+[
+  {
+      "chordName": "C",
+      "barChord": false,
+      "openChord":true,
+      "popularChord":true,
+      "diffLevel": "1"
+  },
+  {
+    "chordName": "A",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  },
+  {
+    "chordName": "A7",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  },
+  {
+  "chordName": "Am",
+  "barChord": false,
+  "openChord":true,
+  "popularChord":true,
+  "diffLevel": "0"
+  },
+  {
+    "chordName": "Bb",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":false,
+    "diffLevel": "1"
+  },
+  {
+    "chordName": "E",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  },
+  {
+    "chordName": "Dm",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  },
+  {
+    "chordName": "G",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "1"
+  },
+  {
+    "chordName": "Am7",
+    "barChord": false,
+    "openChord":true,
+    "popularChord":true,
+    "diffLevel": "0"
+  }
+]
