@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        jsonString = loadJSONFromAsset(this,"chord.json");
+        jsonString = JsonDataRetrieval.loadJSONFromAsset(getApplicationContext(),"chord.json");
         Gson gson = new Gson();
         ArrayList<SingularChordDm> bunchOChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularChordDm>>(){}.getType());
         for(SingularChordDm c : bunchOChords){
