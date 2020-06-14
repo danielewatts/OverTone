@@ -2,13 +2,13 @@ package com.example.overtone.data;
 
 import java.util.ArrayList;
 
-public class ChordGroup  {
+public class ChordGroup implements MusicItem {
      private String chordGroupName;
      private String chordGroupDescript;
      private DifficultyLevel chrdGroupDiffLvl;
-     private ArrayList<SingularChordDm> chordList;
+     private ArrayList<SingularMusicItemDm> chordList;
 
-    public ChordGroup(String chordGroupName, String chordGroupDescript,DifficultyLevel chrdGroupDiffLvl,ArrayList<SingularChordDm> chordList){
+    public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingularMusicItemDm> chordList){
         this.chordGroupName = chordGroupName;
         this.chordGroupDescript = chordGroupDescript;
         this.chrdGroupDiffLvl = chrdGroupDiffLvl;
@@ -28,6 +28,32 @@ public class ChordGroup  {
             return res;
         }
         else return "";
+    }
+    public String getChordGroupName(){
+        return this.chordGroupName;
+    }
+
+    public void setChordList(ArrayList<SingularMusicItemDm> chordList) {
+        this.chordList = chordList;
+    }
+    public void addToChordList(SingularMusicItemDm chord){
+        this.chordList.add(chord);
+    }
+
+    public ArrayList<SingularMusicItemDm> getChordList() {
+        return chordList;
+    }
+
+    public DifficultyLevel getChrdGroupDiffLvl() {
+        return chrdGroupDiffLvl;
+    }
+
+    public void setChordGroupName(String chordGroupName) {
+        this.chordGroupName = chordGroupName;
+    }
+
+    public void setChrdGroupDiffLvl(DifficultyLevel chrdGroupDiffLvl) {
+        this.chrdGroupDiffLvl = chrdGroupDiffLvl;
     }
 
     @Override

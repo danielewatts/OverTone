@@ -18,15 +18,15 @@ import java.util.Scanner;
 public class JsonDataRetrieval {
 
     static Gson gson;
-    public static String readFileIntoString(String path) throws FileNotFoundException {
-        String fileInString = new Scanner(new File(path)).useDelimiter("\\Z").next();
-        return fileInString;
-    }
-
-    public static String getJsonString(String filePath) throws FileNotFoundException {
-        String jsonString = readFileIntoString(filePath);
-        return jsonString;
-    }
+//    public static String readFileIntoString(String path) throws FileNotFoundException {
+//        String fileInString = new Scanner(new File(path)).useDelimiter("\\Z").next();
+//        return fileInString;
+//    }
+//
+//    public static String getJsonString(String filePath) throws FileNotFoundException {
+//        String jsonString = readFileIntoString(filePath);
+//        return jsonString;
+//    }
 
     /** this works apparently for returning the json string**/
     public static String loadJSONFromAsset(Context context,String filePath) {

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overtone.R;
-import com.example.overtone.data.SingularChordDm;
+import com.example.overtone.data.SingularMusicItemDm;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -20,11 +20,11 @@ import java.util.List;
 public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRecyclerViewAdapter.ViewHolder> {
     ///RecyclerView is an abstract class so need to implement methods
     private static final String TAG = "HomeRecyclerAdapter";
-    private List<SingularChordDm> dataModels;
+    private List<SingularMusicItemDm> dataModels;
     private RecyclerViewClickListener rClickListener;
 
 
-    public ChordLibRecyclerViewAdapter(List<SingularChordDm> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
+    public ChordLibRecyclerViewAdapter(List<SingularMusicItemDm> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
         this.rClickListener = recyclerViewClickListener;
         this.dataModels = dataModelList;
     }
@@ -42,7 +42,7 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
 //        holder.titleText.setText(String.valueOf(dataModels.get(position).getActivityName()));
 //        holder.descriptionText.setText(String.valueOf(dataModels.get(position).getDescription()));
 //        holder.imageTeaser.setImageResource(R.drawable.guitars);
-        SingularChordDm cDataModel = dataModels.get(position);
+        SingularMusicItemDm cDataModel = dataModels.get(position);
 //        holder.chordGrouping.setText(String.valueOf(cDataModel.getDifficultyName()));
 //        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
         holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property

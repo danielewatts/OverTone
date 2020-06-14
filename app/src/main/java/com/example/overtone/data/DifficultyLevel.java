@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 public enum DifficultyLevel {
     @SerializedName("0")
-    Easy("Easy"),
+    Easy("Beginner"),
     @SerializedName("1")
-    Medium("Medium"),
+    Medium("Intermediate"),
     @SerializedName("2")
-    Hard("Hard"),
+    Hard("Experienced"),
     @SerializedName("3")
     Advanced("Advanced");
 

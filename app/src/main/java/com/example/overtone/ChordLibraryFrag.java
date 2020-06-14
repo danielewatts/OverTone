@@ -1,6 +1,5 @@
 package com.example.overtone;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,16 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.overtone.data.ChordGroup;
-import com.example.overtone.data.Chords;
+import com.example.overtone.data.DifficultyLevel;
 import com.example.overtone.data.JsonDataRetrieval;
-import com.example.overtone.data.SingularChordDm;
+import com.example.overtone.data.MusicItem;
+import com.example.overtone.data.SingularMusicItemDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -45,8 +44,9 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
-    private ArrayList<SingularChordDm> chordDataModelList;
+    private ArrayList<SingularMusicItemDm> chordDataModelList;
     private ArrayList<ChordGroup> chordGroupList;
+    private ArrayList<MusicItem> musicItemDataModels;
     Gson gson;
 
     public ChordLibraryFrag() {
@@ -130,6 +130,60 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 //        j = j+2;
 
     }
+
+    public ArrayList<ChordGroup> createDifficultyChordGroups(DifficultyLevel difficultyLevel){
+        //uses name value of enum to set chordGroup name and at the same time sets the enum field
+        ArrayList<ChordGroup> allDifficultyChordGroups = new ArrayList<>();
+        //creates all chordGroup objs in the DifficultyLevels
+        for(DifficultyLevel d : DifficultyLevel.values()){
+            String nameAndDiffLevel = d.getStrName();
+            ChordGroup cg = new ChordGroup(nameAndDiffLevel);
+            cg.setChrdGroupDiffLvl(d);
+            allDifficultyChordGroups.add(cg);
+        }
+        return allDifficultyChordGroups;
+    }
+
+    public ArrayList<ChordGroup> createOtherChordGroup(ArrayList<String> groupNames){
+        ArrayList<ChordGroup> otherGroups = new ArrayList<>();
+        //creates all other chordObjects
+        for (String name: groupNames){
+            ChordGroup cg = new ChordGroup(name);
+            otherGroups.add(cg);
+        }
+        return otherGroups;
+    }
+    public ArrayList<ChordGroup> getCombinedChordGroups(ArrayList<ChordGroup> difLevels,ArrayList<ChordGroup> others){
+        ArrayList<ChordGroup> combined = new ArrayList<>(difLevels);
+        combined.addAll(others);
+        return combined;
+    }
+
+    public ArrayList<SingularMusicItemDm> getAllChords(){
+        String jsonPath = "chord.json";
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonPath);
+        gson = new Gson();
+        ArrayList<SingularMusicItemDm> singularMusicItemDms = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
+        return singularMusicItemDms;
+    }
+
+    public void setAllMusicalItems(ArrayList<ChordGroup> combinedChordGroups,ArrayList<SingularMusicItemDm> allChords){
+        this.musicItemDataModels.addAll(combinedChordGroups);
+        this.musicItemDataModels.addAll(allChords);
+    }
+
+    public void FillChordGroups(ArrayList<SingularMusicItemDm> allChords,ArrayList<ChordGroup> difLevelGroup, ArrayList<ChordGroup> otherGroups){
+
+
+
+
+
+
+
+    }
+
+
+
 
     public void setDatatoRecycler(){
         ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordDataModelList,this);

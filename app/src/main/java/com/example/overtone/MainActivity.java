@@ -6,14 +6,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.overtone.data.ChordGroup;
 import com.example.overtone.data.DifficultyLevel;
 import com.example.overtone.data.JsonDataRetrieval;
-import com.example.overtone.data.SingularChordDm;
+import com.example.overtone.data.SingularMusicItemDm;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -34,18 +32,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeBottomNavigationBar();
 
-        String jsonString = null;
-        try {
-            jsonString = JsonDataRetrieval.getJsonString("chord.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        jsonString = JsonDataRetrieval.loadJSONFromAsset(getApplicationContext(),"chord.json");
+//        String jsonString = null;
+//        try {
+//            jsonString = JsonDataRetrieval.getJsonString("chord.json");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(getApplicationContext(),"chord.json");
         Gson gson = new Gson();
-        ArrayList<SingularChordDm> bunchOChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularChordDm>>(){}.getType());
-        for(SingularChordDm c : bunchOChords){
+        ArrayList<SingularMusicItemDm> bunchOChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
+        for(SingularMusicItemDm c : bunchOChords){
             Log.d(TAG, c.toString());
         }
+
 
         String[] levels = {"Easy","Medium","Hard","Advanced"};
         ArrayList<ChordGroup> allChordDifficultyGroups = new ArrayList<>();
