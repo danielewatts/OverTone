@@ -124,7 +124,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     public void spoolData(){
         ArrayList<SingularMusicItemDm> allChords = getAllChords();
         Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
-        String[] groupNames = {"Bar Chords","Open Chords","Popular Chords"};
+        final String[] groupNames = {"Bar Chords","Open Chords","Popular Chords"};
         Map<String,ChordGroup> otherGroupings = createOtherChordGroups(groupNames);
         FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
         setAndCombineMusicItems(allChords,difficultyChordGroups,otherGroupings);
