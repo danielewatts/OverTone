@@ -59,6 +59,9 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //creates a container/holder to hold the view that needs be attached to the recycler view
+        /**Look at res file and compare to objects so all info can be displayed as needed*/
+
         ImageView chordImage;
         MaterialCardView chordCardPreview;
         TextView chordGrouping;
