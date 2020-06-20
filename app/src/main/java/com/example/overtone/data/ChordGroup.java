@@ -20,11 +20,12 @@ public class ChordGroup implements MusicItem {
         this.chordList = new ArrayList<SingularMusicItemDm>();
     }
 
-    public String getChordGroupDescript() {
+    public String getGroupMakeUp() {
         if (chordList.size() > 0) {
-            String res = chordList.get(0).toString() + ", ";
+            String res = chordList.get(0).getChordName() + ", ";
             for (int i = 1; i < chordList.size(); i++) {
-                res += ", " + chordList.get(i).toString();
+                res +=   chordList.get(i).getChordName() + ",";
+                ////fix extra comma being added to the end of statement
             }
             return res;
         }
@@ -67,4 +68,13 @@ public class ChordGroup implements MusicItem {
                 '}';
     }
 
+    @Override
+    public String getName() {
+        return getGroupMakeUp();
+    }
+
+    @Override
+    public String getDescription() {
+        return getChordGroupName();
+    }
 }

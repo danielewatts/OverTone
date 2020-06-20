@@ -47,15 +47,26 @@ public class SingularMusicItemDm implements MusicItem {
         return diffLevel;
     }
 
+//    @Override
+//    public String toString() {
+//        return "SingularChordDm{" +
+//                "chordName='" + chordName + '\'' +
+//                ", chordDiagram=" + chordDiagram +
+//                ", openChord=" + openChord +
+//                ", popularChord=" + popularChord +
+//                ", barChord=" + barChord +
+//                ", diffLevel=" + diffLevel +
+//                '}';
+//    }
+
     @Override
-    public String toString() {
-        return "SingularChordDm{" +
-                "chordName='" + chordName + '\'' +
-                ", chordDiagram=" + chordDiagram +
-                ", openChord=" + openChord +
-                ", popularChord=" + popularChord +
-                ", barChord=" + barChord +
-                ", diffLevel=" + diffLevel +
-                '}';
+    public String getName() {
+        return getChordName();
     }
+
+    @Override
+    public String getDescription() {
+        return this.getDiffLevel().getStrName();
+    }
+
 }
