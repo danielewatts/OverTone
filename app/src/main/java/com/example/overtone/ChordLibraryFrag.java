@@ -20,6 +20,7 @@ import com.example.overtone.data.MusicItem;
 import com.example.overtone.data.SingularMusicItemDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
+import com.example.overtone.recyclerview.VerticalSpacingItemDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -87,6 +88,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         return inflater.inflate(R.layout.fragment_chord_library, container, false);
     }
 
+    private static final int VERTICAL_ITEM_SPACE = 1;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -96,6 +98,9 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setFocusable(false);
 //        setData();
+
+        //add ItemDecoration
+        recyclerView.addItemDecoration(new VerticalSpacingItemDecoration(VERTICAL_ITEM_SPACE));
         spoolData();
         setDatatoRecycler();
 
