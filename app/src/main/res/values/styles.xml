@@ -5,6 +5,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+        <item name="bottomNavigationStyle">@style/AppBottomNavigation</item>
     </style>
+
+
+
+    <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
+
+
 </resources>

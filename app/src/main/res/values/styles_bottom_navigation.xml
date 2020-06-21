@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.BottomNavigation" parent="Theme.MaterialComponents.DayNight" />
+
+    <style name="AppTheme.BottomNavigation.Themed" parent="Theme.MaterialComponents">
+        <!-- Global color attributes -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppBadge" parent="Widget.MaterialComponents.Badge">
+        <item name="backgroundColor">?attr/colorError</item>
+        <item name="badgeTextColor">?attr/colorOnError</item>
+    </style>
+
+</resources>
