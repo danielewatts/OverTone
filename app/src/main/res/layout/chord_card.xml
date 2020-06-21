@@ -9,7 +9,7 @@
     app:cardCornerRadius="0dp"
     app:cardPreventCornerOverlap="false"
     android:id="@+id/chordCardPreview"
-    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardBackgroundColor="@color/primaryLightColor"
     android:clickable="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

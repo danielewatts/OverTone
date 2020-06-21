@@ -5,17 +5,17 @@
 
     <item
         android:id="@+id/chordLibraryFrag"
-        android:title="Chord Library"
+        android:title="@string/Chord_Lib"
         android:icon="@drawable/ic_baseline_menu_book_24"
         />
 
     <item
         android:id="@+id/homeTuneFrag"
-        android:title="Tune"
+        android:title="@string/Tune"
         android:icon = "@drawable/ic_baseline_tune_24"/>
     <item
         android:id="@+id/practiceModeFrag"
-        android:title="Practice"
+        android:title="@string/Practice"
         android:icon="@drawable/ic_baseline_music_note_24"
         />
 
