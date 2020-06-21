@@ -5,12 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.overtone.data.ChordGroup;
@@ -100,13 +102,12 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 //        setData();
 
         //add ItemDecoration
-        recyclerView.addItemDecoration(new VerticalSpacingItemDecoration(VERTICAL_ITEM_SPACE));
+//        recyclerView.addItemDecoration(new VerticalSpacingItemDecoration(VERTICAL_ITEM_SPACE));
         spoolData();
+        final int VERTICAL = 1;
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
         setDatatoRecycler();
-
-
-
-
 
     }
 
@@ -219,6 +220,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     public void setDatatoRecycler(){
         ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.musicItemDataModels,this);
         recyclerView.setAdapter(cvLibRecyclerAdapter);
+//        DividerItemDecoration
     }
 
 
