@@ -10,9 +10,9 @@ public enum DifficultyLevel {
     @SerializedName("1")
     Medium("Intermediate"),
     @SerializedName("2")
-    Hard("Experienced"),
-    @SerializedName("3")
-    Advanced("Advanced");
+    Hard("Advanced");
+//    @SerializedName("3")
+//    Advanced("Advanced");
 
 //    private final int value;
 //    public int getValue() {

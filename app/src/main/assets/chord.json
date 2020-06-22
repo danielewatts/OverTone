@@ -75,6 +75,13 @@
     "openChord":true,
     "popularChord":false,
     "diffLevel": "0"
+  },
+  {
+    "chordName": "F",
+    "barChord": true,
+    "openChord":false,
+    "popularChord":true,
+    "diffLevel": "2"
   }
 
 ]
