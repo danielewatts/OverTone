@@ -50,7 +50,8 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
          holder.chordGrouping.setText(cDataModel.getDescription());
          holder.chordIdentities.setText(cDataModel.getName());
 //        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
-        holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property
+//        holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property
+        holder.chordImage.setImageResource(cDataModel.getImageID()); // change this to an item property
     }
 
     @Override

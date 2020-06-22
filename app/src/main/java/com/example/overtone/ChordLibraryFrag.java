@@ -135,7 +135,6 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
         setAndCombineMusicItems(allChords,difficultyChordGroups,otherGroupings);
 
-
     }
 
 
@@ -147,6 +146,10 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(getContext(),jsonPath);
         gson = new Gson();
         ArrayList<SingularMusicItemDm> singularMusicItemDms = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
+        /** need to abstract / organize out code blow this line */
+        for (SingularMusicItemDm c:singularMusicItemDms) {
+            c.setTestImageID(R.drawable.spicychile);
+        }
         return singularMusicItemDms;
     }
 

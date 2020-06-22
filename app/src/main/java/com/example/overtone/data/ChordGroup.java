@@ -1,5 +1,7 @@
 package com.example.overtone.data;
 
+import com.example.overtone.R;
+
 import java.util.ArrayList;
 
 public class ChordGroup implements MusicItem {
@@ -8,6 +10,8 @@ public class ChordGroup implements MusicItem {
      private String chordGroupDescript;
      private DifficultyLevel chrdGroupDiffLvl;
      private ArrayList<SingularMusicItemDm> chordList;
+     private Integer imageId;
+     private Integer testImageID = R.drawable.spicychile;
 
     public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingularMusicItemDm> chordList){
         setChordGroupName(chordGroupName);
@@ -18,6 +22,7 @@ public class ChordGroup implements MusicItem {
 
     public ChordGroup(String chordGroupName){
         setChordGroupName(chordGroupName);
+        setImageId(testImageID);
         this.chordList = new ArrayList<SingularMusicItemDm>();
     }
 
@@ -61,6 +66,14 @@ public class ChordGroup implements MusicItem {
         this.chrdGroupDiffLvl = chrdGroupDiffLvl;
     }
 
+
+    public void setImageId(Integer resFileTag) {
+        this.imageId = resFileTag;
+    }
+
+
+
+
     @Override
     public String toString() {
         return "ChordGroup{" +
@@ -79,5 +92,10 @@ public class ChordGroup implements MusicItem {
     @Override
     public String getDescription() {
         return getChordGroupName();
+    }
+
+    @Override
+    public int getImageID() {
+        return imageId;
     }
 }

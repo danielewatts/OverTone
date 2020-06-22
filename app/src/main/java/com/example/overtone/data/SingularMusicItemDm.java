@@ -3,6 +3,8 @@ package com.example.overtone.data;
 
 import android.media.Image;
 
+import com.example.overtone.R;
+
 public class SingularMusicItemDm implements MusicItem {
     private String chordName ;
     private Image chordDiagram;
@@ -10,6 +12,9 @@ public class SingularMusicItemDm implements MusicItem {
     private boolean popularChord;
     private boolean barChord;
     private DifficultyLevel diffLevel;
+    private Integer testImg = R.drawable.spicychile;
+
+
 
     public SingularMusicItemDm(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
         this.chordName = chordName;
@@ -17,7 +22,16 @@ public class SingularMusicItemDm implements MusicItem {
         this.openChord = openCh;
         this.popularChord = popCh;
         this.diffLevel = difficultyLevel;
+        setTestImageID(R.drawable.spicychile);
     }
+    public Integer getTestImageID(){
+        return testImg;
+    }
+
+    public void setTestImageID(Integer spicychile) {
+        testImg = spicychile;
+    }
+
 
     public String getChordName(String chordName){
         return this.chordName;
@@ -67,6 +81,11 @@ public class SingularMusicItemDm implements MusicItem {
     @Override
     public String getDescription() {
         return this.getDiffLevel().getStrName();
+    }
+
+    @Override
+    public int getImageID() {
+        return getTestImageID();
     }
 
 }
