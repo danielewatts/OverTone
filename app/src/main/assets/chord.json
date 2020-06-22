@@ -82,6 +82,31 @@
     "openChord":false,
     "popularChord":true,
     "diffLevel": "2"
+  },
+  {
+    "chordName": "F#",
+    "barChord": true,
+    "openChord":false,
+    "popularChord":true,
+    "diffLevel": "2"
+  },
+  {
+    "chordName": "D#",
+    "barChord": true,
+    "openChord":false,
+    "popularChord":false,
+    "diffLevel": "2"
+  },
+  {
+    "chordName": "C#",
+    "barChord": true,
+    "openChord":false,
+    "popularChord":false,
+    "diffLevel": "2"
   }
+
+
+
+
 
 ]

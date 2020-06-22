@@ -3,33 +3,36 @@ package com.example.overtone.data;
 import java.util.ArrayList;
 
 public class ChordGroup implements MusicItem {
+     private static final String groupTag = " chords";
      private String chordGroupName;
      private String chordGroupDescript;
      private DifficultyLevel chrdGroupDiffLvl;
      private ArrayList<SingularMusicItemDm> chordList;
 
     public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingularMusicItemDm> chordList){
-        this.chordGroupName = chordGroupName;
+        setChordGroupName(chordGroupName);
         this.chordGroupDescript = chordGroupDescript;
         this.chrdGroupDiffLvl = chrdGroupDiffLvl;
         this.chordList = chordList;
     }
 
     public ChordGroup(String chordGroupName){
-        this.chordGroupName = chordGroupName;
+        setChordGroupName(chordGroupName);
         this.chordList = new ArrayList<SingularMusicItemDm>();
     }
 
     public String getGroupMakeUp() {
-        if (chordList.size() > 0) {
-            String res = chordList.get(0).getChordName() + ", ";
-            for (int i = 1; i < chordList.size(); i++) {
-                res +=   chordList.get(i).getChordName() + ",";
-                ////fix extra comma being added to the end of statement
+        String res = "";
+        String spacing = " , ";
+        if(this.chordList.size()>0){
+            res = chordList.get(0).getChordName();
+            for(int i = 1; i <chordList.size()-1; i++ ){
+                res = res + spacing + chordList.get(i).getChordName();
             }
-            return res;
+            res = res + spacing + chordList.get(chordList.size()-1).getChordName();
+
         }
-        else return "";
+        return res;
     }
     public String getChordGroupName(){
         return this.chordGroupName;
@@ -51,7 +54,7 @@ public class ChordGroup implements MusicItem {
     }
 
     public void setChordGroupName(String chordGroupName) {
-        this.chordGroupName = chordGroupName;
+        this.chordGroupName = chordGroupName + groupTag;
     }
 
     public void setChrdGroupDiffLvl(DifficultyLevel chrdGroupDiffLvl) {
