@@ -19,7 +19,8 @@
         app:menu="@menu/bottom_menu"
         app:itemIconSize="30dp"
         android:elevation="10dp"
-        android:background="@color/colorPrimaryDark"
+        app:backgroundTint="@color/design_default_color_background"
+
         />
 
 
