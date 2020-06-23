@@ -118,7 +118,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         Map<String,ChordGroup> otherGroupings = createOtherChordGroups(groupNames);
         FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
         setAndCombineMusicItems(allChords,difficultyChordGroups,otherGroupings);
-
+        attachChordGroupImages();
     }
 
 
@@ -135,6 +135,13 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
             c.setTestImageID(R.drawable.spicychile);
         }
         return singularMusicItemDms;
+    }
+    public void attachChordGroupImages(){
+        for (MusicItem cg: this.musicItemDataModels) {
+            if(cg instanceof ChordGroup){
+                ((ChordGroup) cg).setImageId();
+            }
+        }
     }
 
     public Map<DifficultyLevel,ChordGroup> getDifficultyChordGroups(){
@@ -178,8 +185,12 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
             if(chord.isPopularChord()){
                 otherGroups.get(groupNames[2]).addToChordList(chord);
             }
-
         }
+
+        otherGroups.get(groupNames[0]).setChrdGroupDiffLvl(DifficultyLevel.Hard);
+        otherGroups.get(groupNames[1]).setChrdGroupDiffLvl(DifficultyLevel.Easy);
+        otherGroups.get(groupNames[2]).setChrdGroupDiffLvl(DifficultyLevel.Medium);
+
         //All groups now sorted and should contain their necessary individual chords
     }
 
