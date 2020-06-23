@@ -206,7 +206,8 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         this.musicItemDataModels = new ArrayList<>();
         this.musicItemDataModels.addAll(difLevels.values());
         this.musicItemDataModels.addAll(otherGroups.values());
-        this.musicItemDataModels.addAll(allChords);
+        /** NOT adding all chords because dont want these chords to be passed to recycler view*/
+//        this.musicItemDataModels.addAll(allChords);
 
         ///all items are set into the class variable and now ready to be set and passed to the
         // recycler attached to this fragment
