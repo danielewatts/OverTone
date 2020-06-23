@@ -228,5 +228,8 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     @Override
     public void onRcViewClick(int position) {
         Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show();
+        String[] daNames = {"Daniel","Lars","Issac","Cody","Leo","Oliver"};
+
+
     }
 }

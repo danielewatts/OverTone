@@ -43,5 +43,9 @@
         android:id="@+id/fragmentGroupDetails"
         android:name="com.example.overtone.fragmentGroupDetails"
         android:label="fragment_group_details"
-        tools:layout="@layout/fragment_group_details" />
+        tools:layout="@layout/fragment_group_details" >
+        <argument
+            android:name="squadNames"
+            app:argType="string[]" />
+    </fragment>
 </navigation>
