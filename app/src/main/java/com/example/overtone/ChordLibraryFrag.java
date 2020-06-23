@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.overtone.data.ChordGroup;
@@ -22,7 +21,6 @@ import com.example.overtone.data.MusicItem;
 import com.example.overtone.data.SingularMusicItemDm;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
-import com.example.overtone.recyclerview.VerticalSpacingItemDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -103,7 +101,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
         //add ItemDecoration
 //        recyclerView.addItemDecoration(new VerticalSpacingItemDecoration(VERTICAL_ITEM_SPACE));
-        spoolData();
+        createData();
         final int VERTICAL = 1;
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
@@ -112,22 +110,8 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     }
 
 
-//    public void setData(){
-//        chordDataModelList = new ArrayList<>();
-//        Image testImage = null; //deal with this
-//        ///testing code
-//        for(int i = 1; i <=10; i++ ){
-//            int difnum = i;
-//            if(i >4){
-//                difnum = 2;
-//            }
-//            SingularChordDm cdm = new SingularChordDm("G",difnum,testImage);
-//            chordDataModelList.add(cdm);
-//        }
-//
-//    }
 
-    public void spoolData(){
+    public void createData(){
         ArrayList<SingularMusicItemDm> allChords = getAllChords();
         Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
         final String[] groupNames = {"Bar","Open","Popular"};
