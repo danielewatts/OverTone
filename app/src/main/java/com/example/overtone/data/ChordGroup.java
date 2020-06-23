@@ -22,8 +22,7 @@ public class ChordGroup implements MusicItem {
 
     public ChordGroup(String chordGroupName){
         setChordGroupName(chordGroupName);
-        setImageId(testImageID);
-        this.chordList = new ArrayList<SingularMusicItemDm>();
+        this.chordList = new ArrayList<>();
     }
 
     public String getGroupMakeUp() {
@@ -67,8 +66,20 @@ public class ChordGroup implements MusicItem {
     }
 
 
-    public void setImageId(Integer resFileTag) {
-        this.imageId = resFileTag;
+    public void setImageId() {
+//        this.imageId = resFileTag;
+        switch(chrdGroupDiffLvl){
+            case Easy:
+                this.imageId = R.drawable.guitars;
+                break;
+            case Medium:
+                this.imageId = R.drawable.spicychile;
+                break;
+            case Hard:
+                this.imageId = R.drawable.chilepep;
+                break;
+        }
+
     }
 
 
