@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_practice_mode" />
     <fragment
         android:id="@+id/fragmentGroupDetails"
-        android:name="com.example.overtone.fragmentGroupDetails"
+        android:name="com.example.overtone.ChordGroupDetailsFrag"
         android:label="fragment_group_details"
         tools:layout="@layout/fragment_group_details" >
         <argument

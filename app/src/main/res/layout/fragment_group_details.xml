@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragmentGroupDetails">
+    tools:context=".ChordGroupDetailsFrag">
 
     <!-- TODO: Update blank fragment layout -->
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/centerTextWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

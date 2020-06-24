@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +52,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     private RecyclerView recyclerView;
     private ArrayList<MusicItem> musicItemDataModels;
     Gson gson;
+    private NavController navController;
 
     public ChordLibraryFrag() {
         // Required empty public constructor
@@ -107,6 +110,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
         setDatatoRecycler();
+
 
     }
 
@@ -229,7 +233,26 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     public void onRcViewClick(int position) {
         Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show();
         String[] daNames = {"Daniel","Lars","Issac","Cody","Leo","Oliver"};
-
+        navController = Navigation.findNavController(recyclerView);
+        //passing objects to the view through nav controller and creating an "action"
+        ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.actionChordLibraryFragToFragmentGroupDetails(listToArray(this.musicItemDataModels));
+        navController.navigate(action);
 
     }
+
+
+    public ChordGroup[] listToArray(ArrayList<MusicItem> list){
+        int origSize = list.size();
+        /**needs major refactoring to avoid all these type shannigans*/
+        ChordGroup[] vals = new ChordGroup[list.size()];
+        int index = 0;
+        for (MusicItem m: list) {
+            if(m instanceof ChordGroup){
+                vals[index] = (ChordGroup)m;
+            }
+            index++;
+        }
+        return vals;
+    }
+
 }
