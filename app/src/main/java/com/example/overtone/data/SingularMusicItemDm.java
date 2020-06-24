@@ -2,10 +2,12 @@ package com.example.overtone.data;
 
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.example.overtone.R;
 
-public class SingularMusicItemDm implements MusicItem {
+public class SingularMusicItemDm implements MusicItem, Parcelable {
     private String chordName ;
     private Image chordDiagram;
     private boolean openChord;
@@ -24,6 +26,31 @@ public class SingularMusicItemDm implements MusicItem {
         this.diffLevel = difficultyLevel;
         setTestImageID(R.drawable.spicychile);
     }
+
+    protected SingularMusicItemDm(Parcel in) {
+        chordName = in.readString();
+        openChord = in.readByte() != 0;
+        popularChord = in.readByte() != 0;
+        barChord = in.readByte() != 0;
+        if (in.readByte() == 0) {
+            testImg = null;
+        } else {
+            testImg = in.readInt();
+        }
+    }
+
+    public static final Creator<SingularMusicItemDm> CREATOR = new Creator<SingularMusicItemDm>() {
+        @Override
+        public SingularMusicItemDm createFromParcel(Parcel in) {
+            return new SingularMusicItemDm(in);
+        }
+
+        @Override
+        public SingularMusicItemDm[] newArray(int size) {
+            return new SingularMusicItemDm[size];
+        }
+    };
+
     public Integer getTestImageID(){
         return testImg;
     }
@@ -88,4 +115,22 @@ public class SingularMusicItemDm implements MusicItem {
         return getTestImageID();
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(chordName);
+        dest.writeByte((byte) (openChord ? 1 : 0));
+        dest.writeByte((byte) (popularChord ? 1 : 0));
+        dest.writeByte((byte) (barChord ? 1 : 0));
+        if (testImg == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(testImg);
+        }
+    }
 }

@@ -1,10 +1,13 @@
 package com.example.overtone.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.overtone.R;
 
 import java.util.ArrayList;
 
-public class ChordGroup implements MusicItem {
+public class ChordGroup implements MusicItem, Parcelable {
      private static final String groupTag = " chords";
      private String chordGroupName;
      private String chordGroupDescript;
@@ -24,6 +27,33 @@ public class ChordGroup implements MusicItem {
         setChordGroupName(chordGroupName);
         this.chordList = new ArrayList<>();
     }
+
+    protected ChordGroup(Parcel in) {
+        chordGroupName = in.readString();
+        chordGroupDescript = in.readString();
+        if (in.readByte() == 0) {
+            imageId = null;
+        } else {
+            imageId = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            testImageID = null;
+        } else {
+            testImageID = in.readInt();
+        }
+    }
+
+    public static final Creator<ChordGroup> CREATOR = new Creator<ChordGroup>() {
+        @Override
+        public ChordGroup createFromParcel(Parcel in) {
+            return new ChordGroup(in);
+        }
+
+        @Override
+        public ChordGroup[] newArray(int size) {
+            return new ChordGroup[size];
+        }
+    };
 
     public String getGroupMakeUp() {
         String res = "";
@@ -108,5 +138,28 @@ public class ChordGroup implements MusicItem {
     @Override
     public int getImageID() {
         return imageId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(chordGroupName);
+        dest.writeString(chordGroupDescript);
+        if (imageId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(imageId);
+        }
+        if (testImageID == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(testImageID);
+        }
     }
 }
