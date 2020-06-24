@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overtone.R;
+import com.example.overtone.data.ChordGroup;
 import com.example.overtone.data.MusicItem;
 import com.example.overtone.data.SingularMusicItemDm;
 import com.google.android.material.card.MaterialCardView;
@@ -22,11 +23,11 @@ import java.util.List;
 public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRecyclerViewAdapter.ViewHolder> {
     ///RecyclerView is an abstract class so need to implement methods
     private static final String TAG = "HomeRecyclerAdapter";
-    private ArrayList<MusicItem> dataModels;
+    private ArrayList<ChordGroup> dataModels;
     private RecyclerViewClickListener rClickListener;
 
 
-    public ChordLibRecyclerViewAdapter(ArrayList<MusicItem> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
+    public ChordLibRecyclerViewAdapter(ArrayList<ChordGroup> dataModelList, RecyclerViewClickListener recyclerViewClickListener) {
         this.rClickListener = recyclerViewClickListener;
         this.dataModels = dataModelList;
     }
