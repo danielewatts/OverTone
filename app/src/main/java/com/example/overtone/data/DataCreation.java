@@ -16,6 +16,9 @@ public class DataCreation {
  static final String[] GROUP_NAMES = {"Bar","Open","Popular"};
 
     public static ArrayList<ChordGroup> getCreatedGroups(Context cntx){
+        //cheap hack, points to refactoring data loading upon app opening
+        //makes sure static array does not grow infinitely when fragment is called
+        chordGroupsList.clear();
         ArrayList<SingularMusicItemDm> allChords = getAllChords(cntx);
         Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
         Map<String,ChordGroup> otherGroupings = createOtherChordGroups(GROUP_NAMES);

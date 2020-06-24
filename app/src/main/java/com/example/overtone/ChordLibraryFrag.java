@@ -59,8 +59,6 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         setDatatoRecycler();
     }
 
-
-
     public void setDatatoRecycler(){
         ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordGroups,this);
         recyclerView.setAdapter(cvLibRecyclerAdapter);
