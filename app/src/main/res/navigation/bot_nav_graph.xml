@@ -45,7 +45,8 @@
         android:label="fragment_group_details"
         tools:layout="@layout/fragment_group_details" >
         <argument
-            android:name="squadNames"
-            app:argType="string[]" />
+            android:name="ChordGroupObjs"
+            app:argType="com.example.overtone.data.ChordGroup[]"
+            app:nullable="true" />
     </fragment>
 </navigation>
