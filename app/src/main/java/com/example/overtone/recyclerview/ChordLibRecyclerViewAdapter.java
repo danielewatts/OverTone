@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.overtone.R;
 import com.example.overtone.data.ChordGroup;
 import com.example.overtone.data.MusicItem;
-import com.example.overtone.data.SingularMusicItemDm;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRecyclerViewAdapter.ViewHolder> {

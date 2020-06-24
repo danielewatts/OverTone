@@ -12,11 +12,11 @@ public class ChordGroup implements MusicItem, Parcelable {
      private String chordGroupName;
      private String chordGroupDescript;
      private DifficultyLevel chrdGroupDiffLvl;
-     private ArrayList<SingularMusicItemDm> chordList;
+     private ArrayList<SingleChord> chordList;
      private Integer imageId;
      private Integer testImageID = R.drawable.spicychile;
 
-    public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingularMusicItemDm> chordList){
+    public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingleChord> chordList){
         setChordGroupName(chordGroupName);
         this.chordGroupDescript = chordGroupDescript;
         this.chrdGroupDiffLvl = chrdGroupDiffLvl;
@@ -72,14 +72,14 @@ public class ChordGroup implements MusicItem, Parcelable {
         return this.chordGroupName;
     }
 
-    public void setChordList(ArrayList<SingularMusicItemDm> chordList) {
+    public void setChordList(ArrayList<SingleChord> chordList) {
         this.chordList = chordList;
     }
-    public void addToChordList(SingularMusicItemDm chord){
+    public void addToChordList(SingleChord chord){
         this.chordList.add(chord);
     }
 
-    public ArrayList<SingularMusicItemDm> getChordList() {
+    public ArrayList<SingleChord> getChordList() {
         return chordList;
     }
 

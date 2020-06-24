@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 import com.example.overtone.R;
 
-public class SingularMusicItemDm implements MusicItem, Parcelable {
+public class SingleChord implements MusicItem, Parcelable {
     private String chordName ;
     private Image chordDiagram;
     private boolean openChord;
@@ -18,7 +18,7 @@ public class SingularMusicItemDm implements MusicItem, Parcelable {
 
 
 
-    public SingularMusicItemDm(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
+    public SingleChord(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
         this.chordName = chordName;
         this.barChord = bar;
         this.openChord = openCh;
@@ -27,7 +27,7 @@ public class SingularMusicItemDm implements MusicItem, Parcelable {
         setTestImageID(R.drawable.spicychile);
     }
 
-    protected SingularMusicItemDm(Parcel in) {
+    protected SingleChord(Parcel in) {
         chordName = in.readString();
         openChord = in.readByte() != 0;
         popularChord = in.readByte() != 0;
@@ -39,15 +39,15 @@ public class SingularMusicItemDm implements MusicItem, Parcelable {
         }
     }
 
-    public static final Creator<SingularMusicItemDm> CREATOR = new Creator<SingularMusicItemDm>() {
+    public static final Creator<SingleChord> CREATOR = new Creator<SingleChord>() {
         @Override
-        public SingularMusicItemDm createFromParcel(Parcel in) {
-            return new SingularMusicItemDm(in);
+        public SingleChord createFromParcel(Parcel in) {
+            return new SingleChord(in);
         }
 
         @Override
-        public SingularMusicItemDm[] newArray(int size) {
-            return new SingularMusicItemDm[size];
+        public SingleChord[] newArray(int size) {
+            return new SingleChord[size];
         }
     };
 
@@ -88,17 +88,17 @@ public class SingularMusicItemDm implements MusicItem, Parcelable {
         return diffLevel;
     }
 
-//    @Override
-//    public String toString() {
-//        return "SingularChordDm{" +
-//                "chordName='" + chordName + '\'' +
-//                ", chordDiagram=" + chordDiagram +
-//                ", openChord=" + openChord +
-//                ", popularChord=" + popularChord +
-//                ", barChord=" + barChord +
-//                ", diffLevel=" + diffLevel +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "SingularChordDm{" +
+                "chordName='" + chordName + '\'' +
+                ", chordDiagram=" + chordDiagram +
+                ", openChord=" + openChord +
+                ", popularChord=" + popularChord +
+                ", barChord=" + barChord +
+                ", diffLevel=" + diffLevel +
+                '}';
+    }
 
     @Override
     public String getName() {

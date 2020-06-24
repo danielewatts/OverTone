@@ -19,7 +19,7 @@ public class DataCreation {
         //cheap hack, points to refactoring data loading upon app opening
         //makes sure static array does not grow infinitely when fragment is called
         chordGroupsList.clear();
-        ArrayList<SingularMusicItemDm> allChords = getAllChords(cntx);
+        ArrayList<SingleChord> allChords = getAllChords(cntx);
         Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
         Map<String,ChordGroup> otherGroupings = createOtherChordGroups(GROUP_NAMES);
         FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
@@ -27,12 +27,12 @@ public class DataCreation {
         return chordGroupsList;
     }
 
-    private static ArrayList<SingularMusicItemDm> getAllChords(Context context){
+    private static ArrayList<SingleChord> getAllChords(Context context){
         String jsonPath = "chord.json";
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
         gson = new Gson();
-        ArrayList<SingularMusicItemDm> singularMusicItemDms = gson.fromJson(jsonString, new TypeToken<ArrayList<SingularMusicItemDm>>(){}.getType());
-        return singularMusicItemDms;
+        ArrayList<SingleChord> singleChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
+        return singleChords;
     }
 
     private static Map<DifficultyLevel,ChordGroup> getDifficultyChordGroups(){
@@ -60,11 +60,11 @@ public class DataCreation {
     }
 
 
-    private static void FillChordGroups(Map<DifficultyLevel,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingularMusicItemDm> allChords){
+    private static void FillChordGroups(Map<DifficultyLevel,ChordGroup> diffLevelGroups,Map<String,ChordGroup> otherGroups,ArrayList<SingleChord> allChords){
         String[] groupNames = new String[otherGroups.keySet().size()];
         groupNames = otherGroups.keySet().toArray(groupNames);
         //goes through whole individual chordList
-        for(SingularMusicItemDm chord : allChords){
+        for(SingleChord chord : allChords){
             //adds to difficulty chordGroups
             ChordGroup cGroup = diffLevelGroups.get(chord.getDiffLevel());
             cGroup.addToChordList(chord);
