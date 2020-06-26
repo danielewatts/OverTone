@@ -34,6 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:defaultNavHost="true"
-        app:graph="@navigation/bot_nav_graph"
+        app:navGraph = "@navigation/bot_nav_graph"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
