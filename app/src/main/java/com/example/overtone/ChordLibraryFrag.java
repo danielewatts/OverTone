@@ -54,7 +54,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setFocusable(false);
         /** need to fix chordGroups getting remade with duplicates everytime fragment is loaded up */
-        this.chordGroups = DataCreation.getCreatedGroups(getContext());
+//        this.chordGroups = DataCreation.getCreatedGroups(getContext());
         setVerticalItemSpace(SPACE_TYPE_TAG);
         setDatatoRecycler();
     }

@@ -14,7 +14,7 @@ public class SingleChord implements MusicItem, Parcelable {
     private boolean popularChord;
     private boolean barChord;
     private DifficultyLevel diffLevel;
-    private Integer testImg = R.drawable.spicychile;
+    private Integer difficultyImage = R.drawable.spicychile;
 
 
 
@@ -33,9 +33,9 @@ public class SingleChord implements MusicItem, Parcelable {
         popularChord = in.readByte() != 0;
         barChord = in.readByte() != 0;
         if (in.readByte() == 0) {
-            testImg = null;
+            difficultyImage = null;
         } else {
-            testImg = in.readInt();
+            difficultyImage = in.readInt();
         }
     }
 
@@ -52,11 +52,11 @@ public class SingleChord implements MusicItem, Parcelable {
     };
 
     public Integer getTestImageID(){
-        return testImg;
+        return difficultyImage;
     }
 
     public void setTestImageID(Integer spicychile) {
-        testImg = spicychile;
+        difficultyImage = spicychile;
     }
 
 
@@ -126,11 +126,11 @@ public class SingleChord implements MusicItem, Parcelable {
         dest.writeByte((byte) (openChord ? 1 : 0));
         dest.writeByte((byte) (popularChord ? 1 : 0));
         dest.writeByte((byte) (barChord ? 1 : 0));
-        if (testImg == null) {
+        if (difficultyImage == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeInt(testImg);
+            dest.writeInt(difficultyImage);
         }
     }
 }

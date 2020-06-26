@@ -11,29 +11,42 @@ import java.util.TreeMap;
 
 public class DataCreation {
 
- static Gson gson;
- static ArrayList<ChordGroup> chordGroupsList = new ArrayList<>();
- static final String[] GROUP_NAMES = {"Bar","Open","Popular"};
+ private static Gson gson;
+ private static ArrayList<ChordGroup> chordGroupsList = new ArrayList<>();
+ private static ArrayList<SingleChord> singleChordsList = new ArrayList<>();
+ private static final String[] GROUP_NAMES = {"Bar","Open","Popular"};
+ private static final String jsonPath = "chord.json";
 
-    public static ArrayList<ChordGroup> getCreatedGroups(Context cntx){
+    public static ArrayList<SingleChord> getAllSingleChords(){
+        return singleChordsList;
+    }
+
+    public static ArrayList<SingleChord> getSingleChords(Context context){
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
+        gson = new Gson();
+        singleChordsList = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
+        return singleChordsList;
+    }
+
+
+    public static ArrayList<ChordGroup> getCreatedGroups(ArrayList<SingleChord> singleChords){
         //cheap hack, points to refactoring data loading upon app opening
         //makes sure static array does not grow infinitely when fragment is called
         chordGroupsList.clear();
-        ArrayList<SingleChord> allChords = getAllChords(cntx);
+        ////
         Map<DifficultyLevel,ChordGroup> difficultyChordGroups = getDifficultyChordGroups();
         Map<String,ChordGroup> otherGroupings = createOtherChordGroups(GROUP_NAMES);
-        FillChordGroups(difficultyChordGroups,otherGroupings,allChords);
+        FillChordGroups(difficultyChordGroups,otherGroupings,singleChords);
         setAndCombineMusicItems(difficultyChordGroups,otherGroupings);
         return chordGroupsList;
     }
 
-    private static ArrayList<SingleChord> getAllChords(Context context){
-        String jsonPath = "chord.json";
-        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
-        gson = new Gson();
-        ArrayList<SingleChord> singleChords = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
-        return singleChords;
-    }
+//    private static ArrayList<SingleChord> getAllChords(Context context){
+//        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
+//        gson = new Gson();
+//        singleChordsList = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
+//        return singleChordsList;
+//    }
 
     private static Map<DifficultyLevel,ChordGroup> getDifficultyChordGroups(){
         //uses name value of enum to set chordGroup name and at the same time sets the enum field

@@ -86,6 +86,7 @@ public class ChordGroupDetailsFrag extends Fragment {
     public void retrievePassedFragmentData(){
         if(getArguments()!=null){
             ChordGroupDetailsFragArgs args = ChordGroupDetailsFragArgs.fromBundle(getArguments());
+//            String templateCode = ChordGroupDetailsFragArgs.fromBundle(getArguments());
             chordGroups = new ArrayList<>(Arrays.asList(args.getChordGroupObjs()));
         }
     }

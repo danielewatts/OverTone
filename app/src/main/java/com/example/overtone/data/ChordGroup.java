@@ -14,7 +14,7 @@ public class ChordGroup implements MusicItem, Parcelable {
      private DifficultyLevel chrdGroupDiffLvl;
      private ArrayList<SingleChord> chordList;
      private Integer imageId;
-     private Integer testImageID = R.drawable.spicychile;
+     private Integer grpDiffImge = R.drawable.spicychile;
 
     public ChordGroup(String chordGroupName, String chordGroupDescript, DifficultyLevel chrdGroupDiffLvl, ArrayList<SingleChord> chordList){
         setChordGroupName(chordGroupName);
@@ -37,9 +37,9 @@ public class ChordGroup implements MusicItem, Parcelable {
             imageId = in.readInt();
         }
         if (in.readByte() == 0) {
-            testImageID = null;
+            grpDiffImge = null;
         } else {
-            testImageID = in.readInt();
+            grpDiffImge = in.readInt();
         }
     }
 
@@ -112,9 +112,6 @@ public class ChordGroup implements MusicItem, Parcelable {
 
     }
 
-
-
-
     @Override
     public String toString() {
         return "ChordGroup{" +
@@ -155,11 +152,11 @@ public class ChordGroup implements MusicItem, Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(imageId);
         }
-        if (testImageID == null) {
+        if (grpDiffImge == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeInt(testImageID);
+            dest.writeInt(grpDiffImge);
         }
     }
 }
