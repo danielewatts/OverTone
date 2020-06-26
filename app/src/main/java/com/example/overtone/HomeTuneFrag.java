@@ -77,10 +77,11 @@ public class HomeTuneFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments()!=null){
-            HomeTuneFragArgs args = HomeTuneFragArgs.fromBundle(requireArguments());
+            HomeTuneFragArgs args = HomeTuneFragArgs.fromBundle(getArguments());
             String m = args.getMessage();
             TextView txtV = view.findViewById(R.id.homeTuneTxt);
             txtV.setText(m);
+
 
         }
 
