@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.overtone.data.ChordGroup;
-import com.example.overtone.data.DataCreation;
 import com.example.overtone.recyclerview.ChordLibRecyclerViewAdapter;
 import com.example.overtone.recyclerview.RecyclerViewClickListener;
 
@@ -30,7 +29,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     /**Custom input recyclerView class*/
     private RecyclerView recyclerView;
     private ArrayList<ChordGroup> chordGroups;
-    private static final int SPACE_TYPE_TAG = 1;
+    private final int SPACE_ORIENTATION_TAG = 1;
     //space type can either be 1 for vertical spacing or 0 for horizontal spacing//
     private NavController navController;
 
@@ -48,50 +47,49 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.chord_recycler_view);
+        defineRecyclerView(view);
+        /** need to fix chordGroups getting remade with duplicates everytime fragment is loaded up
+         * aka a bottomNav Fragment state saving problem
+         * */
+        setChordGroups();
+        setVerticalItemSpace(SPACE_ORIENTATION_TAG);
+        setDatatoRecycler();
+    }
+
+    public void defineRecyclerView(View v){
+        recyclerView = v.findViewById(R.id.chord_recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setFocusable(false);
-        /** need to fix chordGroups getting remade with duplicates everytime fragment is loaded up */
-//        this.chordGroups = DataCreation.getCreatedGroups(getContext());
-        setVerticalItemSpace(SPACE_TYPE_TAG);
-        setDatatoRecycler();
     }
 
     public void setDatatoRecycler(){
         ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordGroups,this);
-        recyclerView.setAdapter(cvLibRecyclerAdapter);
+        this.recyclerView.setAdapter(cvLibRecyclerAdapter);
 //        DividerItemDecoration
     }
     public void setVerticalItemSpace(int spacing){
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), spacing);
-        recyclerView.addItemDecoration(itemDecor);
+        this.recyclerView.addItemDecoration(itemDecor);
     }
-
+    public void setChordGroups(){
+        this.chordGroups = MainActivity.getAllChordGroups();
+    }
 
 
     @Override
     public void onRcViewClick(int position) {
-        Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show();
-        navController = Navigation.findNavController(recyclerView);
-        //passing objects to the view through nav controller and creating an "action"
+        Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show(); ///debugging toast, remove for final production
+        this.navController = Navigation.findNavController(this.recyclerView);
+        ChordGroup clickedOnCg = this.chordGroups.get(position);
+        // acquired chordGroup card that has been clicked on, now send it using safeArgs
         ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.
-                actionChordLibraryFragToFragmentGroupDetails(listToArray(this.chordGroups));
-//        Bundle args = ChordGroupDetailsFragArgs.Builder("ttt")
-        navController.navigate(action);
+                actionChordLibraryFragToFragmentGroupDetails(clickedOnCg);
+        //sending safeArgs data with navController to next fragment
+        //add transition here ?
+        this.navController.navigate(action);
     }
 
-
-    public ChordGroup[] listToArray(ArrayList<ChordGroup> list){
-        /**needs major refactoring to avoid all these type shannigans*/
-        ChordGroup[] vals = new ChordGroup[list.size()];
-        int index = 0;
-        for (ChordGroup cg: list) {
-                vals[index] = cg;
-            index++;
-        }
-        return vals;
-    }
 
 }

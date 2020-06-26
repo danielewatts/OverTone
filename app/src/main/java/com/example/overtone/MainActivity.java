@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
 //        initializeBottomNavigationBar();
         navRevised();
 
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 //        navController.setGraph(R.navigation.bot_nav_graph,);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
+    }
+    public static ArrayList<ChordGroup> getAllChordGroups(){
+        return chordGroupsList;
     }
 
 

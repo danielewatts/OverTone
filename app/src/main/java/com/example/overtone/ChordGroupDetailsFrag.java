@@ -17,11 +17,6 @@ import com.example.overtone.data.MusicItem;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChordGroupDetailsFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChordGroupDetailsFrag extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +25,7 @@ public class ChordGroupDetailsFrag extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private ArrayList<ChordGroup> chordGroups;
+    private ChordGroup sentChordGroup;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -37,24 +33,6 @@ public class ChordGroupDetailsFrag extends Fragment {
 
     public ChordGroupDetailsFrag() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragmentGroupDetails.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChordGroupDetailsFrag newInstance(String param1, String param2) {
-        ChordGroupDetailsFrag fragment = new ChordGroupDetailsFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -78,7 +56,7 @@ public class ChordGroupDetailsFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         retrievePassedFragmentData();
         TextView tView = view.findViewById(R.id.centerTextWords);
-        tView.setText(chordGroups.get(0).getGroupMakeUp());
+        tView.setText(sentChordGroup.getDescription() + ", " + sentChordGroup.getGroupMakeUp());
 
 
     }
@@ -86,8 +64,8 @@ public class ChordGroupDetailsFrag extends Fragment {
     public void retrievePassedFragmentData(){
         if(getArguments()!=null){
             ChordGroupDetailsFragArgs args = ChordGroupDetailsFragArgs.fromBundle(getArguments());
-//            String templateCode = ChordGroupDetailsFragArgs.fromBundle(getArguments());
-            chordGroups = new ArrayList<>(Arrays.asList(args.getChordGroupObjs()));
+            //receiving chord group data object that was clicked on
+              this.sentChordGroup = args.getChordGroupClickedOn();
         }
     }
 

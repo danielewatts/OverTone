@@ -48,9 +48,14 @@
         android:name="com.example.overtone.ChordGroupDetailsFrag"
         android:label="fragment_group_details"
         tools:layout="@layout/fragment_group_details" >
+
         <argument
-            android:name="ChordGroupObjs"
-            app:argType="com.example.overtone.data.ChordGroup[]"
+            android:name="ChordGroupClickedOn"
+            app:argType="com.example.overtone.data.ChordGroup"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_fragmentGroupDetails_to_chordLibraryFrag2"
+            app:destination="@id/chordLibraryFrag"
+            />
     </fragment>
 </navigation>
