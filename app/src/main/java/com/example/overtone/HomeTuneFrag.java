@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -75,6 +76,14 @@ public class HomeTuneFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(getArguments()!=null){
+            HomeTuneFragArgs args = HomeTuneFragArgs.fromBundle(getArguments());
+            String m = args.getMessage();
+            TextView txtV = view.findViewById(R.id.homeTuneTxt);
+            txtV.setText(m);
+
+        }
+
 
     }
 

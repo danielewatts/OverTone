@@ -19,6 +19,10 @@
         <action
             android:id="@+id/action_homeTuneFrag_to_chordLibraryFrag"
             app:destination="@id/chordLibraryFrag" />
+        <argument
+            android:name="message"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/chordLibraryFrag"

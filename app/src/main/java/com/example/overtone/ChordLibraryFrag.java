@@ -76,7 +76,9 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show();
         navController = Navigation.findNavController(recyclerView);
         //passing objects to the view through nav controller and creating an "action"
-        ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.actionChordLibraryFragToFragmentGroupDetails(listToArray(this.chordGroups));
+        ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.
+                actionChordLibraryFragToFragmentGroupDetails(listToArray(this.chordGroups));
+//        Bundle args = ChordGroupDetailsFragArgs.Builder("ttt")
         navController.navigate(action);
     }
 
