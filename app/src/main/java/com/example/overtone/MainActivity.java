@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initializeBottomNavigationBar();
-//        navRevised();
+//        initializeBottomNavigationBar();
+        navRevised();
 
     }
 
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("MESSAGE_KEY","PRAY THIS WORKS");
         navController.setGraph(R.navigation.bot_nav_graph,bundle);
-
 //        args.put
 //        navController.setGraph(R.navigation.bot_nav_graph,);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
