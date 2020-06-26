@@ -47,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavController navController = findNavController(this, R.id.nav_host_fragment);
         Bundle bundle = new Bundle();
-        bundle.putString("MESSAGE_KEY","PRAY THIS WORKS");
+        /** the key that gets put in the bundle needs 2 be the same as the args name in
+         * navigation
+         */
+        String key = getString(R.string.initalBundleKey);
+        bundle.putString(key,"PRAY THIS WORKS");
         navController.setGraph(R.navigation.bot_nav_graph,bundle);
 //        args.put
 //        navController.setGraph(R.navigation.bot_nav_graph,);

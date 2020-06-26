@@ -3,7 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- string resources for  -->
-    <string name="Chord_Lib">Chord Lib</string>
+    <string name="Chord_Lib">Chord Library</string>
     <string name="Practice">Practice</string>
     <string name="Tune">Tune</string>
+    <string name = "initalBundleKey">message</string>
 </resources>
