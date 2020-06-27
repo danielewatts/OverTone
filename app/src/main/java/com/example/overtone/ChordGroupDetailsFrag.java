@@ -55,8 +55,8 @@ public class ChordGroupDetailsFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         retrievePassedFragmentData();
-        TextView tView = view.findViewById(R.id.centerTextWords);
-        tView.setText(sentChordGroup.getDescription() + ", " + sentChordGroup.getGroupMakeUp());
+//        TextView tView = view.findViewById(R.id.centerTextWords);
+//        tView.setText(sentChordGroup.getDescription() + ", " + sentChordGroup.getGroupMakeUp());
 
 
     }
