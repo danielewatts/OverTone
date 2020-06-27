@@ -31,10 +31,8 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Integer currentImage = chordDiagramIds.get(position);
-//        holder.c
-//        holder.itemView.
-
+        Integer currentImageID = chordDiagramIds.get(position);
+        holder.chordDiagr.setImageResource(currentImageID);
     }
 
 
@@ -47,11 +45,13 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
         //creates a container/holder to hold the view that needs be attached to the recycler view
         /**Look at res file and compare to objects so all info can be displayed as needed*/
+        ImageView chordDiagr;
 
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.chordDiagr= itemView.findViewById(R.id.chordDiagramPic);
 
         }
 
