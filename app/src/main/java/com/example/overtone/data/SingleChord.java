@@ -7,9 +7,9 @@ import android.os.Parcelable;
 
 import com.example.overtone.R;
 
-public class SingleChord implements MusicItem, Parcelable {
+public class SingleChord implements MusicItem,Parcelable {
     private String chordName ;
-    private Image chordDiagram;
+    private Integer chordDiagram;
     private boolean openChord;
     private boolean popularChord;
     private boolean barChord;
@@ -68,9 +68,6 @@ public class SingleChord implements MusicItem, Parcelable {
         return chordName;
     }
 
-    public Image getChordDiagram() {
-        return chordDiagram;
-    }
 
     public boolean isBarChord() {
         return barChord;
@@ -115,6 +112,7 @@ public class SingleChord implements MusicItem, Parcelable {
         return getTestImageID();
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -123,6 +121,12 @@ public class SingleChord implements MusicItem, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(chordName);
+        if (chordDiagram == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(chordDiagram);
+        }
         dest.writeByte((byte) (openChord ? 1 : 0));
         dest.writeByte((byte) (popularChord ? 1 : 0));
         dest.writeByte((byte) (barChord ? 1 : 0));

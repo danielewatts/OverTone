@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.overtone.data.ChordGroup
+import com.example.overtone.data.DifficultyLevel
 import com.example.overtone.data.SingleChord
 import com.example.overtone.recyclerview.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -40,6 +41,13 @@ class ChordGroupDetailsFrag : Fragment() {
             //receiving chord group data object that was clicked on
             sentChordGroup = args.chordGroupClickedOn
         }
+        ////testing logic
+//        if(sentChordGroup?.chrdGroupDiffLvl == DifficultyLevel.Medium){
+//
+//
+//
+//        }
+
     }
 
     private fun setChordDiagramIds() {
