@@ -9,14 +9,12 @@ import com.example.overtone.R;
 
 public class SingleChord implements MusicItem,Parcelable {
     private String chordName ;
-    private Integer chordDiagram;
     private boolean openChord;
     private boolean popularChord;
     private boolean barChord;
     private DifficultyLevel diffLevel;
-    private Integer difficultyImage = R.drawable.spicychile;
-
-
+    ///chordDiagramProperty will be set after construction of obj
+    private Integer chordDiagram;
 
     public SingleChord(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
         this.chordName = chordName;
@@ -24,7 +22,6 @@ public class SingleChord implements MusicItem,Parcelable {
         this.openChord = openCh;
         this.popularChord = popCh;
         this.diffLevel = difficultyLevel;
-        setTestImageID(R.drawable.spicychile);
     }
 
     protected SingleChord(Parcel in) {
@@ -33,9 +30,9 @@ public class SingleChord implements MusicItem,Parcelable {
         popularChord = in.readByte() != 0;
         barChord = in.readByte() != 0;
         if (in.readByte() == 0) {
-            difficultyImage = null;
+            chordDiagram = null;
         } else {
-            difficultyImage = in.readInt();
+            chordDiagram = in.readInt();
         }
     }
 
@@ -51,38 +48,33 @@ public class SingleChord implements MusicItem,Parcelable {
         }
     };
 
-    public Integer getTestImageID(){
-        return difficultyImage;
+    public Integer getChordDiagram() {
+        return this.chordDiagram;
     }
 
-    public void setTestImageID(Integer spicychile) {
-        difficultyImage = spicychile;
-    }
-
-
-    public String getChordName(String chordName){
-        return this.chordName;
+    public void setChordDiagram(Integer chordDiagramId) {
+        this.chordDiagram = chordDiagramId;
     }
 
     public String getChordName() {
-        return chordName;
+        return this.chordName;
     }
 
 
     public boolean isBarChord() {
-        return barChord;
+        return this.barChord;
     }
 
     public boolean isOpenChord() {
-        return openChord;
+        return this.openChord;
     }
 
     public boolean isPopularChord() {
-        return popularChord;
+        return this.popularChord;
     }
 
     public DifficultyLevel getDiffLevel() {
-        return diffLevel;
+        return this.diffLevel;
     }
 
     @Override
@@ -109,7 +101,7 @@ public class SingleChord implements MusicItem,Parcelable {
 
     @Override
     public int getImageID() {
-        return getTestImageID();
+        return getChordDiagram();
     }
 
 
@@ -121,20 +113,14 @@ public class SingleChord implements MusicItem,Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(chordName);
+        dest.writeByte((byte) (openChord ? 1 : 0));
+        dest.writeByte((byte) (popularChord ? 1 : 0));
+        dest.writeByte((byte) (barChord ? 1 : 0));
         if (chordDiagram == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(chordDiagram);
-        }
-        dest.writeByte((byte) (openChord ? 1 : 0));
-        dest.writeByte((byte) (popularChord ? 1 : 0));
-        dest.writeByte((byte) (barChord ? 1 : 0));
-        if (difficultyImage == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(difficultyImage);
         }
     }
 }

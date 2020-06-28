@@ -67,8 +67,8 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
     public void setDatatoRecycler(){
         ChordLibRecyclerViewAdapter cvLibRecyclerAdapter = new ChordLibRecyclerViewAdapter(this.chordGroups,this);
         this.recyclerView.setAdapter(cvLibRecyclerAdapter);
-//        DividerItemDecoration
     }
+
     public void setVerticalItemSpace(int spacing){
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), spacing);
         this.recyclerView.addItemDecoration(itemDecor);
