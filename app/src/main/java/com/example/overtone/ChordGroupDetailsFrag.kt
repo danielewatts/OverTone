@@ -52,8 +52,6 @@ class ChordGroupDetailsFrag : Fragment() {
     private fun setUpViewPagerAdapter(chordDiagramIds:MutableList<Int>) {
         adapter = ViewPagerAdapter(chordDiagramIds)
         viewPager.adapter = adapter
-
-
     }
 
     private fun setUpTabLayout(){
