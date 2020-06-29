@@ -1,16 +1,13 @@
 package com.example.overtone;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.NavigationUI;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import com.example.overtone.data.ChordGroup;
 import com.example.overtone.data.DataCreation;
 import com.example.overtone.data.SingleChord;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import static androidx.navigation.Navigation.findNavController;
 
@@ -30,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeBotNavBar();
         ////testing to see if drawable IDs can be grabbed, so json file can be set
+        testLoadEminor();
 
     }
 
@@ -55,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
     }
     public static ArrayList<ChordGroup> getAllChordGroups(){
         return chordGroupsList;
+    }
+
+    public void testLoadEminor(){
+        for (SingleChord sc: singleChordList) {
+            if (sc.getChordName().equals("Em")){
+                sc.setChordDiagram(R.drawable.eminorchord);
+            }
+        }
     }
 
 

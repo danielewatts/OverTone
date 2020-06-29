@@ -1,11 +1,8 @@
 package com.example.overtone.data;
-
 import android.content.Context;
-
 import com.example.overtone.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,10 +14,6 @@ public class DataCreation {
  private static ArrayList<SingleChord> singleChordsList = new ArrayList<>();
  private static final String[] GROUP_NAMES = {"Bar","Open","Popular"};
  private static final String jsonPath = "chord.json";
-
-    public static ArrayList<SingleChord> getAllSingleChords(){
-        return singleChordsList;
-    }
 
     public static ArrayList<SingleChord> getSingleChords(Context context){
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
