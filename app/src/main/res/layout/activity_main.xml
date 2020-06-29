@@ -8,7 +8,6 @@
     android:id="@+id/mainConstraintLayout">
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:itemIconSize="30dp"
         android:elevation="10dp"
         app:backgroundTint="@color/design_default_color_background"
-
         />
 
 

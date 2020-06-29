@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import static androidx.navigation.Navigation.findNavController;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MyActivity";
+    private static final String TAG = " inside MainActivity";
     private static ArrayList<ChordGroup> chordGroupsList;
     private static ArrayList<SingleChord> singleChordList;
 
@@ -30,16 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeBotNavBar();
         ////testing to see if drawable IDs can be grabbed, so json file can be set
-        Field[] drawablesFields = com.example.overtone.R.drawable.class.getFields();
-        ArrayList<Drawable> drawables = new ArrayList<>();
-        for (Field field : drawablesFields) {
-            try {
-                Log.i("LOG_TAG", "com.your.project.R.drawable." + field.getName());
-                drawables.add(getResources().getDrawable(field.getInt(null)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 

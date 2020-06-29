@@ -98,6 +98,7 @@ public class ChordGroup implements MusicItem, Parcelable {
 
     public void setImageId() {
 //        this.imageId = resFileTag;
+        /** Needs to be refactored with correct drawable images */
         switch(chrdGroupDiffLvl){
             case Easy:
                 this.imageId = R.drawable.guitars;

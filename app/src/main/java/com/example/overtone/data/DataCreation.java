@@ -42,13 +42,6 @@ public class DataCreation {
         return chordGroupsList;
     }
 
-//    private static ArrayList<SingleChord> getAllChords(Context context){
-//        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
-//        gson = new Gson();
-//        singleChordsList = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
-//        return singleChordsList;
-//    }
-
     private static Map<DifficultyLevel,ChordGroup> getDifficultyChordGroups(){
         //uses name value of enum to set chordGroup name and at the same time sets the enum field
         Map<DifficultyLevel,ChordGroup> difficChordGroups = new TreeMap<>();
