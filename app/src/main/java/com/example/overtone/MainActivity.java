@@ -21,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
         //code needs to go in here
         singleChordList = DataCreation.getSingleChords(getApplicationContext());
         chordGroupsList = DataCreation.getCreatedGroups(singleChordList);
+        testLoadEminor();
         ///data is created
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeBotNavBar();
         ////testing to see if drawable IDs can be grabbed, so json file can be set
-        testLoadEminor();
 
     }
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public void testLoadEminor(){
         for (SingleChord sc: singleChordList) {
             if (sc.getChordName().equals("Em")){
-                sc.setChordDiagram(R.drawable.eminorchord);
+                sc.setChordDiagram(R.drawable.emchord);
             }
         }
     }
