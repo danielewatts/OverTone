@@ -4,6 +4,7 @@ import com.example.overtone.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +20,34 @@ public class DataCreation {
         String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
         gson = new Gson();
         singleChordsList = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
+        attachChordDiagrams(singleChordsList);
         return singleChordsList;
+    }
+
+    private static void attachChordDiagrams(ArrayList<SingleChord> singleChordsList) {
+        ArrayList<Integer> chordDiagramIds = new ArrayList<>();
+        //figure out how to automate this, not hard code this code block in
+        chordDiagramIds.add(R.drawable.cmajchorddiagram);
+        chordDiagramIds.add(R.drawable.amajor);
+        chordDiagramIds.add(R.drawable.asevenmajr);
+        chordDiagramIds.add(R.drawable.aminor);
+        chordDiagramIds.add(R.drawable.bflat);
+        chordDiagramIds.add(R.drawable.emajor);
+        chordDiagramIds.add(R.drawable.dminor);
+        chordDiagramIds.add(R.drawable.gchord);
+        chordDiagramIds.add(R.drawable.amj7);
+        chordDiagramIds.add(R.drawable.emchord);
+        chordDiagramIds.add(R.drawable.dmajor);
+        chordDiagramIds.add(R.drawable.fchord);
+        chordDiagramIds.add(R.drawable.fsharp);
+        chordDiagramIds.add(R.drawable.dsharp);
+        chordDiagramIds.add(R.drawable.csharp);
+
+        int index = 0;
+        for (SingleChord sg: singleChordsList ) {
+            sg.setChordDiagram(chordDiagramIds.get(index));
+            index++;
+        }
     }
 
 

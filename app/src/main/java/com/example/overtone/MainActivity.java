@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         //code needs to go in here
         singleChordList = DataCreation.getSingleChords(getApplicationContext());
         chordGroupsList = DataCreation.getCreatedGroups(singleChordList);
-        testLoadEminor();
+//        testLoadEminor();
         ///data is created
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
         return chordGroupsList;
     }
 
-    public void testLoadEminor(){
-        for (SingleChord sc: singleChordList) {
-            if (sc.getChordName().equals("Em")){
-                sc.setChordDiagram(R.drawable.emchord);
-            }
-        }
-    }
+//    public void testLoadEminor(){
+//        for (SingleChord sc: singleChordList) {
+//            if (sc.getChordName().equals("Em")){
+//                sc.setChordDiagram(R.drawable.emchord);
+//            }
+//        }
+//    }
 
 
 
