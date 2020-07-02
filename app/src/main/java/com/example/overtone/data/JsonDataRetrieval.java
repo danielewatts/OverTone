@@ -1,33 +1,12 @@
+/* utility Class with the purpose of retrieving a json string from a given json file*/
 package com.example.overtone.data;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetManager;
-
-import com.google.gson.Gson;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class JsonDataRetrieval {
 
-    static Gson gson;
-//    public static String readFileIntoString(String path) throws FileNotFoundException {
-//        String fileInString = new Scanner(new File(path)).useDelimiter("\\Z").next();
-//        return fileInString;
-//    }
-//
-//    public static String getJsonString(String filePath) throws FileNotFoundException {
-//        String jsonString = readFileIntoString(filePath);
-//        return jsonString;
-//    }
-
+    private static final String ENCODING = "UTF-8";
     /** this works apparently for returning the json string**/
     public static String loadJSONFromAsset(Context context,String filePath) {
         String json = null;
@@ -37,14 +16,12 @@ public class JsonDataRetrieval {
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-            json = new String(buffer, "UTF-8");
+            json = new String(buffer, ENCODING);
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
         return json;
     }
-
-
 
 }

@@ -13,7 +13,7 @@ public class SingleChord implements MusicItem,Parcelable {
     private boolean popularChord;
     private boolean barChord;
     private DifficultyLevel diffLevel;
-    ///chordDiagramProperty will be set after construction of obj
+    ///chordDiagram Property will be set after construction of obj
     private Integer chordDiagram;
 
     public SingleChord(String chordName, boolean bar, boolean openCh, boolean popCh, DifficultyLevel difficultyLevel){
