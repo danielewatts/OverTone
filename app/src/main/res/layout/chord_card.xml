@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="15dp"
     app:cardCornerRadius="0dp"
@@ -13,21 +13,24 @@
     android:clickable="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/constraintLayout">
 
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgTeaser"
-                android:layout_width="143dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:adjustViewBounds="true"
                 android:layout_marginRight="100dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/spicychile"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.98"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/easydif"
                 />
 
         <com.google.android.material.textview.MaterialTextView
@@ -36,13 +39,14 @@
             android:layout_height="wrap_content"
             android:text="Chord Classification"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_goneMarginLeft="10dp"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/imgTeaser"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.10"
+            app:layout_constraintVertical_bias="0.3"
             android:textSize="24dp"
-            android:textColor="@color/design_default_color_surface"
+            android:textColor="@color/primaryTextColor"
             android:layout_marginLeft="5dp"
             >
 
@@ -55,16 +59,14 @@
             android:layout_height="wrap_content"
             android:text="Chords"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/imgTeaser"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintRight_toRightOf="parent"
             android:textSize="18dp"
+            app:layout_constraintVertical_bias="0.9"
             android:textColor="@color/design_default_color_surface"
-            android:layout_marginLeft="5dp"
-
-
+            android:layout_marginLeft="10dp"
             >
 
         </com.google.android.material.textview.MaterialTextView>

@@ -101,13 +101,13 @@ public class ChordGroup implements MusicItem, Parcelable {
         /** Needs to be refactored with correct drawable images */
         switch(chrdGroupDiffLvl){
             case Easy:
-                this.imageId = R.drawable.guitars;
+                this.imageId = R.drawable.easydif;
                 break;
             case Medium:
-                this.imageId = R.drawable.spicychile;
+                this.imageId = R.drawable.mediumdif;
                 break;
             case Hard:
-                this.imageId = R.drawable.chilepep;
+                this.imageId = R.drawable.harddif;
                 break;
         }
 
