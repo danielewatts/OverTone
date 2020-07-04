@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PracticeModeFrag">
 
-
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/OpenChordDialogBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
