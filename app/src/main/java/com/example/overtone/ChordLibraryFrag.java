@@ -80,7 +80,6 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
 
     @Override
     public void onRcViewClick(int position) {
-        Toast.makeText(getContext(),"I've been clicked", Toast.LENGTH_SHORT).show(); ///debugging toast, remove for final production
         this.navController = Navigation.findNavController(this.recyclerView);
         ChordGroup clickedOnCg = this.chordGroups.get(position);
         // acquired chordGroup card that has been clicked on, now send it using safeArgs
