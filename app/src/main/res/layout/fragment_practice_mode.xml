@@ -7,7 +7,7 @@
     tools:context=".PracticeModeFrag">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/OpenChordDialogBtn"
+        android:id="@+id/openChordDialogBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,6 @@
         android:clickable="true"
         />
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/chordsInRotation"
         android:layout_width="match_parent"
@@ -32,7 +31,6 @@
         app:layout_constraintVertical_bias="0.3"
         android:gravity="center"
         android:text="List of chords in rotation"/>
-
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bpmDisplay"
@@ -44,6 +42,5 @@
         android:text="BPM :"
         android:gravity="center"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
