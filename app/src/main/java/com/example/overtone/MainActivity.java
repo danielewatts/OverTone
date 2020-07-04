@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ChordGroup> getAllChordGroups(){
         return chordGroupsList;
     }
+    public static ArrayList<SingleChord> getAllSingleChords(){
+        return singleChordList;
+    }
 
 //    public void testLoadEminor(){
 //        for (SingleChord sc: singleChordList) {
