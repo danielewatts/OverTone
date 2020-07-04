@@ -57,6 +57,37 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <github.hellocsl.cursorwheel.CursorWheelLayout
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:id="@+id/wheel_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias=".88"
+        app:wheelCursorColor="@color/primary_text_light"
+        app:wheelCursorHeight="19dp"
+        app:wheelItemRotateMode="none"
+        app:wheelSelectedAngle="270">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/id_wheel_menu_center_item"
+            android:text="Text Wheel"
+            android:textColor="@color/primary_text_light"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Large.Inverse"/>
+
+
+
+
+    </github.hellocsl.cursorwheel.CursorWheelLayout>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

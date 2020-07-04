@@ -13,14 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.overtone.data.MenuItemData;
 import com.example.overtone.data.SingleChord;
+import com.example.overtone.wheeladapters.WheelTextAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PracticeModeFrag extends Fragment implements View.OnClickListener{
+import github.hellocsl.cursorwheel.CursorWheelLayout;
 
-
+public class PracticeModeFrag extends Fragment implements View.OnClickListener, CursorWheelLayout.OnMenuSelectedListener {
     private Button dialogOpener;
     private String[] listItems;
     private boolean[] checkedItems;
@@ -28,6 +32,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener{
     private TextView bpmStringRep;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
+    CursorWheelLayout wheel_text ;
+    List<MenuItemData> firstTxt;
 
 
     @Override
@@ -40,6 +46,11 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initViews(view);
+        loadWheelData(view);
+        wheel_text.setOnMenuSelectedListener(this);
+
+
         setBtns(view);
         setTextViews(view);
         setListItems();
@@ -135,6 +146,39 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener{
     }
 
 
+    public void setUpWheel(){
+
+    }
+
+    private void initViews(View view){
+        wheel_text = view.findViewById(R.id.wheel_text);
 
 
+    }
+
+    public void loadWheelData(View view){
+        firstTxt = new ArrayList<>();
+
+        ///this sets the numbers on the spinning wheel to be displayed
+        for(int i = 1; i<2; i++){
+            firstTxt.add(new MenuItemData("" +i));
+//            firstTxt.add(new MenuItemData("OFF"));
+            WheelTextAdapter adapter = new WheelTextAdapter(getContext(),firstTxt);
+            wheel_text.setAdapter(adapter);
+
+
+        }
+
+    }
+
+
+    @Override
+    public void onItemSelected(CursorWheelLayout parent, View view, int pos) {
+        if(parent.getId()== R.id.wheel_text){
+            Toast.makeText(getContext(),"Selected: " + firstTxt.get(pos),Toast.LENGTH_LONG).show();
+        }
+
+
+
+    }
 }
