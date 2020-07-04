@@ -162,7 +162,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
         int incriments = 9;
 
         ///this sets the numbers on the spinning wheel to be displayed
-        for(int i = 1; i<=9; i++){
+        for(int i = 1; i<=incriments; i++){
             firstTxt.add(new MenuItemData("|"));
 //            firstTxt.add(new MenuItemData("OFF"));
             WheelTextAdapter adapter = new WheelTextAdapter(getContext(),firstTxt);
@@ -178,10 +178,17 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
     public void onItemSelected(CursorWheelLayout parent, View view, int pos) {
 
         if(wheelCount!=0 && parent.getId() == R.id.wheel_text){
-                Toast.makeText(getContext(),"position"+pos ,Toast.LENGTH_SHORT).show();
+            int[] locationCords = new int[2];
+             view.getLocationOnScreen(locationCords);
+             int x = locationCords[0];
+             int y = locationCords[1];
+             ///does not change since only grabs position of view in the selected position
+            Toast.makeText(getContext(),"coordinates" + x +"," + y ,Toast.LENGTH_SHORT).show();
         }
         chordsSelected.setText(""+wheelCount);
         wheelCount++;
+
+
 
     }
 }
