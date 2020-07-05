@@ -10,6 +10,7 @@ import com.example.overtone.data.ChordGroup
 import com.example.overtone.data.DifficultyLevel
 import com.example.overtone.data.SingleChord
 import com.example.overtone.recyclerview.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 /**notice the fragment import to have access to view components*/
 import kotlinx.android.synthetic.main.fragment_group_details.*
@@ -41,13 +42,6 @@ class ChordGroupDetailsFrag : Fragment() {
             //receiving chord group data object that was clicked on
             sentChordGroup = args.chordGroupClickedOn
         }
-        ////testing logic
-//        if(sentChordGroup?.chrdGroupDiffLvl == DifficultyLevel.Medium){
-//
-//
-//
-//        }
-
     }
 
     private fun setChordDiagramIds() {
@@ -63,6 +57,10 @@ class ChordGroupDetailsFrag : Fragment() {
     }
 
     private fun setUpTabLayout(){
+        //keeping material principles, let view be scrollable if there are 5+ components
+        if(chordDiagramIds.size<5){
+            tabLayout.tabMode = TabLayout.MODE_FIXED
+        }
         var titles = namesIds.keys.toList()
         TabLayoutMediator(tabLayout,viewPager){tab, position ->
 //            tab.text = "Tab ${position+1}"
