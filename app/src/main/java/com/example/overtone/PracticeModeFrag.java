@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,7 +25,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private String[] listItems;
     private boolean[] checkedItems;
     private TextView chordsSelected;
-    private TextView displayedBpm;
+    private TextView bpmUnitTag;
+    private EditText bpmRep;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
@@ -48,6 +50,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         setTextViews(view);
         setListItems();
         setUpSeekBar(view);
+        setEditTexts(view);
         chordsSelected = view.findViewById(R.id.chordsInRotation);
         checkedItems = new boolean[listItems.length];
     }
@@ -59,8 +62,13 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     }
     public void setTextViews(View view){
         chordsSelected = view.findViewById(R.id.chordsInRotation);
-        displayedBpm = view.findViewById(R.id.bpmDisplay);
-        displayedBpm.setText(STARTING_BPM_REP);
+//        displayedBpm = view.findViewById(R.id.BpmHeader);
+//        displayedBpm.setText(STARTING_BPM_REP);
+    }
+    public void setEditTexts(View view){
+        bpmRep = view.findViewById(R.id.BpmEntry);
+        bpmRep.setText(""+STARTING_BPM_VAL);
+
     }
 
     public void setListItems(){
@@ -156,7 +164,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     ///tracking change in BPM to the user
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int currentBpm = progress;
-        this.displayedBpm.setText("BPM: " + currentBpm);
+//        this.displayedBpm.setText("BPM: " + currentBpm);
     }
 
     @Override

@@ -34,7 +34,7 @@
         android:text="List of chords in rotation"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bpmDisplay"
+        android:id="@+id/BpmHeader"
         android:layout_width="59dp"
         android:layout_height="26dp"
         android:gravity="center"
@@ -50,7 +50,7 @@
         android:id="@+id/SeekBarBpm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/bpmDisplay"
+        app:layout_constraintTop_toBottomOf="@id/BpmHeader"
         android:layout_marginTop="30dp"/>
 
     
@@ -62,21 +62,19 @@
         android:id="@+id/textField"
         android:layout_width="100dp"
         android:layout_height="26dp"
-        app:layout_constraintLeft_toRightOf="@id/bpmDisplay"
-        app:layout_constraintTop_toTopOf="@id/bpmDisplay"
-        app:layout_constraintBottom_toBottomOf="@id/bpmDisplay"
-        android:hint="200"
-        app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="@color/primary_text_light"
-        app:boxStrokeColor="@color/primary_text_light"
+        app:layout_constraintLeft_toRightOf="@id/BpmHeader"
+        app:layout_constraintTop_toTopOf="@id/BpmHeader"
+        app:layout_constraintBottom_toBottomOf="@id/BpmHeader"
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/BpmEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:text="20"
             android:textColor="@color/primaryColor"
+            android:background="@color/colorAccent_Translucent"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
