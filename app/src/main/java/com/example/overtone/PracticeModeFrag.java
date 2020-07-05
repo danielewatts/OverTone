@@ -8,34 +8,30 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.overtone.data.MenuItemData;
 import com.example.overtone.data.SingleChord;
-import com.example.overtone.wheeladapters.WheelTextAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import github.hellocsl.cursorwheel.CursorWheelLayout;
-
-public class PracticeModeFrag extends Fragment implements View.OnClickListener, CursorWheelLayout.OnMenuSelectedListener{
+public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener{
     private Button dialogOpener;
     private String[] listItems;
     private boolean[] checkedItems;
     private TextView chordsSelected;
-    private TextView bpmStringRep;
+    private TextView displayedBpm;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
-    CursorWheelLayout wheel_text ;
-    List<MenuItemData> firstTxt;
-    private int wheelCount = 0;
+    private SeekBar seekBar;
+    private final int STARTING_BPM_VAL = 200;
+    private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
+    private final int MAX_BMP_VAL = 400;
+    private int currentBpm;
 
 
     @Override
@@ -48,12 +44,10 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews(view);
-        loadWheelData();
-        wheel_text.setOnMenuSelectedListener(this);
         setBtns(view);
         setTextViews(view);
         setListItems();
+        setUpSeekBar(view);
         chordsSelected = view.findViewById(R.id.chordsInRotation);
         checkedItems = new boolean[listItems.length];
     }
@@ -65,7 +59,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
     }
     public void setTextViews(View view){
         chordsSelected = view.findViewById(R.id.chordsInRotation);
-        bpmStringRep = view.findViewById(R.id.bpmDisplay);
+        displayedBpm = view.findViewById(R.id.bpmDisplay);
+        displayedBpm.setText(STARTING_BPM_REP);
     }
 
     public void setListItems(){
@@ -74,22 +69,36 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
             chordNames.add(sg.getName());
         }
         listItems = chordNames.toArray(new String[0]);
-
-
     }
 
 
+    public void setUpSeekBar(View view){
+        seekBar = view.findViewById(R.id.SeekBarBpm);
+        seekBar.setOnSeekBarChangeListener(this);
+        seekBar.setMax(MAX_BMP_VAL);
+        seekBar.setProgress(STARTING_BPM_VAL);
+        currentBpm = STARTING_BPM_VAL;
+    }
+
+
+
+
+
+
+
+
     @Override
+    //onClick listener for dialog list and operator
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.openChordDialogBtn:
-                alertDialogAction();
+                startChordDialog();
                 break;
         }
     }
 
 
-    public void alertDialogAction(){
+    public void startChordDialog(){
         AlertDialog.Builder mBuilder  = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Chords available to be selected");
         mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
@@ -143,54 +152,20 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener, 
     }
 
 
-    public void setUpWheel(){
-
+    @Override
+    ///tracking change in BPM to the user
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        int currentBpm = progress;
+        this.displayedBpm.setText("BPM: " + currentBpm);
     }
-
-    private void initViews(View view){
-        wheel_text = view.findViewById(R.id.wheel_text);
-    }
-
-    public void loadWheelData(){
-        firstTxt = new ArrayList<>();
-        int increments = 9;
-        ///this sets the numbers on the spinning wheel to be displayed
-        for(int i = 1; i<=increments; i++){
-            firstTxt.add(new MenuItemData("|"));
-            WheelTextAdapter adapter = new WheelTextAdapter(getContext(),firstTxt);
-            wheel_text.setAdapter(adapter);
-        }
-
-    }
-
 
     @Override
-    public void onItemSelected(CursorWheelLayout parent, View view, int pos) {
-
-
-        Log.d("IN ITEM SELECTED","parent id "+parent.getId());
-
-        if(wheelCount!=0 && parent.getId() == R.id.wheel_text){
-            int[] locationCords = new int[2];
-             view.getLocationOnScreen(locationCords);
-             int x = locationCords[0];
-             int y = locationCords[1];
-             ///does not change since only grabs position of view in the selected position
-            Toast.makeText(getContext(),"coordinates" + x +"," + y ,Toast.LENGTH_SHORT).show();
-        }
-        chordsSelected.setText(""+wheelCount);
-        wheelCount++;
-
-
+    public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
 
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
-
-
-
-
-
-
-
+    }
 }

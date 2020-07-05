@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3"
         android:gravity="center"
@@ -34,47 +35,53 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bpmDisplay"
+        android:layout_width="59dp"
+        android:layout_height="26dp"
+        android:gravity="center"
+        android:text="BPM :"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/SeekBarBpm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        android:text="BPM :"
-        android:gravity="center"
-        />
+        app:layout_constraintTop_toBottomOf="@id/bpmDisplay"
+        android:layout_marginTop="30dp"/>
+
+    
+    
+    
+    
+    
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/chordsInRotation"
-        android:hint="Enter a BPM">
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        app:layout_constraintLeft_toRightOf="@id/bpmDisplay"
+        app:layout_constraintTop_toTopOf="@id/bpmDisplay"
+        app:layout_constraintBottom_toBottomOf="@id/bpmDisplay"
+        android:hint="200"
+        app:boxBackgroundMode="filled"
+        app:boxBackgroundColor="@color/primary_text_light"
+        app:boxStrokeColor="@color/primary_text_light"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:text="20"
+            android:textColor="@color/primaryColor"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <github.hellocsl.cursorwheel.CursorWheelLayout
-        android:layout_width="290dp"
-        android:layout_height="290dp"
-        android:id="@+id/wheel_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias=".9"
-        app:wheelCursorColor="@color/coolBlue"
-        app:wheelCursorHeight="19dp"
-        app:wheelItemRotateMode="none"
-        app:wheelSelectedAngle="270"
-        app:wheelBackgroundColor="@color/primaryColor"
-        app:wheelFlingValue="450"
-        >
-
-    </github.hellocsl.cursorwheel.CursorWheelLayout>
+   
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startActivity"
