@@ -1,5 +1,6 @@
 package com.example.overtone;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -8,17 +9,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.overtone.data.SingleChord;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener{
     private Button dialogOpener;
@@ -26,7 +33,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private boolean[] checkedItems;
     private TextView chordsSelected;
     private TextView bpmUnitTag;
-    private EditText bpmRep;
+    private TextInputLayout bpmRep;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
@@ -48,9 +55,9 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         super.onViewCreated(view, savedInstanceState);
         setBtns(view);
         setTextViews(view);
+        setEditTextsLayout(view);
         setListItems();
         setUpSeekBar(view);
-        setEditTexts(view);
         chordsSelected = view.findViewById(R.id.chordsInRotation);
         checkedItems = new boolean[listItems.length];
     }
@@ -62,14 +69,12 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     }
     public void setTextViews(View view){
         chordsSelected = view.findViewById(R.id.chordsInRotation);
-//        displayedBpm = view.findViewById(R.id.BpmHeader);
-//        displayedBpm.setText(STARTING_BPM_REP);
     }
-    public void setEditTexts(View view){
-        bpmRep = view.findViewById(R.id.BpmEntry);
-        bpmRep.setText(""+STARTING_BPM_VAL);
+    public void setEditTextsLayout(View v){
+        bpmRep = v.findViewById(R.id.TextInputLayout);
 
     }
+
 
     public void setListItems(){
         ArrayList<String> chordNames = new ArrayList<>();

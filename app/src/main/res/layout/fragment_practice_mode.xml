@@ -38,7 +38,7 @@
         android:layout_width="59dp"
         android:layout_height="26dp"
         android:gravity="center"
-        android:text="BPM :"
+        android:text="    BPM :"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.392"
@@ -55,31 +55,30 @@
 
     
     
-    
-    
-    
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        android:layout_width="100dp"
-        android:layout_height="26dp"
+        android:id="@+id/TextInputLayout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/BpmHeader"
-        app:layout_constraintTop_toTopOf="@id/BpmHeader"
-        app:layout_constraintBottom_toBottomOf="@id/BpmHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.475"
+        app:boxBackgroundMode="none"
         >
-
-        <com.google.android.material.textfield.TextInputEditText
+        
+`        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/BpmEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="200"
             android:inputType="number"
-            android:text="20"
-            android:textColor="@color/primaryColor"
-            android:background="@color/colorAccent_Translucent"
-            />
+            android:backgroundTint="#FFFFFF"
+            android:textSize="20dp"
+            >
+
+        </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
-
-   
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startActivity"
