@@ -6,5 +6,7 @@
     <string name="Chord_Lib">Chord Library</string>
     <string name="Practice">Practice</string>
     <string name="Tune">Tune</string>
-    <string name = "initalBundleKey">message</string>
+    <string name="initalBundleKey">message</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

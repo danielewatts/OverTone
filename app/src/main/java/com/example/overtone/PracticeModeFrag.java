@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,7 +26,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,EditText.OnEditorActionListener {
+    private NavController navController;
     private Button dialogOpener;
+    private Button playBtn;
     private String[] listItems;
     private boolean[] checkedItems;
     private TextView chordsSelected;
@@ -63,6 +67,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     public void setBtns(View view) {
         dialogOpener = view.findViewById(R.id.openChordDialogBtn);
         dialogOpener.setOnClickListener(this);
+        playBtn = view.findViewById(R.id.playChords);
+        playBtn.setOnClickListener(this);
     }
 
     public void setTextViews(View view) {
@@ -94,6 +100,18 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         seekBar.setProgress(STARTING_BPM_VAL);
         currentBpm = STARTING_BPM_VAL;
     }
+    public String[] getChordsinRotation(){
+        ArrayList<String> chordsInRot = new ArrayList<>();
+        //checkedItems and listItems are parrallel arrays, indices where true occurs are the locations
+        //of the checked chord names
+        for (int i = 0; i < checkedItems.length ; i++) {
+            if(checkedItems[i] == true){
+                chordsInRot.add(listItems[i]);
+            }
+        }
+        String[] res = chordsInRot.toArray(new String[0]);
+        return res;
+    }
 
     @Override
     //onClick listener for dialog list and operator
@@ -109,6 +127,17 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             case R.id.playChords:
                 ///nav controller transfers info to another fragment,
                 ///unpack argument
+                String[] chordsInRotation = getChordsinRotation();
+                if(chordsInRotation.length<2){
+                    Toast.makeText(getContext(), "Select 2 or more chords", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    navController = Navigation.findNavController(v);
+//                navController.navigate(R.id.action_practiceModeFrag_to_practiceGameFrag);
+                    PracticeModeFragDirections.ActionPracticeModeFragToPracticeGameFrag action =
+                            PracticeModeFragDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation);
+                    navController.navigate(action);
+                }
 
                 break;
         }
@@ -172,7 +201,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     @Override
     ///tracking change in BPM to the user
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        int currentBpm = progress;
+        currentBpm = progress;
         //updating BPM display to keep in sync with progress bar position
         bpmRep.getEditText().setText(""+currentBpm);
     }
@@ -200,6 +229,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             seekVal = MIN_BPM_VAL;
             Toast.makeText(getContext(),"Min BPM is " + MIN_BPM_VAL,Toast.LENGTH_SHORT).show();
         }
+        currentBpm = seekVal;
         seekBar.setProgress(seekVal);
         bpmRep.getEditText().setText(String.valueOf(seekVal));
         bpmRep.getEditText().setCursorVisible(false);

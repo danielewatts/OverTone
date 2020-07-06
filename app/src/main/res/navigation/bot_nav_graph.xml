@@ -42,7 +42,11 @@
         android:id="@+id/practiceModeFrag"
         android:name="com.example.overtone.PracticeModeFrag"
         android:label="fragment_practice_mode"
-        tools:layout="@layout/fragment_practice_mode" />
+        tools:layout="@layout/fragment_practice_mode" >
+        <action
+            android:id="@+id/action_practiceModeFrag_to_practiceGameFrag"
+            app:destination="@id/practiceGameFrag" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentGroupDetails"
         android:name="com.example.overtone.ChordGroupDetailsFrag"
@@ -57,5 +61,17 @@
             android:id="@+id/action_fragmentGroupDetails_to_chordLibraryFrag2"
             app:destination="@id/chordLibraryFrag"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/practiceGameFrag"
+        android:name="com.example.overtone.PracticeGameFrag"
+        android:label="fragment_practice_game"
+        tools:layout="@layout/fragment_practice_game" >
+        <argument
+            android:name="tempo"
+            app:argType="integer" />
+        <argument
+            android:name="chordsInGame"
+            app:argType="string[]" />
     </fragment>
 </navigation>

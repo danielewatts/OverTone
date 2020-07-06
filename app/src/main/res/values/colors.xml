@@ -9,4 +9,5 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="coolBlue">#2196f3</color>
+    <color name="black_overlay">#66000000</color>
 </resources>
