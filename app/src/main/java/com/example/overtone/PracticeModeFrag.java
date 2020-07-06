@@ -1,6 +1,5 @@
 package com.example.overtone;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -11,23 +10,20 @@ import androidx.fragment.app.Fragment;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.overtone.data.SingleChord;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener{
+public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,EditText.OnEditorActionListener {
     private Button dialogOpener;
     private String[] listItems;
     private boolean[] checkedItems;
@@ -39,7 +35,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private SeekBar seekBar;
     private final int STARTING_BPM_VAL = 200;
     private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
-    private final int MAX_BMP_VAL = 400;
+    private final int MAX_BPM_VAL = 400;
+    private final int MIN_BPM_VAL = 1;
     private int currentBpm;
 
 
@@ -63,63 +60,65 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     }
 
 
-    public void setBtns(View view){
+    public void setBtns(View view) {
         dialogOpener = view.findViewById(R.id.openChordDialogBtn);
         dialogOpener.setOnClickListener(this);
     }
-    public void setTextViews(View view){
+
+    public void setTextViews(View view) {
         chordsSelected = view.findViewById(R.id.chordsInRotation);
     }
-    public void setEditTextsLayout(View v){
+
+    public void setEditTextsLayout(View v) {
         bpmRep = v.findViewById(R.id.TextInputLayout);
+        bpmRep.getEditText().setOnEditorActionListener(this);
+        bpmRep.getEditText().setOnClickListener(this);
 
     }
 
 
-    public void setListItems(){
+    public void setListItems() {
         ArrayList<String> chordNames = new ArrayList<>();
-        for (SingleChord sg: singleChords) {
+        for (SingleChord sg : singleChords) {
             chordNames.add(sg.getName());
         }
         listItems = chordNames.toArray(new String[0]);
     }
 
 
-    public void setUpSeekBar(View view){
+    public void setUpSeekBar(View view) {
         seekBar = view.findViewById(R.id.SeekBarBpm);
         seekBar.setOnSeekBarChangeListener(this);
-        seekBar.setMax(MAX_BMP_VAL);
+        seekBar.setMin(MIN_BPM_VAL);
+        seekBar.setMax(MAX_BPM_VAL);
         seekBar.setProgress(STARTING_BPM_VAL);
         currentBpm = STARTING_BPM_VAL;
     }
 
-
-
-
-
-
-
-
     @Override
     //onClick listener for dialog list and operator
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.openChordDialogBtn:
                 startChordDialog();
+                break;
+            case R.id.BpmEntry:
+                /* to combat the effects of turning cursor of after submission in onEditorAction*/
+                bpmRep.getEditText().setCursorVisible(true);
                 break;
         }
     }
 
 
-    public void startChordDialog(){
-        AlertDialog.Builder mBuilder  = new AlertDialog.Builder(getContext());
+    public void startChordDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
         mBuilder.setTitle("Chords available to be selected");
         mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     selectedChordNames.add(position);
-                }else{
+                } else {
                     selectedChordNames.remove((Integer.valueOf(position)));
                 }
             }
@@ -169,7 +168,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     ///tracking change in BPM to the user
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int currentBpm = progress;
-//        this.displayedBpm.setText("BPM: " + currentBpm);
+        //updating BPM display to keep in sync with progress bar position
+        bpmRep.getEditText().setText(""+currentBpm);
     }
 
     @Override
@@ -180,5 +180,24 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        String barVal = bpmRep.getEditText().getText().toString();
+        int seekVal = Integer.parseInt(barVal);
+        //check to see if user entered BPM is higher than MAX
+        if(seekVal> MAX_BPM_VAL){
+            seekVal = MAX_BPM_VAL;
+            Toast.makeText(getContext(),"Max BPM is 400",Toast.LENGTH_SHORT).show();
+        }
+        if(seekVal<MIN_BPM_VAL){
+            seekVal = MIN_BPM_VAL;
+            Toast.makeText(getContext(),"Min BPM is " + MIN_BPM_VAL,Toast.LENGTH_SHORT).show();
+        }
+        seekBar.setProgress(seekVal);
+        bpmRep.getEditText().setText(String.valueOf(seekVal));
+        bpmRep.getEditText().setCursorVisible(false);
+        return false;
     }
 }
