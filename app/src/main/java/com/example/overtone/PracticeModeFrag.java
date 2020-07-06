@@ -28,8 +28,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private String[] listItems;
     private boolean[] checkedItems;
     private TextView chordsSelected;
-    private TextView bpmUnitTag;
     private TextInputLayout bpmRep;
+    private Button startBtn;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
@@ -105,6 +105,11 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             case R.id.BpmEntry:
                 /* to combat the effects of turning cursor of after submission in onEditorAction*/
                 bpmRep.getEditText().setCursorVisible(true);
+                break;
+            case R.id.playChords:
+                ///nav controller transfers info to another fragment,
+                ///unpack argument
+
                 break;
         }
     }
