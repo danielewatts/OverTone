@@ -111,7 +111,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             }
         }
         String[] res = chordsInRot.toArray(new String[0]);
-        Log.d("In getChordsRotation", Arrays.toString(res));
+//        Log.d("In getChordsRotation", Arrays.toString(res));
         return res;
     }
 
@@ -135,7 +135,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
                 }
                 else {
                     navController = Navigation.findNavController(v);
-//                navController.navigate(R.id.action_practiceModeFrag_to_practiceGameFrag);
                     PracticeModeFragDirections.ActionPracticeModeFragToPracticeGameFrag action =
                             PracticeModeFragDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation);
                     navController.navigate(action);
@@ -143,7 +142,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
                 break;
         }
     }
-
 
     public void startChordDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
@@ -166,7 +164,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 String item = "";
-                Log.d("On top of for loop","ITEM STATUS BF LOOP:" + item);
                 for (int i = 0; i < selectedChordNames.size(); i++) {
                     item = item + listItems[selectedChordNames.get(i)];
                     if (i != selectedChordNames.size() - 1) {
@@ -175,18 +172,10 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
                 }
                 Log.d("Right before text is getting Set", item);
                 chordsSelected.setText(item);
-//                item ="";
             }
         });
 
-        mBuilder.setNegativeButton("GONE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        mBuilder.setNeutralButton("Clearing All", new DialogInterface.OnClickListener() {
+        mBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 for (int i = 0; i < checkedItems.length; i++) {

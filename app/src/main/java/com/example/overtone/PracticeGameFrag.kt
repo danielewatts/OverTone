@@ -1,26 +1,19 @@
 package com.example.overtone
-
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.overtone.data.SingleChord
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_practice_game.*
 
-/**
- * An example full-screen fragment that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
-class PracticeGameFrag : Fragment() {
+class PracticeGameFrag : Fragment(),View.OnClickListener{
 
 
     private var chordsInRotation:MutableList<String> = mutableListOf()
     private var bpm:Int? = null
+    private var navController:NavController? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,12 +24,11 @@ class PracticeGameFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = view?.findNavController()
+        StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         //testing code
-        testInfo.setText(chordsInRotation.get(0) +" "+ bpm.toString())
-
-
-
+        testInfo.setText(chordsInRotation.toString() +" "+ bpm.toString())
 
     }
 
@@ -47,6 +39,14 @@ class PracticeGameFrag : Fragment() {
             chordsInRotation = mutableListOf(*args.chordsInGame)
         }
 
+
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            StopGameBtn.id -> navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
+
+        }
 
     }
 
