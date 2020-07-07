@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.overtone.data.SingleChord;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,EditText.OnEditorActionListener {
     private NavController navController;
@@ -33,7 +35,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private boolean[] checkedItems;
     private TextView chordsSelected;
     private TextInputLayout bpmRep;
-    private Button startBtn;
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
@@ -58,8 +59,8 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         setTextViews(view);
         setEditTextsLayout(view);
         setListItems();
+        Log.d("TESTING FOR RE ENTRY", "onViewCreated: ");
         setUpSeekBar(view);
-        chordsSelected = view.findViewById(R.id.chordsInRotation);
         checkedItems = new boolean[listItems.length];
     }
 
@@ -100,7 +101,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         seekBar.setProgress(STARTING_BPM_VAL);
         currentBpm = STARTING_BPM_VAL;
     }
-    public String[] getChordsinRotation(){
+    public String[] getChordsInRotation(){
         ArrayList<String> chordsInRot = new ArrayList<>();
         //checkedItems and listItems are parrallel arrays, indices where true occurs are the locations
         //of the checked chord names
@@ -110,6 +111,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             }
         }
         String[] res = chordsInRot.toArray(new String[0]);
+        Log.d("In getChordsRotation", Arrays.toString(res));
         return res;
     }
 
@@ -127,7 +129,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             case R.id.playChords:
                 ///nav controller transfers info to another fragment,
                 ///unpack argument
-                String[] chordsInRotation = getChordsinRotation();
+                String[] chordsInRotation = getChordsInRotation();
                 if(chordsInRotation.length<2){
                     Toast.makeText(getContext(), "Select 2 or more chords", Toast.LENGTH_SHORT).show();
                 }
@@ -138,7 +140,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
                             PracticeModeFragDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation);
                     navController.navigate(action);
                 }
-
                 break;
         }
     }
@@ -146,6 +147,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
 
     public void startChordDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        selectedChordNames.clear(); /// keeping list clean when fragment gets used again
         mBuilder.setTitle("Chords available to be selected");
         mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -164,13 +166,16 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 String item = "";
+                Log.d("On top of for loop","ITEM STATUS BF LOOP:" + item);
                 for (int i = 0; i < selectedChordNames.size(); i++) {
                     item = item + listItems[selectedChordNames.get(i)];
                     if (i != selectedChordNames.size() - 1) {
                         item = item + ", ";
                     }
                 }
+                Log.d("Right before text is getting Set", item);
                 chordsSelected.setText(item);
+//                item ="";
             }
         });
 
