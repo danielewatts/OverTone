@@ -54,22 +54,18 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         mRunnable = object : Runnable{
             override fun run() {
                 testInfo.text = getRandomChord()
-                var tempoSeconds = bpm?.times(BPM_MILLISECONDS_CONVERSION)?.toLong()
+                var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
                 /// fix this number ^^^^
                 if (tempoSeconds != null) {
                     mHandler.postDelayed(this,tempoSeconds)
                 }
             }
-
         }
         mHandler.post(mRunnable)
     }
     private fun stop(view:View){
         mHandler.removeCallbacks(mRunnable)
     }
-
-
-
 
     private fun getRandomChord():String{
         val randomIndex = (0 until chordsInRotation.size).random() // random integer between 0 & size-1
