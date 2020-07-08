@@ -1,4 +1,5 @@
 package com.example.overtone
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -16,9 +17,9 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var mHandler = Handler()
     private var mRunnable:Runnable = Runnable {  }
     private val BPM_MILLISECONDS_CONVERSION =60*1000
+    private lateinit var mp:MediaPlayer
 
     ///this starts the repeating process of selecting a random chord
-
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -32,6 +33,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         navController = view?.findNavController()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
+        initiliazeMediaPlayer()
         startGame()
     }
 
@@ -41,8 +43,6 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
             bpm = args.tempo
             chordsInRotation = mutableListOf(*args.chordsInGame)
         }
-
-
     }
 
     private fun startGame(){
@@ -59,7 +59,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
                     testInfo.text = getRandomChord()
                     //var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
                 }
-
+                playSound()
                 var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
                 mHandler.postDelayed(this, tempoSeconds)
             }
@@ -75,11 +75,24 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         val randomIndex = (0 until chordsInRotation.size).random() // random integer between 0 & size-1
         return chordsInRotation[randomIndex]
     }
+    private fun initiliazeMediaPlayer(){
+        mp = MediaPlayer.create(context,R.raw.wood)
+        mp.isLooping = true
+    }
+    private fun playSound(){
+        ///logic fo playing sound on request
+        mp.start()
+
+    }
+    private fun stopMetroSound(){
+        mp.stop()
+    }
 
 
     override fun onClick(v: View?) {
         when(v!!.id){
             StopGameBtn.id ->{
+                stopMetroSound()
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
                 stopGame()
             }
