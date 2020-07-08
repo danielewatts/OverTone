@@ -15,21 +15,11 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var bpm:Int? = null
     private var navController:NavController? = null
     private var mHandler = Handler()
+    private var mRunnable:Runnable = Runnable {  }
     private val BPM_MILLISECONDS_CONVERSION =60*1000
 
     ///this starts the repeating process of selecting a random chord
-    private val mToastRunnable: Runnable = object : Runnable {
-        override fun run() {
-            //// action to be done on a timer
-            Toast.makeText(context, "This is a delayed toast", Toast.LENGTH_SHORT).show()
-            testInfo.text = getRandomChord()
 
-
-            //// Repeatable Action
-            var delay = (1/400)
-            mHandler.postDelayed(this, 4000)
-        }
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -43,9 +33,9 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         navController = view?.findNavController()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
+        start(view)
         //testing code
         ///starts the game
-        startGame()
         testInfo.text = chordsInRotation.toString() +" "+ bpm.toString()
 
     }
@@ -59,27 +49,39 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
 
     }
+
+    private fun start(view:View){
+        mRunnable = object : Runnable{
+            override fun run() {
+                testInfo.text = getRandomChord()
+                var tempoSeconds = bpm?.times(BPM_MILLISECONDS_CONVERSION)?.toLong()
+                /// fix this number ^^^^
+                if (tempoSeconds != null) {
+                    mHandler.postDelayed(this,tempoSeconds)
+                }
+            }
+
+        }
+        mHandler.post(mRunnable)
+    }
+    private fun stop(view:View){
+        mHandler.removeCallbacks(mRunnable)
+    }
+
+
+
+
     private fun getRandomChord():String{
         val randomIndex = (0 until chordsInRotation.size).random() // random integer between 0 & size-1
         return chordsInRotation[randomIndex]
-    }
-
-    private fun startGame() {
-        //mHandler.postDelayed(mToastRunnable, 5000);
-        mToastRunnable.run()
-    }
-
-    private fun stopRepeating() {
-        mHandler.removeCallbacks(mToastRunnable)
     }
 
 
     override fun onClick(v: View?) {
         when(v!!.id){
             StopGameBtn.id ->{
-                stopRepeating()
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
-
+                stop(v)
             }
 
         }
