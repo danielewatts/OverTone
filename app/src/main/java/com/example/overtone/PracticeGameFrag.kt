@@ -4,7 +4,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -33,11 +32,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         navController = view?.findNavController()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
-        start(view)
-        //testing code
-        ///starts the game
-        testInfo.text = chordsInRotation.toString() +" "+ bpm.toString()
-
+        startGame()
     }
 
     private fun retrievePassedInfo(){
@@ -50,20 +45,29 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     }
 
-    private fun start(view:View){
+    private fun startGame(){
+        var count = 1
         mRunnable = object : Runnable{
             override fun run() {
-                testInfo.text = getRandomChord()
-                var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
-                /// fix this number ^^^^
-                if (tempoSeconds != null) {
-                    mHandler.postDelayed(this,tempoSeconds)
+                if(count<=4){
+                    //in warm up condition, display tempo countdown
+                    testInfo.text = count.toString()
+                    count++
                 }
+                else{
+                    //no longer in warm up countdown transition, display the random chords
+                    testInfo.text = getRandomChord()
+                    //var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
+                }
+
+                var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
+                mHandler.postDelayed(this, tempoSeconds)
             }
         }
         mHandler.post(mRunnable)
     }
-    private fun stop(view:View){
+
+    private fun stopGame(){
         mHandler.removeCallbacks(mRunnable)
     }
 
@@ -77,12 +81,12 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         when(v!!.id){
             StopGameBtn.id ->{
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
-                stop(v)
+                stopGame()
             }
-
         }
-
     }
+
+
 
 
 
