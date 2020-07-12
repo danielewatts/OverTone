@@ -47,16 +47,17 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     private fun startGame(){
         var count = 1
+        var beat = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
         mRunnable = object : Runnable{
             override fun run() {
                 if(count<=4){
                     //in warm up condition, display tempo countdown
-                    testInfo.text = count.toString()
+//                    testInfo.text = count.toString()
                     count++
                 }
                 else{
                     //no longer in warm up countdown transition, display the random chords
-                    testInfo.text = getRandomChord()
+//                    testInfo.text = getRandomChord()
                     //var tempoSeconds = BPM_MILLISECONDS_CONVERSION.div(bpm!!).toLong()
                 }
                 playSound()

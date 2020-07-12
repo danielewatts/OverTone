@@ -38,9 +38,9 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private ArrayList<SingleChord> singleChords = MainActivity.getAllSingleChords();
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
-    private final int STARTING_BPM_VAL = 200;
+    private final int STARTING_BPM_VAL = 10;
     private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
-    private final int MAX_BPM_VAL = 400;
+    private final int MAX_BPM_VAL = 200;
     private final int MIN_BPM_VAL = 1;
     private int currentBpm;
 
