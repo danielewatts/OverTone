@@ -40,7 +40,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private SeekBar seekBar;
     private final int STARTING_BPM_VAL = 10;
     private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
-    private final int MAX_BPM_VAL = 200;
+    private final int MAX_BPM_VAL = 120;
     private final int MIN_BPM_VAL = 1;
     private int currentBpm;
 
