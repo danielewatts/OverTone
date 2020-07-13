@@ -23,7 +23,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var chordsInRotation:MutableList<String> = mutableListOf()
     private var bpm:Int? = null
     private var navController:NavController? = null
-    private val BPM_MILLISECONDS_CONVERSION =60*1000
+    private val bpmToMiliFactor =60*1000
     private lateinit var mp:MediaPlayer
     private lateinit var soundPool: SoundPool
     lateinit var mainHandler: Handler
@@ -34,9 +34,9 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
                 //this is where the methods that operate the game need to be called
                 //test first with just playing sound at a passed in beat
-                playSoundPool()
+                playGame()
             }
-            var tempoDelay = bpm?.let{ BPM_MILLISECONDS_CONVERSION.div(it).toLong()}
+            var tempoDelay = bpm?.let{ bpmToMiliFactor.div(it).toLong()}
             println("DEBUG: $tempoDelay")
             if (tempoDelay != null) {
                 mainHandler.postDelayed(this,tempoDelay )
@@ -87,38 +87,23 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         soundID =  soundPool?.load(context,R.raw.wood,1)
 
     }
-    private fun playSoundPool(){
+    private fun playGame(){
         var playBackRate = 1.95F
         //increased playback rate to decrease latency issues with sound file
-        soundPool?.play(soundID, 1F, 1F, 0, 0, playBackRate)
         val pj = CoroutineScope(Dispatchers.IO).launch {
             val getChord = launch {
                 val time1 = measureTimeMillis {
-//                    setNumberOnMainThread()
-//                    if(numba > 26){
-//                        numba = 0
-//                    }
-//                    println("NUMBA ${numba}")
-//                    numba++
-                    ///grab that chord here
                     setTextOnMainThread(getRandomChord())
                 }
                 println("debug: compeleted job1 in $time1 ms.")
             }
             val playTick = launch {
                 val time2 = measureTimeMillis {
-//                        setCharOnMainThread()
-////                        val result2 = getResult2FromApi()
-////                        setTextOnMainThread("Got $result2")
-//                        if(charZ > 26.toChar())
-//                        charZ++
                     soundPool?.play(soundID, 1F, 1F, 0, 0, playBackRate)
                 }
                 println("debug: compeleted job2 in $time2 ms.")
             }
-//                val job3 = launch {
-//                    playSound()
-//                }
+
         }
 
 
