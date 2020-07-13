@@ -106,10 +106,8 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
         }
 
-
-
-
     }
+
     private suspend fun setTextOnMainThread(input: String){
         //must modify UI elements on main thread
         withContext(Dispatchers.Main){
@@ -134,6 +132,22 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         soundPool.release()
         mainHandler.removeCallbacks(practiceGameTask)
     }
+
+    override fun onDestroy() {
+        endGame()
+        super.onDestroy()
+    }
+
+//    override fun onPause() {
+//        mainHandler.removeCallbacks(practiceGameTask)
+//        super.onPause()
+//    }
+//
+//    override fun onResume() {
+//        startGame()
+//        super.onResume()
+//    }
+
 
 
     override fun onClick(v: View?) {
