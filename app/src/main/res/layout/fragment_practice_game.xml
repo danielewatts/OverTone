@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/primaryColor"
-        android:text="C"
         android:ellipsize="none"
+        android:text=""
         android:scrollHorizontally="false"
         android:textSize="125dp"
         android:gravity="center"/>

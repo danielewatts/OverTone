@@ -1,4 +1,5 @@
 package com.example.overtone
+import android.content.ContentValues.TAG
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -6,6 +7,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,16 +30,21 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private lateinit var soundPool: SoundPool
     lateinit var mainHandler: Handler
     private var soundID = 1
+    private var countOffVal = 1
+
+    /** investigate this runnable*/
 
     private val practiceGameTask = object : Runnable {
         override fun run() {
-            CoroutineScope(Dispatchers.IO).launch {
+
                 //this is where the methods that operate the game need to be called
                 //test first with just playing sound at a passed in beat
-                playGame()
-            }
+//                playGame()
             var tempoDelay = bpm?.let{ bpmToMiliFactor.div(it).toLong()}
-            println("DEBUG: $tempoDelay")
+            println("DEBUG: $tempoDelay ms between cycles of runnable executable")
+            testInfo.text = countOffVal.toString()
+            Log.d("COUNT OFF VAL", "$countOffVal")
+            countOffVal++
             if (tempoDelay != null) {
                 mainHandler.postDelayed(this,tempoDelay )
             }
@@ -90,14 +97,14 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private fun playGame(){
         var playBackRate = 1.95F
         //increased playback rate to decrease latency issues with sound file
-        val pj = CoroutineScope(Dispatchers.IO).launch {
-            val getChord = launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            launch {
                 val time1 = measureTimeMillis {
-                    setTextOnMainThread(getRandomChord())
+                     setTextOnMainThread(getRandomChord())
                 }
                 println("debug: compeleted job1 in $time1 ms.")
             }
-            val playTick = launch {
+            launch {
                 val time2 = measureTimeMillis {
                     soundPool?.play(soundID, 1F, 1F, 0, 0, playBackRate)
                 }
@@ -138,22 +145,21 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         super.onDestroy()
     }
 
-//    override fun onPause() {
-//        mainHandler.removeCallbacks(practiceGameTask)
-//        super.onPause()
-//    }
-//
-//    override fun onResume() {
-//        startGame()
-//        super.onResume()
-//    }
+    override fun onPause() {
+        mainHandler.removeCallbacks(practiceGameTask)
+        super.onPause()
+    }
 
-
+    override fun onResume() {
+        startGame()
+        super.onResume()
+    }
 
     override fun onClick(v: View?) {
         when(v!!.id){
             StopGameBtn.id ->{
                 endGame()
+                ///maybe on destroy ?
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
             }
         }
