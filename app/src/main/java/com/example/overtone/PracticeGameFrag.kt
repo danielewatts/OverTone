@@ -1,5 +1,4 @@
 package com.example.overtone
-import android.content.ContentValues.TAG
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -31,25 +30,26 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     lateinit var mainHandler: Handler
     private var soundID = 1
     private var countOffVal = 1
+    private lateinit var mRunnable:Runnable
 
     /** investigate this runnable*/
 
-    private val practiceGameTask = object : Runnable {
-        override fun run() {
-
-                //this is where the methods that operate the game need to be called
-                //test first with just playing sound at a passed in beat
-//                playGame()
-            var tempoDelay = bpm?.let{ bpmToMiliFactor.div(it).toLong()}
-            println("DEBUG: $tempoDelay ms between cycles of runnable executable")
-            testInfo.text = countOffVal.toString()
-            Log.d("COUNT OFF VAL", "$countOffVal")
-            countOffVal++
-            if (tempoDelay != null) {
-                mainHandler.postDelayed(this,tempoDelay )
-            }
-        }
-    }
+//    private val practiceGameTask = object : Runnable {
+//        override fun run() {
+//
+//                //this is where the methods that operate the game need to be called
+//                //test first with just playing sound at a passed in beat
+////                playGame()
+//            var tempoDelay = bpm?.let{ bpmToMiliFactor.div(it).toLong()}
+//            println("DEBUG: $tempoDelay ms between cycles of runnable executable")
+//            testInfo.text = countOffVal.toString()
+//            Log.d("COUNT OFF VAL", "$countOffVal")
+//            countOffVal++
+//            if (tempoDelay != null) {
+//                mainHandler.postDelayed(this,tempoDelay )
+//            }
+//        }
+//    }
 
 
     ///this starts the repeating process of selecting a random chord
@@ -67,15 +67,42 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         initSoundPool()
-        startGame()
+//        startGame()
+        mRunnable = proGamerMoves()
+        proStart(mRunnable)
     }
 
-
-    private fun startGame(){
+    private fun proStart(runnable: Runnable){
         mainHandler = Handler()
-        mainHandler.post(practiceGameTask)
-        //starts looping process of calling certain methods and coroutines at a specified bpm
+        mainHandler.post(runnable)
+
     }
+
+    private fun proGamerMoves():Runnable{
+        return object : Runnable {
+            override fun run() {
+
+                //this is where the methods that operate the game need to be called
+                //test first with just playing sound at a passed in beat
+                playGame()
+                var tempoDelay = bpm?.let { bpmToMiliFactor.div(it).toLong()}
+                println("DEBUG: $tempoDelay ms between cycles of runnable executable")
+//                testInfo.text = countOffVal.toString()
+//                Log.d("COUNT OFF VAL", "$countOffVal")
+//                countOffVal++
+                if (tempoDelay != null) {
+                    mainHandler.postDelayed(this,tempoDelay )
+                }
+            }
+        }
+    }
+
+
+//    private fun startGame(){
+//        mainHandler = Handler()
+//        mainHandler.post(practiceGameTask)
+//        //starts looping process of calling certain methods and coroutines at a specified bpm
+//    }
 
     private fun initSoundPool(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -135,30 +162,30 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     }
 
 
-    private fun endGame(){
-        soundPool.release()
-        mainHandler.removeCallbacks(practiceGameTask)
-    }
+//    private fun endGame(){
+//        soundPool.release()
+//        mainHandler.removeCallbacks(practiceGameTask)
+//    }
 
-    override fun onDestroy() {
-        endGame()
-        super.onDestroy()
-    }
+//    override fun onDestroy() {
+//        endGame()
+//        super.onDestroy()
+//    }
 
-    override fun onPause() {
-        mainHandler.removeCallbacks(practiceGameTask)
-        super.onPause()
-    }
+//    override fun onPause() {
+//        mainHandler.removeCallbacks(practiceGameTask)
+//        super.onPause()
+//    }
 
-    override fun onResume() {
-        startGame()
-        super.onResume()
-    }
+//    override fun onResume() {
+//        startGame()
+//        super.onResume()
+//    }
 
     override fun onClick(v: View?) {
         when(v!!.id){
             StopGameBtn.id ->{
-                endGame()
+//                endGame()
                 ///maybe on destroy ?
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
             }

@@ -50,10 +50,14 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
             txtV.setText(m);
             setBtns(view);
             initSoundPool();
+
+
         }
 
 
     }
+
+    
 
 
 
