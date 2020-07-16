@@ -39,7 +39,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     private ArrayList<Integer> selectedChordNames = new ArrayList<>();
     private SeekBar seekBar;
     private final int STARTING_BPM_VAL = 10;
-    private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
+//    private final String STARTING_BPM_REP = "BPM: " + STARTING_BPM_VAL;
     private final int MAX_BPM_VAL = 120;
     private final int MIN_BPM_VAL = 1;
     private int currentBpm;
@@ -111,7 +111,6 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
             }
         }
         String[] res = chordsInRot.toArray(new String[0]);
-//        Log.d("In getChordsRotation", Arrays.toString(res));
         return res;
     }
 
@@ -198,6 +197,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         currentBpm = progress;
         //updating BPM display to keep in sync with progress bar position
         bpmRep.getEditText().setText(""+currentBpm);
+        System.out.println("DEBUG progress bar changed ");
     }
 
     @Override
@@ -206,8 +206,9 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     }
 
     @Override
+    ///called when user releases seekbar toggle
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        System.out.println("DEBUG stopped MOVING SEEKBAR ");
     }
 
     @Override
@@ -217,7 +218,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         //check to see if user entered BPM is higher than MAX
         if(seekVal> MAX_BPM_VAL){
             seekVal = MAX_BPM_VAL;
-            Toast.makeText(getContext(),"Max BPM is 400",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Max BPM is " + MAX_BPM_VAL,Toast.LENGTH_SHORT).show();
         }
         if(seekVal<MIN_BPM_VAL){
             seekVal = MIN_BPM_VAL;

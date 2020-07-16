@@ -6,7 +6,6 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +24,12 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var bpm:Int? = null
     private var navController:NavController? = null
     private val bpmToMiliFactor =60*1000
-    private lateinit var mp:MediaPlayer
     private lateinit var soundPool: SoundPool
-    lateinit var mainHandler: Handler
+    private lateinit var mainHandler: Handler
     private var soundID = 1
-    private var countOffVal = 1
-    private lateinit var mRunnable:Runnable
+    private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
+    private lateinit var gameRunnable:Runnable
+    private var launchCount:Int = 0
 
     /** investigate this runnable*/
 
@@ -63,33 +62,35 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println("DEBUG: ON VIEW CREATED CALLED")
         navController = view?.findNavController()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         initSoundPool()
 //        startGame()
-        mRunnable = proGamerMoves()
-        proStart(mRunnable)
+//        mRunnable = getGameRunnable()
+        gameRunnable = getGameRunnable()
+        startGame()
     }
 
-    private fun proStart(runnable: Runnable){
+    private fun startGame(){
         mainHandler = Handler()
-        mainHandler.post(runnable)
-
+        mainHandler.post(gameRunnable)
     }
 
-    private fun proGamerMoves():Runnable{
+    private fun getGameRunnable():Runnable{
         return object : Runnable {
             override fun run() {
 
                 //this is where the methods that operate the game need to be called
                 //test first with just playing sound at a passed in beat
-                playGame()
+//                playGame()
+//                soundPool?.play(soundID, 1F, 1F, 0, 0, 1.0F)
                 var tempoDelay = bpm?.let { bpmToMiliFactor.div(it).toLong()}
-                println("DEBUG: $tempoDelay ms between cycles of runnable executable")
+                println("DEBUG: $tempoDelay ms between cycles of runnable executable $countOffVal")
 //                testInfo.text = countOffVal.toString()
 //                Log.d("COUNT OFF VAL", "$countOffVal")
-//                countOffVal++
+                countOffVal++
                 if (tempoDelay != null) {
                     mainHandler.postDelayed(this,tempoDelay )
                 }
@@ -122,7 +123,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     }
     private fun playGame(){
-        var playBackRate = 1.95F
+        var playBackRate = 1.00F
         //increased playback rate to decrease latency issues with sound file
         CoroutineScope(Dispatchers.IO).launch {
             launch {
@@ -162,31 +163,42 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     }
 
 
-//    private fun endGame(){
+    private fun endGame(){
 //        soundPool.release()
-//        mainHandler.removeCallbacks(practiceGameTask)
-//    }
+        mainHandler.removeCallbacks(gameRunnable)
+    }
 
-//    override fun onDestroy() {
-//        endGame()
-//        super.onDestroy()
-//    }
+    override fun onDestroy() {
+        println("DEBUG: onDESTROY called")
+        endGame()
+        soundPool.release()
+        super.onDestroy()
+    }
 
-//    override fun onPause() {
-//        mainHandler.removeCallbacks(practiceGameTask)
-//        super.onPause()
-//    }
+    override fun onPause() {
+        println("DEBUG : onPAUSE CALLED")
+        endGame()
+        super.onPause()
+    }
 
-//    override fun onResume() {
-//        startGame()
-//        super.onResume()
-//    }
+    override fun onResume() {
+        if(launchCount>0){
+            println("DEBUG: onRESUME CALLING START GAME AGAIN")
+            startGame()
+        }
+        println("DEBUG : onResume CALLED")
+        if(chordsInRotation!=null){
+            println("DEBUG: ${chordsInRotation.toString()} and temp is ${bpm}")
+        }
+        launchCount++
+        super.onResume()
+    }
 
     override fun onClick(v: View?) {
         when(v!!.id){
             StopGameBtn.id ->{
-//                endGame()
-                ///maybe on destroy ?
+                endGame()
+                soundPool.release()
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
             }
         }
