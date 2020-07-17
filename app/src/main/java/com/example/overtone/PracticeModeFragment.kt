@@ -35,6 +35,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     private val MAX_BPM_VAL = 120
     private val MIN_BPM_VAL = 1
     private var currentBpm = 0
+    private var moves = 0
     private lateinit var gameRunnable:Runnable
     private lateinit var mainHandler: Handler
 
@@ -178,6 +179,8 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         metronome?.makeSound()
         playSample((1000*60).div(currentBpm).toLong())
         println("DEBUG stopped MOVING SEEKBAR ")
+        Toast.makeText(context,"BRO",Toast.LENGTH_SHORT).show()
+        moves++
 
     }
 
