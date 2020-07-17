@@ -6,20 +6,21 @@ import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
 import com.example.overtone.R
-import java.util.logging.Handler
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 
 
-class Metronome(private var context:Context) {
+class Metronome(private var context:Context?) {
 
     private lateinit var soundPool: SoundPool
     private var soundID =1
-    private var playBackRate:Float = 1.0F
+    private val playBackRate:Float = 1.0F
+    private val topPlayBackRate:Float = 1.5F
     private var beatNumber:Int = 1
 
     init {
         ////call all soundPool initializer and set all values in class
         createSoundPool()
-
     }
 
     private fun createSoundPool(){
@@ -36,18 +37,40 @@ class Metronome(private var context:Context) {
             soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0)
         }
         ///assigning sound member
-        soundID =  soundPool?.load(context, R.raw.wood,1)
+//        soundID =  soundPool?.load(context, R.raw.wood,1)
+//        var number = withContext(IO){
+//
+//        }
+        //// GET RID OF THIS
+        CoroutineScope(IO).launch {
+            getSoundPoolId()
+        }
     }
+    private suspend fun getSoundPoolId(){
+        CoroutineScope(IO).launch {
+            val result1: Deferred<Int> = async {
+                println("debug: launching job1: ${Thread.currentThread().name}")
+               soundPool?.load(context,R.raw.wood,1)
+            }
+        }
+
+    }
+
 
     fun makeSound(){
         //could make capability here to account for 1st beat of every 4/4 measure
+        CoroutineScope(IO).launch {  }
+
         if(beatNumber==1){
+            println("MAKING 1st @#!@#@! SOUND !!!!!!!!!!")
+
             //plays higher pitch to indicate starting beat
-            soundPool?.play(soundID, 1F, 1F, 0, 0, 1.5F)
+            soundPool.play(soundID, 1F, 1F, 0, 0, topPlayBackRate)
         }
         else{
+            println("MAKING regular SOUND !!!!!!!!!!")
             //plays lower pitch to indicate other beats
-            soundPool?.play(soundID, 1F, 1F, 0, 0, playBackRate)
+            soundPool.play(soundID, 1F, 1F, 0, 0, playBackRate)
         }
         if(beatNumber == 4){
             beatNumber = 1
@@ -58,8 +81,12 @@ class Metronome(private var context:Context) {
 
 
     }
-
-
+    fun soundPoolIsNull():Boolean{
+        return soundPool == null
+    }
+    fun killMetronome(){
+        soundPool.release()
+    }
 
 
 }

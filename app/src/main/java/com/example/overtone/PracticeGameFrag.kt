@@ -1,4 +1,5 @@
 package com.example.overtone
+import android.hardware.camera2.params.MeteringRectangle
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.example.overtone.metronomePlayer.Metronome
 import kotlinx.android.synthetic.main.fragment_practice_game.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,28 +32,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
     private lateinit var gameRunnable:Runnable
     private var launchCount:Int = 0
-
-    /** investigate this runnable*/
-
-//    private val practiceGameTask = object : Runnable {
-//        override fun run() {
-//
-//                //this is where the methods that operate the game need to be called
-//                //test first with just playing sound at a passed in beat
-////                playGame()
-//            var tempoDelay = bpm?.let{ bpmToMiliFactor.div(it).toLong()}
-//            println("DEBUG: $tempoDelay ms between cycles of runnable executable")
-//            testInfo.text = countOffVal.toString()
-//            Log.d("COUNT OFF VAL", "$countOffVal")
-//            countOffVal++
-//            if (tempoDelay != null) {
-//                mainHandler.postDelayed(this,tempoDelay )
-//            }
-//        }
-//    }
-
-
-    ///this starts the repeating process of selecting a random chord
+    private var metro:Metronome? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -62,15 +43,16 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("DEBUG: ON VIEW CREATED CALLED")
-        navController = view?.findNavController()
+        navController = view.findNavController()
+        initMetronome()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
-        initSoundPool()
-//        startGame()
-//        mRunnable = getGameRunnable()
         gameRunnable = getGameRunnable()
         startGame()
+    }
+
+    private fun initMetronome(){
+        metro = Metronome(context)
     }
 
     private fun startGame(){
@@ -82,65 +64,43 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         return object : Runnable {
             override fun run() {
 
-                //this is where the methods that operate the game need to be called
-                //test first with just playing sound at a passed in beat
-//                playGame()
-//                soundPool?.play(soundID, 1F, 1F, 0, 0, 1.0F)
+                playGame()
                 var tempoDelay = bpm?.let { bpmToMiliFactor.div(it).toLong()}
-                println("DEBUG: $tempoDelay ms between cycles of runnable executable $countOffVal")
-//                testInfo.text = countOffVal.toString()
-//                Log.d("COUNT OFF VAL", "$countOffVal")
-                countOffVal++
+//                println("DEBUG: $tempoDelay ms between cycles of runnable executable $countOffVal")
+//                countOffVal++
                 if (tempoDelay != null) {
                     mainHandler.postDelayed(this,tempoDelay )
                 }
+
             }
         }
     }
 
-
-//    private fun startGame(){
-//        mainHandler = Handler()
-//        mainHandler.post(practiceGameTask)
-//        //starts looping process of calling certain methods and coroutines at a specified bpm
-//    }
-
-    private fun initSoundPool(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val audioAttributes = AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-            soundPool = SoundPool.Builder()
-                    .setMaxStreams(1)
-                    .setAudioAttributes(audioAttributes)
-                    .build()
-        } else {
-            soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0)
-        }
-        ///assigning sound member
-        soundID =  soundPool?.load(context,R.raw.wood,1)
-
-    }
     private fun playGame(){
-        var playBackRate = 1.00F
-        //increased playback rate to decrease latency issues with sound file
         CoroutineScope(Dispatchers.IO).launch {
             launch {
                 val time1 = measureTimeMillis {
-                     setTextOnMainThread(getRandomChord())
+                    if(countOffVal<=4){
+                        setTextOnMainThread(countOffVal.toString())
+                        println("debug: printing countOffVal $countOffVal")
+                        countOffVal++
+                    }
+                    else{
+                        setTextOnMainThread(getRandomChord())
+                    }
                 }
                 println("debug: compeleted job1 in $time1 ms.")
             }
             launch {
                 val time2 = measureTimeMillis {
-                    soundPool?.play(soundID, 1F, 1F, 0, 0, playBackRate)
+                    if(countOffVal==1)
+                        println("debug: countOffVal $countOffVal ************")
+
+                    metro?.makeSound()
                 }
                 println("debug: compeleted job2 in $time2 ms.")
             }
-
         }
-
     }
 
     private suspend fun setTextOnMainThread(input: String){
@@ -171,7 +131,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     override fun onDestroy() {
         println("DEBUG: onDESTROY called")
         endGame()
-        soundPool.release()
+        metro?.killMetronome()
         super.onDestroy()
     }
 
@@ -198,7 +158,6 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         when(v!!.id){
             StopGameBtn.id ->{
                 endGame()
-                soundPool.release()
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
             }
         }
