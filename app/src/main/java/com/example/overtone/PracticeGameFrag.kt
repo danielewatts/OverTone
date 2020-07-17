@@ -21,7 +21,6 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var navController:NavController? = null
     private val bpmToMiliFactor =60*1000
     private lateinit var mainHandler: Handler
-    private var soundID = 1
     private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
     private lateinit var gameRunnable:Runnable
     private var launchCount:Int = 0
@@ -37,36 +36,27 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
-        metro = PracticeModeFrag.metronome /// creating metronome in the other fragment ensures
-        // that sound player is loaded and ready to go
-//        initMetronome()
+        //creating metronome object in other fragment ensures that inner SoundPool object will be
+        //loaded before runnable starts
+        metro = PracticeModeFrag.metronome
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
-        gameRunnable = getGameRunnable()
+        var tempo = bpm?.let {bpmToMiliFactor.div(it).toLong()}
+        gameRunnable = getGameRunnable(tempo!!)
         startGame()
     }
 
-//    private fun initMetronome(){
-//        metro = Metronome(context)
-//    }
 
     private fun startGame(){
         mainHandler = Handler()
         mainHandler.post(gameRunnable)
     }
 
-    private fun getGameRunnable():Runnable{
+    private fun getGameRunnable(tempo:Long):Runnable{
         return object : Runnable {
             override fun run() {
-
                 playGame()
-                var tempoDelay = bpm?.let { bpmToMiliFactor.div(it).toLong()}
-//                println("DEBUG: $tempoDelay ms between cycles of runnable executable $countOffVal")
-//                countOffVal++
-                if (tempoDelay != null) {
-                    mainHandler.postDelayed(this,tempoDelay )
-                }
-
+                mainHandler.postDelayed(this,tempo)
             }
         }
     }
@@ -149,7 +139,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when(v?.id){
             StopGameBtn.id ->{
                 endGame()
                 navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)

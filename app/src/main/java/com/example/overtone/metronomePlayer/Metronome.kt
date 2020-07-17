@@ -66,9 +66,7 @@ class Metronome(private var context:Context?) {
     fun killMetronome() {
         soundPool.release()
     }
-    fun restoreMetronome(){
 
-    }
 
 
 }
