@@ -1,5 +1,6 @@
 package com.example.overtone
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -34,6 +35,11 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     private val MAX_BPM_VAL = 120
     private val MIN_BPM_VAL = 1
     private var currentBpm = 0
+    private lateinit var gameRunnable:Runnable
+    private lateinit var mainHandler: Handler
+
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -43,6 +49,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         metronome = Metronome(context)
+        mainHandler = Handler()
         setBtns(view)
         setTextViews(view)
         setEditTextsLayout(view)
@@ -121,7 +128,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         }
     }
 
-    fun startChordDialog() {
+    private fun startChordDialog() {
         val mBuilder = AlertDialog.Builder(requireContext())
         selectedChordNames.clear() /// keeping list clean when fragment gets used again
         mBuilder.setTitle("Chords available to be selected")
@@ -167,8 +174,31 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
 
     ///called when user releases seekbar toggle
     override fun onStopTrackingTouch(seekBar: SeekBar) {
-        println("DEBUG stopped MOVING SEEKBAR ")
         ///play sample beat, want BPM in this method// run runnable
+        metronome?.makeSound()
+        playSample((1000*60).div(currentBpm).toLong())
+        println("DEBUG stopped MOVING SEEKBAR ")
+
+    }
+
+    private fun playSample(tempo:Long){
+        gameRunnable = getBpmSampleRunnable(tempo)
+        startSample()
+    }
+    private fun getBpmSampleRunnable(tempo:Long):Runnable{
+        return object : Runnable {
+            override fun run() {
+                metronome?.makeSound()
+                println("SAMPLE runnninh")
+                mainHandler.postDelayed(this,tempo)
+            }
+        }
+    }
+
+
+
+    private fun startSample(){
+        mainHandler.post(gameRunnable)
     }
 
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent): Boolean {
