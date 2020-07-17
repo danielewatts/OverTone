@@ -1,6 +1,7 @@
 package com.example.overtone;
 
 import android.content.DialogInterface;
+import android.hardware.camera2.params.MeteringRectangle;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.overtone.data.SingleChord;
+import com.example.overtone.metronomePlayer.Metronome;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PracticeModeFrag extends Fragment implements View.OnClickListener,SeekBar.OnSeekBarChangeListener,EditText.OnEditorActionListener {
+    static Metronome metronome;
     private NavController navController;
     private Button dialogOpener;
     private Button playBtn;
@@ -55,6 +58,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        metronome = new Metronome(getContext());
         setBtns(view);
         setTextViews(view);
         setEditTextsLayout(view);
@@ -63,6 +67,7 @@ public class PracticeModeFrag extends Fragment implements View.OnClickListener,S
         setUpSeekBar(view);
         checkedItems = new boolean[listItems.length];
     }
+
 
 
     public void setBtns(View view) {

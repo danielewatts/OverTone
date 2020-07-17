@@ -1,10 +1,4 @@
 package com.example.overtone
-import android.hardware.camera2.params.MeteringRectangle
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.media.SoundPool
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -26,7 +20,6 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     private var bpm:Int? = null
     private var navController:NavController? = null
     private val bpmToMiliFactor =60*1000
-    private lateinit var soundPool: SoundPool
     private lateinit var mainHandler: Handler
     private var soundID = 1
     private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
@@ -44,16 +37,18 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
-        initMetronome()
+        metro = PracticeModeFrag.metronome /// creating metronome in the other fragment ensures
+        // that sound player is loaded and ready to go
+//        initMetronome()
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         gameRunnable = getGameRunnable()
         startGame()
     }
 
-    private fun initMetronome(){
-        metro = Metronome(context)
-    }
+//    private fun initMetronome(){
+//        metro = Metronome(context)
+//    }
 
     private fun startGame(){
         mainHandler = Handler()
@@ -124,7 +119,6 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
 
     private fun endGame(){
-//        soundPool.release()
         mainHandler.removeCallbacks(gameRunnable)
     }
 

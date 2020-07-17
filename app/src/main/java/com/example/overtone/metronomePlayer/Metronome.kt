@@ -36,30 +36,12 @@ class Metronome(private var context:Context?) {
         } else {
             soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0)
         }
-        ///assigning sound member
-//        soundID =  soundPool?.load(context, R.raw.wood,1)
-//        var number = withContext(IO){
-//
-//        }
-        //// GET RID OF THIS
-        CoroutineScope(IO).launch {
-            getSoundPoolId()
+        //assigning sound member
+        soundID =  soundPool?.load(context, R.raw.wood,1)
         }
-    }
-    private suspend fun getSoundPoolId(){
-        CoroutineScope(IO).launch {
-            val result1: Deferred<Int> = async {
-                println("debug: launching job1: ${Thread.currentThread().name}")
-               soundPool?.load(context,R.raw.wood,1)
-            }
-        }
-
-    }
-
 
     fun makeSound(){
         //could make capability here to account for 1st beat of every 4/4 measure
-        CoroutineScope(IO).launch {  }
 
         if(beatNumber==1){
             println("MAKING 1st @#!@#@! SOUND !!!!!!!!!!")
@@ -68,7 +50,7 @@ class Metronome(private var context:Context?) {
             soundPool.play(soundID, 1F, 1F, 0, 0, topPlayBackRate)
         }
         else{
-            println("MAKING regular SOUND !!!!!!!!!!")
+            println("MAKING regular SOUND ")
             //plays lower pitch to indicate other beats
             soundPool.play(soundID, 1F, 1F, 0, 0, playBackRate)
         }
@@ -79,13 +61,13 @@ class Metronome(private var context:Context?) {
             beatNumber++
         }
 
+    }
 
-    }
-    fun soundPoolIsNull():Boolean{
-        return soundPool == null
-    }
-    fun killMetronome(){
+    fun killMetronome() {
         soundPool.release()
+    }
+    fun restoreMetronome(){
+
     }
 
 
