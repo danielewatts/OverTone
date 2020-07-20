@@ -15,7 +15,7 @@
             app:destination="@id/settingsViewFrag" />
         <action
             android:id="@+id/action_homeTuneFrag_to_practiceModeFrag"
-            app:destination="@id/practiceModeFrag" />
+            app:destination="@id/practiceModeFragment" />
         <action
             android:id="@+id/action_homeTuneFrag_to_chordLibraryFrag"
             app:destination="@id/chordLibraryFrag" />
@@ -39,8 +39,8 @@
         android:label="fragment_settings_view"
         tools:layout="@layout/fragment_settings_view" />
     <fragment
-        android:id="@+id/practiceModeFrag"
-        android:name="com.example.overtone.PracticeModeFrag"
+        android:id="@+id/practiceModeFragment"
+        android:name="com.example.overtone.PracticeModeFragment"
         android:label="fragment_practice_mode"
         tools:layout="@layout/fragment_practice_mode" >
         <action
@@ -75,6 +75,6 @@
             app:argType="string[]" />
         <action
             android:id="@+id/action_practiceGameFrag_to_practiceModeFrag"
-            app:destination="@id/practiceModeFrag" />
+            app:destination="@id/practiceModeFragment" />
     </fragment>
 </navigation>

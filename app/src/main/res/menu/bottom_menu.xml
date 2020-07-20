@@ -14,7 +14,7 @@
         android:title="@string/Tune"
         android:icon = "@drawable/ic_baseline_tune_24"/>
     <item
-        android:id="@+id/practiceModeFrag"
+        android:id="@+id/practiceModeFragment"
         android:title="@string/Practice"
         android:icon="@drawable/ic_baseline_music_note_24"
         />

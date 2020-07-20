@@ -38,7 +38,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         navController = view.findNavController()
         //creating metronome object in other fragment ensures that inner SoundPool object will be
         //loaded before runnable starts
-        metro = PracticeModeFrag.metronome
+        metro = PracticeModeFragment.metronome
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         var tempo = bpm?.let {bpmToMiliFactor.div(it).toLong()}

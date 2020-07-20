@@ -31,10 +31,10 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     private val singleChords = MainActivity.getAllSingleChords()
     private val selectedChordNames = ArrayList<Int>()
     private var seekBar: SeekBar? = null
-    private val STARTING_BPM_VAL = 10
+    private val STARTING_BPM_VAL = 20
     private val MAX_BPM_VAL = 120
-    private val MIN_BPM_VAL = 1
-    private var currentBpm = 0
+    private val MIN_BPM_VAL = 10
+    private var currentBpm = STARTING_BPM_VAL
     private var moves = 0
     private lateinit var gameRunnable:Runnable
     private lateinit var mainHandler: Handler
@@ -59,25 +59,24 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         setUpSeekBar(view)
         checkedItems = BooleanArray(listItems.size)
     }
-
-    fun setBtns(view: View) {
+    private fun setBtns(view: View) {
         dialogOpener = view.findViewById(R.id.openChordDialogBtn)
         dialogOpener?.setOnClickListener(this)
         playBtn = view.findViewById(R.id.playChords)
         playBtn?.setOnClickListener(this)
     }
 
-    fun setTextViews(view: View) {
+    private fun setTextViews(view: View) {
         chordsSelected = view.findViewById(R.id.chordsInRotation)
     }
 
-    fun setEditTextsLayout(v: View) {
+    private fun setEditTextsLayout(v: View) {
         bpmRep = v.findViewById(R.id.TextInputLayout)
         bpmRep?.editText!!.setOnEditorActionListener(this)
         bpmRep?.editText!!.setOnClickListener(this)
     }
 
-    fun setListItems() {
+    private fun setListItems() {
         val chordNames = ArrayList<String>()
         for (sg in singleChords) {
             chordNames.add(sg.name)
@@ -85,13 +84,15 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         listItems = chordNames.toTypedArray()
     }
 
-    fun setUpSeekBar(view: View) {
+    private fun setUpSeekBar(view: View) {
         seekBar = view.findViewById(R.id.SeekBarBpm)
         seekBar?.setOnSeekBarChangeListener(this)
         seekBar?.min = MIN_BPM_VAL
         seekBar?.max = MAX_BPM_VAL
         seekBar?.progress = STARTING_BPM_VAL
-        currentBpm = STARTING_BPM_VAL
+        //set the seekbarChangeListener AFTER boundaries and initial condition is set
+        seekBar?.setOnSeekBarChangeListener(this)
+
     }
 
     //checkedItems and listItems are parrallel arrays, indices where true occurs are the locations
@@ -122,7 +123,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
                     Toast.makeText(context, "Select 2 or more chords", Toast.LENGTH_SHORT).show()
                 } else {
                     navController = Navigation.findNavController(v)
-                    val action = PracticeModeFragDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation)
+                    val action = PracticeModeFragmentDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation)
                     navController!!.navigate(action)
                 }
             }
@@ -167,18 +168,19 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         currentBpm = progress
         //updating BPM display to keep in sync with progress bar position
-        bpmRep!!.editText!!.setText("" + currentBpm)
+        bpmRep?.editText?.setText("" + currentBpm)
         println("DEBUG progress bar changed ")
+        ////place code for playing beat sample below here
+        playSample((1000*60).div(currentBpm).toLong())
+
+
+
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
     ///called when user releases seekbar toggle
     override fun onStopTrackingTouch(seekBar: SeekBar) {
-        ///play sample beat, want BPM in this method// run runnable
-        metronome?.makeSound()
-        playSample((1000*60).div(currentBpm).toLong())
-        println("DEBUG stopped MOVING SEEKBAR ")
         Toast.makeText(context,"BRO",Toast.LENGTH_SHORT).show()
         moves++
 
@@ -189,6 +191,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         startSample()
     }
     private fun getBpmSampleRunnable(tempo:Long):Runnable{
+        ///possibly create new metronome/add "reset functionality to metronome class
         return object : Runnable {
             override fun run() {
                 metronome?.makeSound()
@@ -204,8 +207,8 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         mainHandler.post(gameRunnable)
     }
 
-    override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent): Boolean {
-        val barVal = bpmRep!!.editText!!.text.toString()
+    override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+        var barVal = bpmRep?.editText?.text.toString()
         var seekVal = barVal.toInt()
         //check to see if user entered BPM is higher than MAX
         if (seekVal > MAX_BPM_VAL) {
@@ -217,9 +220,9 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
             Toast.makeText(context, "Min BPM is $MIN_BPM_VAL", Toast.LENGTH_SHORT).show()
         }
         currentBpm = seekVal
-        seekBar!!.progress = seekVal
-        bpmRep!!.editText!!.setText(seekVal.toString())
-        bpmRep!!.editText!!.isCursorVisible = false
+        seekBar?.progress = seekVal
+        bpmRep?.editText?.setText(seekVal.toString())
+        bpmRep?.editText?.isCursorVisible = false
         return false
     }
 
