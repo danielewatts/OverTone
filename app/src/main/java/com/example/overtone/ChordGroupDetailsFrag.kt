@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.overtone.data.ChordGroup
 import com.example.overtone.data.DifficultyLevel
@@ -78,7 +80,6 @@ class ChordGroupDetailsFrag : Fragment() {
         mapNamesToIds()
         setChordDiagramIds()
     }
-
 
 
 

@@ -6,8 +6,6 @@ import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
 import com.example.overtone.R
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 
 
 class Metronome(private var context:Context?) {
@@ -40,19 +38,17 @@ class Metronome(private var context:Context?) {
         soundID =  soundPool?.load(context, R.raw.wood,1)
         }
 
-    fun makeSound(){
+    fun makeGameSound(){
         //could make capability here to account for 1st beat of every 4/4 measure
-
         if(beatNumber==1){
             println("MAKING 1st @#!@#@! SOUND !!!!!!!!!!")
-
             //plays higher pitch to indicate starting beat
-            soundPool.play(soundID, 1F, 1F, 0, 0, topPlayBackRate)
+            playSoundPool(soundID,topPlayBackRate)
         }
         else{
             println("MAKING regular SOUND ")
             //plays lower pitch to indicate other beats
-            soundPool.play(soundID, 1F, 1F, 0, 0, playBackRate)
+            playSoundPool(soundID,playBackRate)
         }
         if(beatNumber == 4){
             beatNumber = 1
@@ -61,6 +57,13 @@ class Metronome(private var context:Context?) {
             beatNumber++
         }
 
+    }
+    private fun playSoundPool(soundId:Int, playBckRate:Float){
+        soundPool.play(soundId,1F,1F,0,0,playBckRate)
+    }
+
+    fun makeSampleSound(){
+        playSoundPool(soundID,playBackRate)
     }
 
     fun killMetronome() {

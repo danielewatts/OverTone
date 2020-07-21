@@ -58,7 +58,7 @@
             app:argType="com.example.overtone.data.ChordGroup"
             app:nullable="true" />
         <action
-            android:id="@+id/action_fragmentGroupDetails_to_chordLibraryFrag2"
+            android:id="@+id/action_fragmentGroupDetails_to_chordLibraryFrag"
             app:destination="@id/chordLibraryFrag"
             />
     </fragment>

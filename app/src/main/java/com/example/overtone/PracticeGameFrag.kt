@@ -81,7 +81,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
                     if(countOffVal==1)
                         println("debug: countOffVal $countOffVal ************")
 
-                    metro?.makeSound()
+                    metro?.makeGameSound()
                 }
                 println("debug: compeleted job2 in $time2 ms.")
             }

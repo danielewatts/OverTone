@@ -91,7 +91,7 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.tuneBtn:
 //                soundPool.play(sound1, 1, 1, 0, 0, 1);
-                joe.makeSound();
+                joe.makeGameSound();
                 Toast.makeText(getContext(),"MAKING SOUND ?",Toast.LENGTH_SHORT).show();
                 break;
         }

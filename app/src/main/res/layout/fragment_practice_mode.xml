@@ -71,7 +71,7 @@
             android:id="@+id/BpmEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="200"
+            android:text=""
             android:inputType="number"
             android:backgroundTint="#FFFFFF"
             android:textSize="20dp"
