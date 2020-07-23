@@ -27,10 +27,20 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     NavController navController = null;
-    private RecyclerView recyclerView;
     private SoundPool soundPool;
     private int sound1;
     private Metronome joe;
+    private int count = 0;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!= null){
+            count = savedInstanceState.getInt("ourkey",0);
+        }
+        System.out.println("INSIDE OF ONCREATE: " + count  );
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +58,9 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
             TextView txtV = view.findViewById(R.id.homeTuneTxt);
             txtV.setText(m);
             setBtns(view);
-            initSoundPool();
             joe = new Metronome(getContext());
-            System.out.println("TESTING");
+            txtV.setText(count + "");
+            System.out.println("View created homeTuneFrag");
 
 
 
@@ -68,32 +78,22 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
         btn.setOnClickListener(this);
     }
 
-    private void initSoundPool(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-            soundPool = new SoundPool.Builder()
-                    .setMaxStreams(1)
-                    .setAudioAttributes(audioAttributes)
-                    .build();
-        } else {
-            soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        }
-
-        sound1 = soundPool.load(getContext(), R.raw.wood, 1);
-
-    }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.tuneBtn:
-//                soundPool.play(sound1, 1, 1, 0, 0, 1);
                 joe.makeGameSound();
+                count++;
                 Toast.makeText(getContext(),"MAKING SOUND ?",Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        System.out.println("onSaveInstanceState called");
+        outState.putInt("ourkey",count);
     }
 }
