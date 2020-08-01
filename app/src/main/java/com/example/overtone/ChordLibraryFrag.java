@@ -74,7 +74,7 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         this.recyclerView.addItemDecoration(itemDecor);
     }
     public void setChordGroups(){
-        this.chordGroups = MainActivity.getAllChordGroups();
+        this.chordGroups = MainActivity.Companion.getAllChordGroups();
     }
 
 
@@ -83,8 +83,9 @@ public class ChordLibraryFrag extends Fragment implements RecyclerViewClickListe
         this.navController = Navigation.findNavController(this.recyclerView);
         ChordGroup clickedOnCg = this.chordGroups.get(position);
         // acquired chordGroup card that has been clicked on, now send it using safeArgs
-        ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.
-                actionChordLibraryFragToFragmentGroupDetails(clickedOnCg);
+//        ChordLibraryFragDirections.ActionChordLibraryFragToFragmentGroupDetails action = ChordLibraryFragDirections.
+//                actionChordLibraryFragToFragmentGroupDetails(clickedOnCg);
+        ChordLibraryFragDirections.ActionChordLibraryFragToChordGroupDetailsFrag action = ChordLibraryFragDirections.actionChordLibraryFragToChordGroupDetailsFrag(clickedOnCg);
         //sending safeArgs data with navController to next fragment
         //add transition here ?
         this.navController.navigate(action);

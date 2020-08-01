@@ -1,6 +1,5 @@
 package com.example.overtone
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -28,15 +27,17 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     private lateinit var checkedItems: BooleanArray
     private var chordsSelectedView: TextView? = null
     private var bpmRep: TextInputLayout? = null
-    private val singleChords = MainActivity.getAllSingleChords()
-    private val selectedChordNames = ArrayList<Int>()
+    private val singleChords = MainActivity.allSingleChords
     private var seekBar: SeekBar? = null
     private val STARTING_BPM_VAL = 20
     private val MAX_BPM_VAL = 120
     private val MIN_BPM_VAL = 10
     private var currentBpm = STARTING_BPM_VAL
-    private lateinit var gameRunnable:Runnable
-    private lateinit var mainHandler: Handler
+    private var items:String = "Chords in Rotation"
+    private var itemsAndStates:MutableMap<String,Boolean> = mutableMapOf()
+    companion object {
+        var metronome: Metronome? = null
+    }
 
 
 
@@ -49,14 +50,22 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         metronome = Metronome(context)
-        mainHandler = Handler()
         setBtns(view)
         setTextViews(view)
         setEditTextsLayout(view)
         setListItems()
-        Log.d("TESTING FOR RE ENTRY", "onViewCreated: ")
         setUpSeekBar(view)
+        setMapofItems()
+        Log.d("TESTING FOR RE ENTRY", "onViewCreated: ")
         checkedItems = BooleanArray(listItems.size)
+    }
+    private fun setMapofItems(){
+        //set keys as listItems array
+        if(itemsAndStates.isEmpty()) {
+            for (chordName in listItems) {
+                itemsAndStates.put(chordName, false)
+            }
+        }
     }
     private fun setBtns(view: View) {
         dialogOpener = view.findViewById(R.id.openChordDialogBtn)
@@ -66,7 +75,8 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
     }
 
     private fun setTextViews(view: View) {
-        chordsSelectedView = view.findViewById(R.id.chordsInRotation)
+        chordsSelectedView = view.findViewById(R.id.chordsInRotationTxtView)
+        chordsSelectedView?.text = items
     }
 
     private fun setEditTextsLayout(v: View) {
@@ -78,7 +88,7 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
 
     private fun setListItems() {
         val chordNames = ArrayList<String>()
-        for (sg in singleChords) {
+        for (sg in singleChords!!) {
             chordNames.add(sg.name)
         }
         listItems = chordNames.toTypedArray()
@@ -115,51 +125,57 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
             R.id.openChordDialogBtn -> startChordDialog()
             R.id.BpmEntry ->  bpmRep!!.editText!!.isCursorVisible = true /* to combat the effects of turning cursor of after submission in onEditorAction*/
             R.id.playChords -> {
+                val gameChords = itemsAndStates.filter{ it.value == true }.keys
                 ///nav controller transfers info to another fragment,
-                ///unpack argument
-                val chordsInRotation = chordsInRotation
-                if (chordsInRotation.size < 2) {
+                if (gameChords.size < 2) {
                     Toast.makeText(context, "Select 2 or more chords", Toast.LENGTH_SHORT).show()
                 } else {
                     navController = Navigation.findNavController(v)
-                    val action = PracticeModeFragmentDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, chordsInRotation)
+                    Toast.makeText(context,"WOULD be starting game",Toast.LENGTH_SHORT).show()
+                    println("debug: chords to be sent to the next fragment $gameChords")
+                    val action = PracticeModeFragmentDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, gameChords.toTypedArray())
                     navController!!.navigate(action)
+                    navController?.navigate(R.id.action_practiceModeFrag_to_practiceGameFrag)
                 }
             }
         }
     }
 
     private fun startChordDialog() {
+        println("Status of chord dialog variables $itemsAndStates")
+        val noneSelectedTitle = "No chords selected"
         val mBuilder = AlertDialog.Builder(requireContext())
-//        val chordDefault = "No chords selected"
-        mBuilder.setTitle("Chords available to be selected")
-        mBuilder.setMultiChoiceItems(listItems, checkedItems) { dialogInterface, position, isChecked ->
-            if (isChecked) {
-                selectedChordNames.add(position)
-            } else {
-                selectedChordNames.remove(Integer.valueOf(position))
-            }
+        mBuilder.setTitle("Chords")
+        mBuilder.setMultiChoiceItems(itemsAndStates.keys.toTypedArray(), itemsAndStates.values.toBooleanArray()) { dialogInterface, position, isChecked ->
+            val selectedChord = listItems[position]
+            //mark boolean value of map if item has been checked by user or not
+            itemsAndStates[selectedChord] = isChecked
+            //value is now marked as checked = true or checked = false
         }
+
         mBuilder.setCancelable(false)
         mBuilder.setPositiveButton("Finish") { dialogInterface, which ->
-            var item = ""
-            for (i in selectedChordNames.indices) {
-                item = item + listItems[selectedChordNames[i]]
-                if (i != selectedChordNames.size - 1) {
-                    item = "$item, "
-                }
+            val selectedChords = itemsAndStates.filter{ it.value == true }.keys
+            var chords = selectedChords.toString().filterNot { it=='[' || it== ']' }
+            if(chords!=""){
+                items = chords
             }
-            chordsSelectedView?.text = item
-//            println("chords appearing/item var val: ${item} --- CheckedItems boolArray ${checkedItems.contentToString()}---selectedChordNames Int array status ${selectedChordNames.toString()} " +
-//                    " listItems ${listItems.contentToString()}" )
+            ///test code
+            chordsSelectedView?.text = items
+            ///test code
+            println("multiChoiceDebug: ${itemsAndStates.toString()}")
+            println("chords appearing/item var val: ${items} --- CheckedItems from map values ${itemsAndStates.values}-- " +
+                    " listItems ${listItems.contentToString()}" )
         }
+
         mBuilder.setNeutralButton("Clear All") { dialogInterface, which ->
-            for (i in checkedItems.indices) {
-                checkedItems[i] = false
-                selectedChordNames.clear()
+            for (key in itemsAndStates.keys) {
+                //setting selection state to false
+                itemsAndStates[key] = false
             }
-            chordsSelectedView!!.text =""
-//            chordsSelectedView!!.text = chordDefault
+            println("debug CLEARED: $itemsAndStates")
+            items = noneSelectedTitle
+            chordsSelectedView?.text = items
         }
         val mDialog = mBuilder.create()
         mDialog.show()
@@ -178,24 +194,6 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         //plays sample BPM for user when seekBar is no longer being touched
         Toast.makeText(context,"Tracked",Toast.LENGTH_SHORT).show()
 //        playSample((1000*60).div(currentBpm.toLong()))
-    }
-
-    private fun playSample(tempo:Long){
-        gameRunnable = getBpmSampleRunnable(tempo)
-        startSample()
-    }
-    private fun getBpmSampleRunnable(tempo:Long):Runnable{
-        ///possibly create new metronome/add "reset functionality to metronome class
-        return object : Runnable {
-            override fun run() {
-                metronome?.makeSampleSound()
-                println("SAMPLE runnninh")
-                mainHandler.postDelayed(this,tempo)
-            }
-        }
-    }
-    private fun startSample(){
-        mainHandler.post(gameRunnable)
     }
 
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
@@ -218,7 +216,4 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         return false
     }
 
-    companion object {
-        var metronome: Metronome? = null
-    }
 }

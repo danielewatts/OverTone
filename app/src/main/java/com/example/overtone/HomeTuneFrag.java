@@ -14,11 +14,6 @@ import android.widget.Toast;
 import com.example.overtone.metronomePlayer.Metronome;
 
 public class HomeTuneFrag extends Fragment implements View.OnClickListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     NavController navController = null;
     private SoundPool soundPool;
     private int sound1;
@@ -31,9 +26,7 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
         if(savedInstanceState!= null){
             count = savedInstanceState.getInt("ourkey",4);
             System.out.println("INSIDE OF ONCREATE: " + count  );
-
         }
-
     }
 
     @Override
@@ -47,20 +40,15 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments()!=null){
-            HomeTuneFragArgs args = HomeTuneFragArgs.fromBundle(getArguments());
-            String m = args.getMessage();
             TextView txtV = view.findViewById(R.id.homeTuneTxt);
-            txtV.setText(m);
             setBtns(view);
             joe = new Metronome(getContext());
             txtV.setText(count + "");
+            //debug
             System.out.println("View created homeTuneFrag");
-
+            //
         }
-
-
     }
-
 
     private void setBtns(View view){
         Button btn = view.findViewById(R.id.tuneBtn);

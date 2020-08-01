@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chord_lib_nav"
+    app:startDestination="@id/chordLibraryFrag">
+
+    <fragment
+        android:id="@+id/chordLibraryFrag"
+        android:name="com.example.overtone.ChordLibraryFrag"
+        android:label="fragment_chord_library"
+        tools:layout="@layout/fragment_chord_library" >
+        <action
+            android:id="@+id/action_chordLibraryFrag_to_chordGroupDetailsFrag"
+            app:destination="@id/chordGroupDetailsFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chordGroupDetailsFrag"
+        android:name="com.example.overtone.ChordGroupDetailsFrag"
+        android:label="fragment_group_details"
+        tools:layout="@layout/fragment_group_details" >
+        <argument
+            android:name="ChordGroupClickedOn"
+            app:argType="com.example.overtone.data.ChordGroup"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_chordGroupDetailsFrag_to_chordLibraryFrag"
+            app:destination="@id/chordLibraryFrag" />
+    </fragment>
+
+</navigation>

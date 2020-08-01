@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
+    <item
+        android:id="@+id/tune_nav"
+        android:title="@string/Tune"
+        android:icon = "@drawable/ic_baseline_tune_24"/>
 
     <item
-        android:id="@+id/chordLibraryFrag"
+        android:id="@+id/game_nav"
+        android:title="@string/Practice"
+        android:icon = "@drawable/ic_baseline_music_note_24"/>
+
+    <item
+        android:id="@+id/chord_lib_nav"
         android:title="@string/Chord_Lib"
         android:icon="@drawable/ic_baseline_menu_book_24"
         />
-
-    <item
-        android:id="@+id/homeTuneFrag"
-        android:title="@string/Tune"
-        android:icon = "@drawable/ic_baseline_tune_24"/>
-    <item
-        android:id="@+id/practiceModeFragment"
-        android:title="@string/Practice"
-        android:icon="@drawable/ic_baseline_music_note_24"
-        />
-
 
 </menu>

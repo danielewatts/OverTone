@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".PracticeModeFragment">
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/openChordDialogBtn"
         android:layout_width="300dp"
@@ -23,7 +24,7 @@
         />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/chordsInRotation"
+        android:id="@+id/chordsInRotationTxtView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,8 +55,8 @@
         android:layout_marginTop="30dp"
         />
 
-    
-    
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextInputLayout"
         android:layout_width="150dp"
@@ -66,18 +67,18 @@
         app:layout_constraintVertical_bias="0.475"
         app:boxBackgroundMode="none"
         >
-        
-`        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/BpmEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:inputType="number"
-            android:backgroundTint="#FFFFFF"
-            android:textSize="20dp"
-            >
 
-        </com.google.android.material.textfield.TextInputEditText>
+        `        <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/BpmEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="number"
+        android:backgroundTint="#FFFFFF"
+        android:textSize="20dp"
+        >
+
+    </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,5 +96,6 @@
         app:layout_constraintVertical_bias="0.74"
         android:text="Start"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
