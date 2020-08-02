@@ -39,8 +39,6 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
         var metronome: Metronome? = null
     }
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
