@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.overtone.R;
 import com.example.overtone.metronomePlayer.Metronome;
 
@@ -55,6 +54,8 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
     private void setBtns(View view){
         Button btn = view.findViewById(R.id.tuneBtn);
         btn.setOnClickListener(this);
+        Button testBtn = view.findViewById(R.id.jokerBtn);
+        testBtn.setOnClickListener(this);
     }
 
 
@@ -65,6 +66,9 @@ public class HomeTuneFrag extends Fragment implements View.OnClickListener {
                 joe.makeGameSound();
                 count++;
                 Toast.makeText(getContext(),"MAKING SOUND ?",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.jokerBtn:
+                Toast.makeText(getContext(),"So it works huh",Toast.LENGTH_LONG).show();
                 break;
         }
     }
