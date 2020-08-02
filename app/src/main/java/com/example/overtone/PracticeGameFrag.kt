@@ -97,9 +97,9 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     private fun retrievePassedInfo(){
         if(arguments!=null){
-            var args = PracticeGameFragArgs.fromBundle(requireArguments())
-            bpm = args.tempo
-            chordsInRotation = mutableListOf(*args.chordsInGame)
+//            var args = PracticeGameFragArgs.fromBundle(requireArguments())
+//            bpm = args.tempo
+//            chordsInRotation = mutableListOf(*args.chordsInGame)
         }
     }
     private fun getRandomChord():String{
@@ -142,7 +142,7 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         when(v?.id){
             StopGameBtn.id ->{
                 endGame()
-                navController?.navigate(R.id.action_practiceGameFrag_to_practiceModeFrag)
+//                navController?.navigate(R.id.action_PracticeGameFrag_to_PracticeModeFragment)
             }
         }
     }

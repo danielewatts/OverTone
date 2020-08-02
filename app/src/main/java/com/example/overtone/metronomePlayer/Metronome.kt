@@ -62,10 +62,6 @@ class Metronome(private var context:Context?) {
         soundPool.play(soundId,1F,1F,0,0,playBckRate)
     }
 
-    fun makeSampleSound(){
-        playSoundPool(soundID,playBackRate)
-    }
-
     fun killMetronome() {
         soundPool.release()
     }

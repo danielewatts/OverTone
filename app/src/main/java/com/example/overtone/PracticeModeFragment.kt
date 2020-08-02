@@ -104,20 +104,6 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
 
     }
 
-    //checkedItems and listItems are parallel arrays, indices where true occurs are the locations
-    //of the checked chord names
-    val chordsInRotation: Array<String>
-        get() {
-            val chordsInRot = ArrayList<String>()
-            //checkedItems and listItems are parallel arrays, indices where true occurs are the locations
-            //of the checked chord names
-            for (i in checkedItems.indices) {
-                if (checkedItems[i] == true) {
-                    chordsInRot.add(listItems[i])
-                }
-            }
-            return chordsInRot.toTypedArray()
-        }
 
     //onClick listener for dialog list and operator
     override fun onClick(v: View) {
@@ -133,9 +119,9 @@ class PracticeModeFragment: Fragment(), View.OnClickListener, OnSeekBarChangeLis
                     navController = Navigation.findNavController(v)
                     Toast.makeText(context,"WOULD be starting game",Toast.LENGTH_SHORT).show()
                     println("debug: chords to be sent to the next fragment $gameChords")
-                    val action = PracticeModeFragmentDirections.actionPracticeModeFragToPracticeGameFrag(currentBpm, gameChords.toTypedArray())
+                    val action = PracticeModeFragmentDirections.actionPracticeModeFragmentToPracticeGameFrag(currentBpm, gameChords.toTypedArray())
                     navController!!.navigate(action)
-                    navController?.navigate(R.id.action_practiceModeFrag_to_practiceGameFrag)
+                    navController?.navigate(R.id.action_practiceModeFragment_to_practiceGameFrag)
                 }
             }
         }
