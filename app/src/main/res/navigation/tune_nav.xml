@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeTuneFrag"
-        android:name="com.example.overtone.HomeTuneFrag"
+        android:name="com.example.overtone.screens.HomeTuneFrag"
         android:label="fragment_home_tune_frag"
         tools:layout="@layout/fragment_home_tune_frag" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsViewFra2"
-        android:name="com.example.overtone.SettingsViewFrag"
+        android:name="com.example.overtone.screens.SettingsViewFrag"
         android:label="fragment_settings_view"
         tools:layout="@layout/fragment_settings_view" >
 

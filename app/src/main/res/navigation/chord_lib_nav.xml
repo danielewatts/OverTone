@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chordLibraryFrag"
-        android:name="com.example.overtone.ChordLibraryFrag"
+        android:name="com.example.overtone.screens.ChordLibraryFrag"
         android:label="fragment_chord_library"
         tools:layout="@layout/fragment_chord_library" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/chordGroupDetailsFrag"
-        android:name="com.example.overtone.ChordGroupDetailsFrag"
+        android:name="com.example.overtone.screens.ChordGroupDetailsFrag"
         android:label="fragment_group_details"
         tools:layout="@layout/fragment_group_details" >
         <argument

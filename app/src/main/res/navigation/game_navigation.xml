@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_navigation"
+    app:startDestination="@id/gameSetupFrag">
+
+    <fragment
+        android:id="@+id/gameSetupFrag"
+        android:name="com.example.overtone.screens.GameSetupFrag"
+        android:label="fragment_game_setup"
+        tools:layout="@layout/fragment_game_setup" >
+        <action
+            android:id="@+id/action_gameSetupFrag_to_playGameFrag"
+            app:destination="@id/playGameFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/playGameFrag"
+        android:name="com.example.overtone.screens.PlayGameFrag"
+        android:label="fragment_play_game"
+        tools:layout="@layout/fragment_play_game" >
+        <action
+            android:id="@+id/action_playGameFrag_to_gameSetupFrag"
+            app:destination="@id/gameSetupFrag" />
+        <argument
+            android:name="tempo"
+            app:argType="integer" />
+        <argument
+            android:name="chordsInGame"
+            app:argType="string[]" />
+    </fragment>
+</navigation>

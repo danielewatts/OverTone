@@ -1,4 +1,4 @@
-package com.example.overtone;
+package com.example.overtone.screens;
 import android.media.SoundPool;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.overtone.R;
 import com.example.overtone.metronomePlayer.Metronome;
 
 public class HomeTuneFrag extends Fragment implements View.OnClickListener {

@@ -1,14 +1,10 @@
-package com.example.overtone
+package com.example.overtone.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.observe
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.example.overtone.R
 import com.example.overtone.data.ChordGroup
 import com.example.overtone.data.DataCreation
 import com.example.overtone.data.SingleChord
@@ -65,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         /// declaring a list of navigation graph xml files
 //        val navGraphIds = listOf(R.navigation.home,R.navigation.list,R.navigation.form)
-        val navGraphIds = listOf(R.navigation.tune_nav,R.navigation.game_nav,R.navigation.chord_lib_nav)
+        val navGraphIds = listOf(R.navigation.tune_nav, R.navigation.game_navigation, R.navigation.chord_lib_nav)
         //set up bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController(
                 navGraphIds = navGraphIds,

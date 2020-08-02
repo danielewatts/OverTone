@@ -1,16 +1,13 @@
-package com.example.overtone
+package com.example.overtone.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.viewpager2.widget.ViewPager2
+import com.example.overtone.screens.ChordGroupDetailsFragDirections
+import com.example.overtone.R
 import com.example.overtone.data.ChordGroup
-import com.example.overtone.data.DifficultyLevel
-import com.example.overtone.data.SingleChord
 import com.example.overtone.recyclerview.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

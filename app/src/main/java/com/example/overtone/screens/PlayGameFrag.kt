@@ -1,36 +1,39 @@
-package com.example.overtone
+package com.example.overtone.screens
 import android.os.Bundle
 import android.os.Handler
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.example.overtone.R
 import com.example.overtone.metronomePlayer.Metronome
-import kotlinx.android.synthetic.main.fragment_practice_game.*
+import kotlinx.android.synthetic.main.fragment_play_game.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.system.measureTimeMillis
 
-class PracticeGameFrag : Fragment(),View.OnClickListener{
+
+class PlayGameFrag : Fragment(),View.OnClickListener {
+
     private var chordsInRotation:MutableList<String> = mutableListOf()
     private var bpm:Int? = null
-    private var navController:NavController? = null
+    private var navController: NavController? = null
     private val bpmToMiliFactor =60*1000
     private lateinit var mainHandler: Handler
     private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
     private lateinit var gameRunnable:Runnable
     private var launchCount:Int = 0
-    private var metro:Metronome? = null
+    private var metro: Metronome? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_practice_game, container, false)
+        return inflater.inflate(R.layout.fragment_play_game, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,7 +41,8 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         navController = view.findNavController()
         //creating metronome object in other fragment ensures that inner SoundPool object will be
         //loaded before runnable starts
-        metro = PracticeModeFragment.metronome
+        metro = GameSetupFrag.metronome
+        /** check if problems with this when re entering the game ^*/
         StopGameBtn.setOnClickListener(this)
         retrievePassedInfo()
         var tempo = bpm?.let {bpmToMiliFactor.div(it).toLong()}
@@ -97,9 +101,12 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
 
     private fun retrievePassedInfo(){
         if(arguments!=null){
-//            var args = PracticeGameFragArgs.fromBundle(requireArguments())
-//            bpm = args.tempo
-//            chordsInRotation = mutableListOf(*args.chordsInGame)
+            /** retrieved data will need to be refactored to support new data from
+             * Game setup class
+             */
+            var args = PlayGameFragArgs.fromBundle(requireArguments())
+            bpm = args.tempo
+            chordsInRotation = mutableListOf(*args.chordsInGame)
         }
     }
     private fun getRandomChord():String{
@@ -142,20 +149,9 @@ class PracticeGameFrag : Fragment(),View.OnClickListener{
         when(v?.id){
             StopGameBtn.id ->{
                 endGame()
-//                navController?.navigate(R.id.action_PracticeGameFrag_to_PracticeModeFragment)
+                navController?.navigate(R.id.action_playGameFrag_to_gameSetupFrag)
             }
         }
     }
 
-
-
-
-
-
-
-
-
-
 }
-
-
