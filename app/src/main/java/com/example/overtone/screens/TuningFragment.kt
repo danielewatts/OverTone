@@ -1,5 +1,4 @@
 package com.example.overtone.screens
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import com.example.overtone.data.GuitarString
 import com.example.overtone.data.MenuItemData
 import com.example.overtone.wheeladapters.WheelTextAdapter
 import kotlinx.android.synthetic.main.fragment_tuning.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class TuningFragment : Fragment(),View.OnClickListener {
@@ -28,11 +26,20 @@ class TuningFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBtn()
+//        println("debug of wheel menu item data ${menuItemData[menuItemData.size-1].guitarStringName}")
+        setGuitarWheelSpinner()
+
+    }
+    private fun setGuitarWheelSpinner(){
         setGuitarStrings()
         setWheelMenuData()
-        println("debug of wheel menu item data ${menuItemData[menuItemData.size-1].guitarStringName}")
-//        val someStrings = setWheelItemData()
-//        val wheelTextAdapter = WheelTextAdapter(context, ArrayList(someStrings))
+        val wheelTextAdapter = WheelTextAdapter(context, menuItemData)
+        wheelSpinner.setAdapter(wheelTextAdapter)
+        wheelSpinner.setOnMenuSelectedListener { parent, view, pos ->
+            //debugging code
+            Toast.makeText(context, "Top Menu selected position:" + pos, Toast.LENGTH_SHORT).show()
+            //debugging code
+        }
     }
 
 //    private fun setWheelItemData():MutableList<GuitarString> {
