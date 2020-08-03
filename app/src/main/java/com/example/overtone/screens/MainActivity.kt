@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState==null){
             setupBottomNavigationBar()
         }
-//        initializeBotNavBar()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -35,33 +34,18 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigationBar()
     }
 
-//    fun initializeBotNavBar() {
-////        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-////        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-////        //        Bundle bundle = new Bundle();
-//////        /** the key that gets put in the bundle needs 2 be the same as the args name in
-//////         * navigation
-//////         * do not really need what is below
-//////         */
-//////        String key = getString(R.string.initalBundleKey);
-//////        bundle.putString(key,"PRAY THIS WORKS");
-////        navController?.setGraph(R.navigation.bot_nav_graph)
-////        NavigationUI.setupWithNavController(bottomNavigationView!!, navController!!)
-////    }
     companion object {
-        private const val TAG = " inside MainActivity"
         var allChordGroups: ArrayList<ChordGroup>? = null
             private set
         var allSingleChords: ArrayList<SingleChord>? = null
             private set
-
     }
 
     private fun setupBottomNavigationBar(){
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         /// declaring a list of navigation graph xml files
 //        val navGraphIds = listOf(R.navigation.home,R.navigation.list,R.navigation.form)
-        val navGraphIds = listOf(R.navigation.tune_nav, R.navigation.game_navigation, R.navigation.chord_lib_nav)
+        val navGraphIds = listOf(R.navigation.tuning_nav, R.navigation.game_navigation, R.navigation.chord_lib_nav)
         //set up bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController(
                 navGraphIds = navGraphIds,

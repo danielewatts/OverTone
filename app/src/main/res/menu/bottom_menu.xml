@@ -2,10 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/tune_nav"
-        android:title="@string/Tune"
-        android:icon = "@drawable/ic_baseline_tune_24"/>
-
+        android:id="@+id/tuning_nav"
+        android:title="Tune"
+        android:icon="@drawable/ic_baseline_tune_24"/>
     <item
         android:id="@+id/game_navigation"
         android:title="@string/Practice"
