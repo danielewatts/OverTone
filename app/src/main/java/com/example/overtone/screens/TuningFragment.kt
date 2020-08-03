@@ -42,10 +42,6 @@ class TuningFragment : Fragment(),View.OnClickListener {
         }
     }
 
-//    private fun setWheelItemData():MutableList<GuitarString> {
-//        var guitarStrings = DataCreation.getAllGuitarStrings(context)
-//        println(guitarStrings)
-//    }
     private fun setGuitarStrings(){
         guitarStrings =  DataCreation.getAllGuitarStrings(context)
         println("debug ${guitarStrings[guitarStrings.size-1].frequency}")
@@ -56,8 +52,6 @@ class TuningFragment : Fragment(),View.OnClickListener {
             menuItemData.add(MenuItemData(GuitarString.name))
         }
     }
-
-
 
     private fun setBtn(){
         tuneBtn.setOnClickListener(this)
