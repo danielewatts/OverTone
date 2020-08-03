@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -54,7 +52,7 @@ public class WheelTextAdapter extends CursorWheelLayout.CycleWheelAdapter {
         TextView textView = root.findViewById(R.id.wheel_menu_item_tv);
         textView.setVisibility(View.VISIBLE);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-        textView.setText(itemData.mTitle);
+        textView.setText(itemData.guitarStringName);
         if(textView.getLayoutParams() instanceof FrameLayout.LayoutParams){
             ((FrameLayout.LayoutParams)textView.getLayoutParams()).gravity = gravity;
         }

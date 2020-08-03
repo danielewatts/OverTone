@@ -1,15 +1,23 @@
 package com.example.overtone.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.overtone.R
+import com.example.overtone.data.DataCreation
+import com.example.overtone.data.GuitarString
+import com.example.overtone.data.MenuItemData
+import com.example.overtone.wheeladapters.WheelTextAdapter
 import kotlinx.android.synthetic.main.fragment_tuning.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TuningFragment : Fragment(),View.OnClickListener {
+    private var guitarStrings:MutableList<GuitarString> = mutableListOf()
+    private var menuItemData:ArrayList<MenuItemData> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -20,7 +28,29 @@ class TuningFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBtn()
+        setGuitarStrings()
+        setWheelMenuData()
+        println("debug of wheel menu item data ${menuItemData[menuItemData.size-1].guitarStringName}")
+//        val someStrings = setWheelItemData()
+//        val wheelTextAdapter = WheelTextAdapter(context, ArrayList(someStrings))
     }
+
+//    private fun setWheelItemData():MutableList<GuitarString> {
+//        var guitarStrings = DataCreation.getAllGuitarStrings(context)
+//        println(guitarStrings)
+//    }
+    private fun setGuitarStrings(){
+        guitarStrings =  DataCreation.getAllGuitarStrings(context)
+        println("debug ${guitarStrings[guitarStrings.size-1].frequency}")
+    }
+
+    private fun setWheelMenuData(){
+        for(GuitarString in guitarStrings){
+            menuItemData.add(MenuItemData(GuitarString.name))
+        }
+    }
+
+
 
     private fun setBtn(){
         tuneBtn.setOnClickListener(this)

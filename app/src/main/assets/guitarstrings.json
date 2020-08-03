@@ -1,0 +1,20 @@
+[
+  { "name": "E2",
+    "frequency": 82.42
+  },
+  { "name": "A",
+    "frequency": 110
+  },
+  { "name": "D",
+    "frequency": 146.8
+  },
+  { "name": "G",
+    "frequency": 196
+  },
+  { "name": "B",
+    "frequency": 246.9
+  },
+  { "name": "E4",
+    "frequency": 329.6
+  }
+]

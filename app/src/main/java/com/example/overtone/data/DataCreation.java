@@ -14,14 +14,23 @@ public class DataCreation {
  private static ArrayList<ChordGroup> chordGroupsList = new ArrayList<>();
  private static ArrayList<SingleChord> singleChordsList = new ArrayList<>();
  private static final String[] GROUP_NAMES = {"Bar","Open","Popular"};
- private static final String jsonPath = "chord.json";
+ private static final String jsonPathChords = "chord.json";
+ private static final String jsonPathGuitarStrings = "guitarstrings.json";
 
     public static ArrayList<SingleChord> getSingleChords(Context context){
-        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPath);
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPathChords);
         gson = new Gson();
         singleChordsList = gson.fromJson(jsonString, new TypeToken<ArrayList<SingleChord>>(){}.getType());
         attachChordDiagrams(singleChordsList);
         return singleChordsList;
+    }
+
+    public static ArrayList<GuitarString> getAllGuitarStrings(Context context){
+        String jsonString = JsonDataRetrieval.loadJSONFromAsset(context,jsonPathGuitarStrings);
+        gson = new Gson();
+        ArrayList<GuitarString> guitarStrings = new ArrayList<>();
+        guitarStrings = gson.fromJson(jsonString,new TypeToken<ArrayList<GuitarString>>(){}.getType());
+        return guitarStrings;
     }
 
     private static void attachChordDiagrams(ArrayList<SingleChord> singleChordsList) {
