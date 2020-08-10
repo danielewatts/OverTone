@@ -24,10 +24,11 @@ class PlayGameFrag : Fragment(),View.OnClickListener {
     private var navController: NavController? = null
     private val bpmToMiliFactor =60*1000
     private lateinit var mainHandler: Handler
-    private var countOffVal = 1 /// this is a debugging/logger variable, delete for final product
+    private var countOffVal = 1
     private lateinit var gameRunnable:Runnable
     private var launchCount:Int = 0
     private var metro: Metronome? = null
+    private var testingCount = 1
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -59,7 +60,10 @@ class PlayGameFrag : Fragment(),View.OnClickListener {
     private fun getGameRunnable(tempo:Long):Runnable{
         return object : Runnable {
             override fun run() {
-                playGame()
+//                playGame()
+                while(testingCount < 100000){
+                    println("debugging: testingcount = $testingCount")
+                    testingCount++}
                 mainHandler.postDelayed(this,tempo)
             }
         }

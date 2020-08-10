@@ -1,7 +1,5 @@
 package com.example.overtone.data;
 
-import java.io.Serializable;
-
 import com.google.gson.annotations.SerializedName;
 
 public enum DifficultyLevel {

@@ -11,11 +11,15 @@ import com.example.overtone.data.SingleChord
 import com.example.overtone.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
+import android.Manifest;
+import com.example.overtone.utils.PermissionHandler
 
 class MainActivity : AppCompatActivity() {
     private var bottomNavigationView: BottomNavigationView? = null
     private var navController: NavController? = null
     private var currentNavController:LiveData<NavController>? = null
+    private var permissions:Array<String> = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
+    private var permissionAll:Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         allSingleChords = DataCreation.getSingleChords(applicationContext)
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        PermissionHandler.getNeededPermissions(applicationContext,this,permissions,permissionAll)
         if(savedInstanceState==null){
             setupBottomNavigationBar()
         }

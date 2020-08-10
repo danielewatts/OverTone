@@ -1,5 +1,5 @@
 /* utility Class with the purpose of retrieving a json string from a given json file*/
-package com.example.overtone.data;
+package com.example.overtone.utils;
 import android.content.Context;
 import java.io.IOException;
 import java.io.InputStream;
