@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 //import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import be.tarsos.dsp.AudioProcessor
@@ -24,13 +25,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class TuningFragment : Fragment(),View.OnClickListener {
+class TuningFragment : Fragment(),View.OnClickListener{
     private var guitarStrings:MutableList<GuitarString> = mutableListOf()
     private var menuItemData:ArrayList<MenuItemData> = ArrayList()
     private var isTuning:Boolean = false
     private lateinit var mHandler: Handler
     private lateinit var tuningRunnable: Runnable
     private var testingCount =1
+    private var freqMidPt:Float = 82.4F
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,11 +43,48 @@ class TuningFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBtn()
-//        println("debug of wheel menu item data ${menuItemData[menuItemData.size-1].guitarStringName}")
         setGuitarWheelSpinner()
-        tuningRunnable = getRunnable()
+        isTuning = true
+        startTune()
+    }
 
 
+    private fun startTune(){
+        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
+        val pdh = PitchDetectionHandler { result, e ->
+            val pitchInHz = result.pitch
+            activity?.runOnUiThread {
+                println("THREAD IS RUNNING ")
+                if (isTuning == true) {
+//                    tuningValueText.text = pitchInHz.toString()
+                    val pitchRangeInfo = getValidity(pitchInHz)
+                    updatePitchInfo(pitchRangeInfo)
+
+
+                } else {
+                    dispatcher.stop()
+                    println("audio dispatcher stopped")
+                }
+            }
+        }
+        val p: AudioProcessor = PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050F, 1024, pdh)
+        dispatcher.addAudioProcessor(p)
+        val recordingThread = Thread(dispatcher, "Audio Dispatcher") //dispatcher is a runnable object, using thread constructor (runnable targ, String name)
+        recordingThread.start()
+
+    }
+
+    private fun updatePitchInfo(pitchValidityPoints: Int) {
+        tuningValueText.text = pitchValidityPoints.toString()
+    }
+
+    private fun getValidity(userFrequency:Float):Int{
+        var pointsOff = 0
+        /* logic to see how high or low currentFreq is, perhaps return a value to indicate sharp or flat */
+        // #1 makes call to
+
+
+        return pointsOff
     }
 
 
@@ -56,8 +95,11 @@ class TuningFragment : Fragment(),View.OnClickListener {
         wheelSpinner.setAdapter(wheelTextAdapter)
         wheelSpinner.setOnMenuSelectedListener { parent, view, pos ->
             //debugging code
-            isTuning = true
-            startFakeTune()
+            /** logic to return / modify global freq midPt */
+
+
+
+//            startFakeTune()
 //            captureAndDisplayFreq()
 //            Toast.makeText(context, "Top Menu selected position:" + pos, Toast.LENGTH_SHORT).show()
 
@@ -84,58 +126,21 @@ class TuningFragment : Fragment(),View.OnClickListener {
         when(v?.id){
             tuneBtn.id ->{
 //                Toast.makeText(context,"TEST RESULT WOO",Toast.LENGTH_LONG).show()
-                stopFakeTune()
+//                stopFakeTune()
+                isTuning = false
+                Toast.makeText(context,"Stopping Tune",Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun captureAndDisplayFreq(){
-        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
-        val pdh = PitchDetectionHandler { result, e ->
-            val pitchInHz = result.pitch
-            run{(Runnable {
-                if (isTuning == true) {
-                    tuningValueText.text = pitchInHz.toString()
-                }
-            })}
-        }
-        val p: AudioProcessor = PitchProcessor(PitchEstimationAlgorithm.FFT_YIN, 22050F, 1024, pdh)
-        dispatcher.addAudioProcessor(p)
-        val recordingThread = Thread(dispatcher, "Audio Dispatcher") //dispatcher is a runnable object, using thread constructor (runnable targ, String name)
-        recordingThread.start()
-    }
 
-    private fun startListeneing(){
 
-    }
-//    private fun getListeningRunnable(tempo)
 
-    private suspend fun setTextOnMainThread(input:String){
-        withContext(Dispatchers.Main){
-            tuningValueText.text = input
-        }
-    }
 
-    private fun startFakeTune(){
-        mHandler = Handler()
-        mHandler.post(tuningRunnable)
-    }
-    private fun stopFakeTune(){
-        mHandler.removeCallbacks(tuningRunnable)
-        Toast.makeText(context,"Stopping tunning operation",Toast.LENGTH_LONG).show()
-        println("debug: stop Fake Tune called")
-    }
 
-    private fun getRunnable():Runnable{
-        return Runnable {
-            while(testingCount < 100000){
-                println("debugging: testingcount, tuning frag = $testingCount")
-                testingCount++}
-//                mHandler.postDelayed(this,1000)
-        }
-    }
 
-    /** investigate why this ^^^^^ does not stop when remove callbacks is called, still freezing user */
+
+
 
 
 

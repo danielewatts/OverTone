@@ -1,5 +1,4 @@
 package com.example.overtone.screens
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -15,8 +14,6 @@ import android.Manifest;
 import com.example.overtone.utils.PermissionHandler
 
 class MainActivity : AppCompatActivity() {
-    private var bottomNavigationView: BottomNavigationView? = null
-    private var navController: NavController? = null
     private var currentNavController:LiveData<NavController>? = null
     private var permissions:Array<String> = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
     private var permissionAll:Int = 1
