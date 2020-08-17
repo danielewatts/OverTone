@@ -40,17 +40,10 @@ public class ChordLibRecyclerViewAdapter extends RecyclerView.Adapter<ChordLibRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
-//        holder.titleText.setText(String.valueOf(dataModels.get(position).getActivityName()));
-
-//        holder.descriptionText.setText(String.valueOf(dataModels.get(position).getDescription()));
-//        holder.imageTeaser.setImageResource(R.drawable.guitars);
          ChordGroup cDataModel = dataModels.get(position);
          holder.chordGrouping.setText(cDataModel.getDescription());
          holder.chordIdentities.setText(cDataModel.getName());
-//        holder.chordIdentities.setText(String.valueOf(cDataModel.getChordName()));
-//        holder.chordImage.setImageResource(R.drawable.spicychile); // change this to an item property
-        holder.chordImage.setImageResource(cDataModel.getImageID()); // change this to an item property
+         holder.chordImage.setImageResource(cDataModel.getImageID()); // change this to an item property
     }
 
     @Override
