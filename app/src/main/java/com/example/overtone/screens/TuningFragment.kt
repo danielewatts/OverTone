@@ -1,5 +1,6 @@
 package com.example.overtone.screens
 
+import android.Manifest
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import be.tarsos.dsp.AudioDispatcher
 //import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import be.tarsos.dsp.AudioProcessor
 import be.tarsos.dsp.io.android.AudioDispatcherFactory
@@ -16,6 +18,7 @@ import com.example.overtone.R
 import com.example.overtone.data.DataCreation
 import com.example.overtone.data.GuitarString
 import com.example.overtone.data.MenuItemData
+import com.example.overtone.utils.PermissionHandler
 import com.example.overtone.wheeladapters.WheelTextAdapter
 import kotlinx.android.synthetic.main.fragment_tuning.*
 import kotlin.math.abs
@@ -28,6 +31,9 @@ class TuningFragment : Fragment(),View.OnClickListener{
     private var menuItemData:ArrayList<MenuItemData> = ArrayList()
     private var isTuning:Boolean = false
 
+    private var permissions:Array<String> = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+    private var permissionAll:Int = 1
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -36,15 +42,17 @@ class TuningFragment : Fragment(),View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PermissionHandler.getNeededPermissions(context,activity,permissions,permissionAll)
         setBtn()
         setGuitarWheelSpinner()
         isTuning = true
-        startTune()
-    }
+        var audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0)
+        startTune(audioDispatcher)
+}
 
 
-    private fun startTune(){
-        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
+    private fun startTune(dispatcher: AudioDispatcher){
+//        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
         val pdh = PitchDetectionHandler { result, e ->
             val pitchInHz = result.pitch
             activity?.runOnUiThread {
@@ -79,9 +87,7 @@ class TuningFragment : Fragment(),View.OnClickListener{
             "$pitchValidityPoints"
         }
         tuningValueText.text = pitchInfo
-        /* method where any UI tuning components should be modified or triggered to be modified by
-           the results of the tuning operation
-         */
+
     }
 
     private fun getValidity(guitarString: GuitarString?,detectedPitch:Float):Int{

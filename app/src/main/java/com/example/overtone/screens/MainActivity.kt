@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        PermissionHandler.getNeededPermissions(applicationContext,this,permissions,permissionAll)
+//        PermissionHandler.getNeededPermissions(applicationContext,this,permissions,permissionAll)
         if(savedInstanceState==null){
             setupBottomNavigationBar()
         }
