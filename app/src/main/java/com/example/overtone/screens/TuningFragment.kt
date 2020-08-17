@@ -18,6 +18,7 @@ import com.example.overtone.data.GuitarString
 import com.example.overtone.data.MenuItemData
 import com.example.overtone.wheeladapters.WheelTextAdapter
 import kotlinx.android.synthetic.main.fragment_tuning.*
+import kotlin.math.abs
 
 
 class TuningFragment : Fragment(),View.OnClickListener{
@@ -65,8 +66,19 @@ class TuningFragment : Fragment(),View.OnClickListener{
 
     }
 
+    //UI is updated according to the sharpness/flatness indicated by pitchValidityPoints
     private fun updatePitchInfo(pitchValidityPoints: Int) {
-        tuningValueText.text = pitchValidityPoints.toString()
+        var pitchInfo = if (pitchValidityPoints<=-8){
+            "choose a lower string if possible"
+        }
+        else if (pitchValidityPoints>=8){
+            "choose a higher string if possible"
+        }
+        ///pitch is within the range of it's target , user is probably tuning the correct string
+        else{
+            "$pitchValidityPoints"
+        }
+        tuningValueText.text = pitchInfo
         /* method where any UI tuning components should be modified or triggered to be modified by
            the results of the tuning operation
          */
