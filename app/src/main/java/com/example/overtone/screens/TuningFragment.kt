@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import be.tarsos.dsp.AudioDispatcher
 //import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
@@ -42,17 +43,21 @@ class TuningFragment : Fragment(),View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        PermissionHandler.getNeededPermissions(context,activity,permissions,permissionAll)
-        setBtn()
-        setGuitarWheelSpinner()
-        isTuning = true
-        var audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0)
-        startTune(audioDispatcher)
+        if(PermissionHandler.hasPermissions(context,permissions)!=true){
+            PermissionHandler.getNeededPermissions(context,activity,permissions,permissionAll)
+        }
+        else{
+            setBtn()
+            setGuitarWheelSpinner()
+            isTuning = true
+            startTune()
+        }
+
 }
 
 
-    private fun startTune(dispatcher: AudioDispatcher){
-//        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
+    private fun startTune(){
+        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
         val pdh = PitchDetectionHandler { result, e ->
             val pitchInHz = result.pitch
             activity?.runOnUiThread {
