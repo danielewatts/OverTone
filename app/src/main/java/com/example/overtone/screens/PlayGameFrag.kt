@@ -60,14 +60,12 @@ class PlayGameFrag : Fragment(),View.OnClickListener {
     private fun getGameRunnable(tempo:Long):Runnable{
         return object : Runnable {
             override fun run() {
-//                playGame()
-                while(testingCount < 100000){
-                    println("debugging: testingcount = $testingCount")
-                    testingCount++}
+                playGame()
                 mainHandler.postDelayed(this,tempo)
             }
         }
     }
+
 
     private fun playGame(){
         CoroutineScope(Dispatchers.IO).launch {
